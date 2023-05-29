@@ -1,22 +1,249 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
- <class>GameMainWindow</class>
- <widget class="QMainWindow" name="GameMainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>800</width>
-    <height>600</height>
-   </rect>
-  </property>
-  <property name="windowTitle">
-   <string>GameMainWindow</string>
-  </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
-  <widget class="QStatusBar" name="statusbar"/>
- </widget>
- <resources/>
- <connections/>
-</ui>
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GameMainWindow</class>
+ <widget class="QMainWindow" name="GameMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>630</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>GameMainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="2,1">
+    <item>
+     <widget class="QStackedWidget" name="mainStack">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="pregame">
+       <widget class="QPushButton" name="buttonStartGame">
+        <property name="geometry">
+         <rect>
+          <x>400</x>
+          <y>190</y>
+          <width>161</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Start Game</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="playing"/>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,1">
+      <item>
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::Panel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Plain</enum>
+        </property>
+        <property name="lineWidth">
+         <number>2</number>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QStackedWidget" name="subStack">
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="subLog">
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="LogWindow" name="logWindow">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="subBattle">
+            <widget class="QLabel" name="label">
+             <property name="geometry">
+              <rect>
+               <x>260</x>
+               <y>70</y>
+               <width>181</width>
+               <height>41</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>選擇招式</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="subPokemon">
+            <widget class="QLabel" name="label_2">
+             <property name="geometry">
+              <rect>
+               <x>270</x>
+               <y>70</y>
+               <width>181</width>
+               <height>51</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>選擇上場的寶可夢</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="subBag">
+            <widget class="QLabel" name="label_3">
+             <property name="geometry">
+              <rect>
+               <x>280</x>
+               <y>80</y>
+               <width>63</width>
+               <height>20</height>
+              </rect>
+             </property>
+             <property name="text">
+              <string>選擇道具</string>
+             </property>
+            </widget>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="optionGroup">
+        <property name="title">
+         <string/>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QPushButton" name="buttonBattle">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Battle</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonPokemon">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Pokémon</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonBag">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Bag</string>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>false</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonRun">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>Run</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1000</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LogWindow</class>
+   <extends>QPlainTextEdit</extends>
+   <header>LogWindow.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
