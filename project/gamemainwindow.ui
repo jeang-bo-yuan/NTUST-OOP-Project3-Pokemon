@@ -20,6 +20,13 @@
    <string>GameMainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="font">
+    <font>
+     <family>Source Code Pro</family>
+     <pointsize>11</pointsize>
+     <bold>false</bold>
+    </font>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout" stretch="2,1">
     <item>
      <widget class="QStackedWidget" name="mainStack">
@@ -27,19 +34,190 @@
        <number>0</number>
       </property>
       <widget class="QWidget" name="pregame">
-       <widget class="QPushButton" name="buttonStartGame">
-        <property name="geometry">
-         <rect>
-          <x>400</x>
-          <y>190</y>
-          <width>161</width>
-          <height>51</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Start Game</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1,1">
+        <item>
+         <widget class="QWidget" name="widget" native="true"/>
+        </item>
+        <item>
+         <widget class="QStackedWidget" name="settingStack">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="currentIndex">
+           <number>0</number>
+          </property>
+          <widget class="QWidget" name="pageInit">
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QPushButton" name="buttonSetting">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>70</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>選單</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonStartGame">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>70</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Start Game</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="pageSetting">
+           <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,2,1">
+            <item>
+             <widget class="QCheckBox" name="checkBoxCmdFile">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Use Command File</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QStackedWidget" name="fileStack">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="currentIndex">
+               <number>0</number>
+              </property>
+              <widget class="QWidget" name="pageFile1">
+               <layout class="QFormLayout" name="formLayout">
+                <property name="labelAlignment">
+                 <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                </property>
+                <property name="formAlignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <property name="topMargin">
+                 <number>11</number>
+                </property>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_4">
+                  <property name="text">
+                   <string>Pokémon</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="FileSelecter" name="filePokemon" native="true"/>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_5">
+                  <property name="text">
+                   <string>Move</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="FileSelecter" name="fileMove" native="true"/>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_6">
+                  <property name="text">
+                   <string>Game</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="FileSelecter" name="fileGame" native="true"/>
+                </item>
+               </layout>
+              </widget>
+              <widget class="QWidget" name="pageFile2">
+               <layout class="QFormLayout" name="formLayout_2">
+                <property name="labelAlignment">
+                 <set>Qt::AlignBottom|Qt::AlignHCenter</set>
+                </property>
+                <property name="formAlignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_7">
+                  <property name="text">
+                   <string>Command File</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="FileSelecter" name="fileCmdFile" native="true"/>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonBackToMain">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>70</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>返回</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_2" native="true"/>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="playing"/>
      </widget>
@@ -172,7 +350,7 @@
               <rect>
                <x>280</x>
                <y>80</y>
-               <width>63</width>
+               <width>121</width>
                <height>20</height>
               </rect>
              </property>
@@ -289,6 +467,12 @@
    <class>LogWindow</class>
    <extends>QPlainTextEdit</extends>
    <header>LogWindow.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FileSelecter</class>
+   <extends>QWidget</extends>
+   <header>FileSelecter.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -17,10 +17,21 @@ GameMainWindow::GameMainWindow(QWidget *parent)
 
     // default looks
     ui->optionGroup->hide();
+    ui->fileMove->setFile("MoveLib.txt");
+    ui->filePokemon->setFile("PokemonLib.txt");
+    ui->fileGame->setFile("GameData.txt");
+    ui->fileCmdFile->setFile("case.txt");
     this->setMinimumSize(1000, 630);
 
-    // connect signal and slots
+    // 開始畫面signal and slots
     connect(ui->buttonStartGame, &QPushButton::clicked, this, &GameMainWindow::startGame);
+    connect(ui->buttonSetting, &QPushButton::clicked, ui->settingStack, [p=ui->settingStack](){p->setCurrentIndex(1);});
+    connect(ui->buttonBackToMain, &QPushButton::clicked, ui->settingStack, [p=ui->settingStack](){p->setCurrentIndex(0);});
+    connect(ui->checkBoxCmdFile, &QCheckBox::toggled, ui->fileStack, [this](bool b) {
+        ui->fileStack->setCurrentIndex(static_cast<int>(b));
+    });
+
+    // 戰鬥畫面signale and slots
     connect(ui->buttonRun, &QPushButton::clicked, this, &GameMainWindow::runAway);
     connect(ui->buttonBattle, &QPushButton::clicked, this, &GameMainWindow::selectBattle);
     connect(ui->buttonPokemon, &QPushButton::clicked, this, &GameMainWindow::selectPokemon);
@@ -41,7 +52,14 @@ GameMainWindow* GameMainWindow::singleton() {
 
 
 void GameMainWindow::startGame() {
-    std::cout << "載入資料...\n";
+    if (!ui->checkBoxCmdFile->isChecked()) {
+        std::cout << "載入寶可夢... " << qPrintable(ui->filePokemon->getFile()) << std::endl;
+        std::cout << "載入招式... " << qPrintable(ui->fileMove->getFile()) << std::endl;
+        std::cout << "載入玩家... " << qPrintable(ui->fileGame->getFile()) << std::endl;
+    }
+    else {
+        std::cout << "載入command file... " << qPrintable(ui->fileCmdFile->getFile()) << std::endl;
+    }
     std::cerr << "Loading Game Data isn't implemented yet\n";
 
     // 切換stack
