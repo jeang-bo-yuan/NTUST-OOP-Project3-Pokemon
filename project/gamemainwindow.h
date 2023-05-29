@@ -28,11 +28,19 @@ public:
     static GameMainWindow* singleton();
 
 public slots:
+    // 開始遊戲
     void startGame();
+    // 逃跑
     void runAway();
+    // 顯示battle選單
     void selectBattle();
+    // 顯示pokemon選單
     void selectPokemon();
+    // 顯示bag選單
     void selectBag();
+
+    // 取消選取戰鬥選單
+    void uncheckOptions();
 
 private:
     Ui::GameMainWindow *ui;

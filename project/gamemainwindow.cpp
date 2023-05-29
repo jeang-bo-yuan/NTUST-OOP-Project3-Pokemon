@@ -50,9 +50,7 @@ void GameMainWindow::startGame() {
     ui->optionGroup->show();
 
     // 取消選取
-    ui->buttonBattle->setChecked(false);
-    ui->buttonPokemon->setChecked(false);
-    ui->buttonBag->setChecked(false);
+    uncheckOptions();
 }
 
 void GameMainWindow::runAway() {
@@ -62,51 +60,57 @@ void GameMainWindow::runAway() {
     ui->mainStack->setCurrentIndex(0);
     ui->subStack->setCurrentIndex(0);
     ui->optionGroup->hide();
+
+    // 取消選取
+    uncheckOptions();
 }
 
 void GameMainWindow::selectBattle() {
-    ui->buttonPokemon->setChecked(false);
-    ui->buttonBag->setChecked(false);
+    uncheckOptions();
 
     if (ui->subStack->currentIndex() == 1) {
-        ui->buttonBattle->setChecked(false);
         // 切回log
         ui->subStack->setCurrentIndex(0);
     }
     else {
+        ui->buttonBattle->setChecked(true);
         ui->subStack->setCurrentIndex(1);
         // show buttons and let player choose
     }
 }
 
 void GameMainWindow::selectPokemon() {
-    ui->buttonBattle->setChecked(false);
-    ui->buttonBag->setChecked(false);
+    uncheckOptions();
 
     if (ui->subStack->currentIndex() == 2) {
-        ui->buttonPokemon->setChecked(false);
         // 切回log
         ui->subStack->setCurrentIndex(0);
     }
     else {
+        ui->buttonPokemon->setChecked(true);
         ui->subStack->setCurrentIndex(2);
         // show buttons and let player choose
     }
 }
 
 void GameMainWindow::selectBag() {
-    ui->buttonBattle->setChecked(false);
-    ui->buttonPokemon->setChecked(false);
+    uncheckOptions();
 
     if (ui->subStack->currentIndex() == 3) {
-        ui->buttonBag->setChecked(false);
         // 切回log
         ui->subStack->setCurrentIndex(0);
     }
     else {
+        ui->buttonBag->setChecked(true);
         ui->subStack->setCurrentIndex(3);
         // show buttons and let player choose
     }
+}
+
+void GameMainWindow::uncheckOptions() {
+    ui->buttonBattle->setChecked(false);
+    ui->buttonPokemon->setChecked(false);
+    ui->buttonBag->setChecked(false);
 }
 
 

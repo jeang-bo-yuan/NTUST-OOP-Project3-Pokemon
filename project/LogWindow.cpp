@@ -9,13 +9,6 @@ LogWindow::LogWindow(QWidget *parent)
 {
     this->setReadOnly(true);
     this->setLineWrapMode(LineWrapMode::NoWrap);
-    this->setFont(QFont("Source Code Pro", 11, QFont::Bold));
-
-    // 背景半透明
-    QPalette p;
-    p.setColor(QPalette::Base, QColor(255, 255, 255, 50));
-    this->setPalette(p);
-    this->setAutoFillBackground(true);
 }
 
 LogWindow::~LogWindow()
