@@ -1,5 +1,5 @@
 #include "Object.h"
-//#include "Creature.h"
+#include "Creature.h"
 #include <sstream>
 
 using namespace std;
@@ -28,9 +28,9 @@ string Object::effectToCreature(Creature* goal)
 
 	int finalHealVolume;
 
-	if(healVolume == -1 || healVolume > goal->getMaxHP() - goal->getHP())
+    if(healVolume == -1 || healVolume > goal->getMaxHp() - goal->getHp())
 	{
-		finalHealVolume = goal->getMaxHP() - goal->getHP();
+        finalHealVolume = goal->getMaxHp() - goal->getHp();
 	}
 	else
 	{

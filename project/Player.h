@@ -1,5 +1,5 @@
 #pragma once
-//#include "Creature.h"
+#include "Creature.h"
 #include <vector>
 #include "Object.h"
 

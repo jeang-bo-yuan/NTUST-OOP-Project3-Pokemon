@@ -26,7 +26,7 @@ std::map<std::string, int> effectIndex =
 	{"fairy",17}
 };
 
-std::vector<vector<float>> effectTable =
+std::vector<std::vector<float>> effectTable =
 {
 	{1,1,1,1,1,1,1,1,1,1,1,1,0.5,0,1,1,0.5,1},
 	{1,0.5,0.5,1,2,2,1,1,1,1,1,2,0.5,1,0.5,1,2,1},
@@ -45,7 +45,7 @@ std::vector<vector<float>> effectTable =
 	{1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,0.5,1,0},
 	{1,1,1,1,1,1,0.5,1,1,1,2,1,1,2,1,0.5,0.5,0.5},
 	{1,0.5,0.5,0.5,1,2,1,1,1,1,1,1,2,1,1,1,0.5,2}
-}
+};
 
 typedef struct skillInfo
 {
@@ -54,17 +54,6 @@ typedef struct skillInfo
 	bool isCritical;
 
 }skillInfo;
-
-typedef struct skill
-{
-	std::string name;
-	int damage;
-	int accuracy;
-	int critical;
-	int effectiveType;
-	int usageCount;
-	std::string description;
-};
 
 class Game
 {

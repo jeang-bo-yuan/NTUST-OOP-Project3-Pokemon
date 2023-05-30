@@ -47,8 +47,19 @@ std::string Game::useSkill(int skillIndex, Creature* goal)
 {
 	stringstream result;
 
-	
+    skill currentSkill = goal->skills[skillIndex];
+
+    goal->skills[skillIndex].pp--;
+
+    if(isTesting)
+    {
+        goal->getSkill(currentSkill);
+    }
+    else
+    {
+
+    }
 
 
-	return ;
+    return result.str();
 }
