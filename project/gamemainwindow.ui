@@ -16,6 +16,9 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="focusPolicy">
+   <enum>Qt::NoFocus</enum>
+  </property>
   <property name="windowTitle">
    <string>GameMainWindow</string>
   </property>
@@ -27,18 +30,21 @@
      <bold>false</bold>
     </font>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="2,1">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="3,1">
     <item>
      <widget class="QStackedWidget" name="mainStack">
       <property name="currentIndex">
        <number>0</number>
       </property>
       <widget class="QWidget" name="pregame">
-       <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1,1">
-        <item>
-         <widget class="QWidget" name="widget" native="true"/>
+       <layout class="QGridLayout" name="gridLayout" rowstretch="0,0" columnstretch="1,1,1">
+        <item row="1" column="2">
+         <widget class="QWidget" name="spacer2" native="true"/>
         </item>
-        <item>
+        <item row="1" column="0">
+         <widget class="QWidget" name="spacer1" native="true"/>
+        </item>
+        <item row="1" column="1">
          <widget class="QStackedWidget" name="settingStack">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -92,6 +98,9 @@
            </layout>
           </widget>
           <widget class="QWidget" name="pageSetting">
+           <property name="autoFillBackground">
+            <bool>true</bool>
+           </property>
            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,2,1">
             <item>
              <widget class="QCheckBox" name="checkBoxCmdFile">
@@ -214,8 +223,18 @@
           </widget>
          </widget>
         </item>
-        <item>
-         <widget class="QWidget" name="widget_2" native="true"/>
+        <item row="0" column="1">
+         <widget class="QLabel" name="titleLabel">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="pixmap">
+           <pixmap resource="resource.qrc">:/media/Pokemon_logo.svg</pixmap>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -260,43 +279,6 @@
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
               <widget class="LogWindow" name="logWindow">
-               <property name="palette">
-                <palette>
-                 <active>
-                  <colorrole role="Base">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="50">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </active>
-                 <inactive>
-                  <colorrole role="Base">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>255</red>
-                     <green>255</green>
-                     <blue>255</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </inactive>
-                 <disabled>
-                  <colorrole role="Base">
-                   <brush brushstyle="SolidPattern">
-                    <color alpha="255">
-                     <red>240</red>
-                     <green>240</green>
-                     <blue>240</blue>
-                    </color>
-                   </brush>
-                  </colorrole>
-                 </disabled>
-                </palette>
-               </property>
                <property name="font">
                 <font>
                  <family>Source Sans Pro Black</family>
@@ -307,8 +289,18 @@
                <property name="autoFillBackground">
                 <bool>true</bool>
                </property>
+               <property name="styleSheet">
+                <string notr="true">QPlainTextEdit { background-color: rgba(235, 213, 141, 150);}
+QScrollBar { background-color: rgb(235, 213, 141); }</string>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="verticalScrollBarPolicy">
+                <enum>Qt::ScrollBarAlwaysOn</enum>
+               </property>
+               <property name="backgroundVisible">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
@@ -475,6 +467,8 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

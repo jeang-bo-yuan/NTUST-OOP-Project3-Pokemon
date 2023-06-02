@@ -5,9 +5,14 @@
 #include "LogWindow.h"
 #include <iostream>
 
+//#include <QPaintEvent>
+#include <QPainter>
+#include <QImage>
+#include <QPalette>
+
 GameMainWindow::GameMainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::GameMainWindow)
+    , ui(new Ui::GameMainWindow), backgroundImg(":/media/background.png")
 {
     ui->setupUi(this);
 
@@ -22,6 +27,11 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     ui->fileGame->setFile("GameData.txt");
     ui->fileCmdFile->setFile("case.txt");
     this->setMinimumSize(1000, 630);
+
+    // 半透明背景色
+    QPalette backgroundP;
+    backgroundP.setColor(QPalette::Window, QColor(235, 213, 141, 150));
+    ui->pageSetting->setPalette(backgroundP);
 
     // 開始畫面signal and slots
     connect(ui->buttonStartGame, &QPushButton::clicked, this, &GameMainWindow::startGame);
@@ -47,6 +57,11 @@ GameMainWindow* GameMainWindow::singleWindow = nullptr;
 
 GameMainWindow* GameMainWindow::singleton() {
     return singleWindow == nullptr ? (singleWindow = new GameMainWindow) : singleWindow;
+}
+
+void GameMainWindow::paintEvent(QPaintEvent *) {
+    QPainter painter(this);
+    painter.drawImage(this->rect(), backgroundImg);
 }
 
 

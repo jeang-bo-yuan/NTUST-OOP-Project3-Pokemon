@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>media/Pokemon_logo.svg</file>
+        <file>media/background.png</file>
+    </qresource>
+</RCC>

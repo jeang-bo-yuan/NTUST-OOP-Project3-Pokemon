@@ -30,6 +30,11 @@ public:
     // Post: 若第一次呼叫，分配記憶體並回傳指標，否則直接回傳指標
     static GameMainWindow* singleton();
 
+    // Intend: 繪製背景
+    // Pre: 收到paint event
+    // Post: 將背景圖填滿整個視窗
+    void paintEvent(QPaintEvent*) override;
+
 public slots:
     // 開始遊戲
     void startGame();
@@ -42,11 +47,12 @@ public slots:
     // 顯示bag選單
     void selectBag();
 
-    // 取消選取戰鬥選單
+    // 取消選取戰鬥選單（將按鈕設成uncheck）
     void uncheckOptions();
 
 private:
     Ui::GameMainWindow *ui;
+    QImage backgroundImg;
 
 };
 
