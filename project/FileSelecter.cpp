@@ -2,6 +2,7 @@
 #include "FileSelecter.h"
 #include <QHBoxLayout>
 #include <QSizePolicy>
+#include <QDir>
 
 FileSelecter::FileSelecter(QWidget *parent)
     : QWidget{parent}, dialog(this, "Select File")
@@ -12,7 +13,7 @@ FileSelecter::FileSelecter(QWidget *parent)
 
     // connect signal & slots
     connect(buttonSelect, &QPushButton::clicked, this, &FileSelecter::exec);
-    connect(&dialog, &QFileDialog::fileSelected, fileLine, &QLineEdit::setText);
+    connect(&dialog, &QFileDialog::fileSelected, this, &FileSelecter::setFile);
 
     // 設置
     QHBoxLayout* hlayout = new QHBoxLayout(this);
@@ -23,7 +24,7 @@ FileSelecter::FileSelecter(QWidget *parent)
 
 void FileSelecter::setFile(const QString &file)
 {
-    fileLine->setText(file);
+    fileLine->setText(QDir::current().relativeFilePath(file));
 }
 
 QString FileSelecter::getFile() const
