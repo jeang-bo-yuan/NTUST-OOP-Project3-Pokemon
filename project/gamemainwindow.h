@@ -35,7 +35,7 @@ public:
     // Post: 將背景圖填滿整個視窗
     void paintEvent(QPaintEvent*) override;
 
-public slots:
+private slots:
     // 開始遊戲
     void startGame();
     // 逃跑
@@ -46,6 +46,8 @@ public slots:
     void selectPokemon();
     // 顯示bag選單
     void selectBag();
+    // 顯示log window
+    void selectLogWindow();
 
     // 取消選取戰鬥選單（將按鈕設成uncheck）
     void uncheckOptions();

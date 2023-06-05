@@ -79,11 +79,8 @@ void GameMainWindow::startGame() {
 
     // 切換stack
     ui->mainStack->setCurrentIndex(1);
-    ui->subStack->setCurrentIndex(0);
+    selectLogWindow();
     ui->optionGroup->show();
-
-    // 取消選取
-    uncheckOptions();
 }
 
 void GameMainWindow::runAway() {
@@ -91,11 +88,8 @@ void GameMainWindow::runAway() {
 
     // 切換stack
     ui->mainStack->setCurrentIndex(0);
-    ui->subStack->setCurrentIndex(0);
+    selectLogWindow();
     ui->optionGroup->hide();
-
-    // 取消選取
-    uncheckOptions();
 }
 
 void GameMainWindow::selectBattle() {
@@ -103,7 +97,7 @@ void GameMainWindow::selectBattle() {
 
     if (ui->subStack->currentIndex() == 1) {
         // 切回log
-        ui->subStack->setCurrentIndex(0);
+        selectLogWindow();
     }
     else {
         ui->buttonBattle->setChecked(true);
@@ -117,7 +111,7 @@ void GameMainWindow::selectPokemon() {
 
     if (ui->subStack->currentIndex() == 2) {
         // 切回log
-        ui->subStack->setCurrentIndex(0);
+        selectLogWindow();
     }
     else {
         ui->buttonPokemon->setChecked(true);
@@ -131,13 +125,19 @@ void GameMainWindow::selectBag() {
 
     if (ui->subStack->currentIndex() == 3) {
         // 切回log
-        ui->subStack->setCurrentIndex(0);
+        selectLogWindow();
     }
     else {
         ui->buttonBag->setChecked(true);
         ui->subStack->setCurrentIndex(3);
         // show buttons and let player choose
     }
+}
+
+void GameMainWindow::selectLogWindow() {
+    uncheckOptions();
+
+    ui->subStack->setCurrentIndex(0);
 }
 
 void GameMainWindow::uncheckOptions() {

@@ -244,116 +244,92 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout" stretch="4,1">
       <item>
-       <widget class="QFrame" name="frame">
+       <widget class="QStackedWidget" name="subStack">
         <property name="frameShape">
          <enum>QFrame::Panel</enum>
         </property>
-        <property name="frameShadow">
-         <enum>QFrame::Plain</enum>
-        </property>
         <property name="lineWidth">
-         <number>2</number>
+         <number>3</number>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="leftMargin">
-          <number>0</number>
-         </property>
-         <property name="topMargin">
-          <number>0</number>
-         </property>
-         <property name="rightMargin">
-          <number>0</number>
-         </property>
-         <property name="bottomMargin">
-          <number>0</number>
-         </property>
-         <item>
-          <widget class="QStackedWidget" name="subStack">
-           <property name="currentIndex">
-            <number>0</number>
-           </property>
-           <widget class="QWidget" name="subLog">
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <item>
-              <widget class="LogWindow" name="logWindow">
-               <property name="font">
-                <font>
-                 <family>Source Sans Pro Black</family>
-                 <pointsize>11</pointsize>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="autoFillBackground">
-                <bool>true</bool>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPlainTextEdit { background-color: rgba(235, 213, 141, 150);}
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QWidget" name="subLog">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <item>
+           <widget class="LogWindow" name="logWindow">
+            <property name="font">
+             <font>
+              <family>Source Sans Pro Black</family>
+              <pointsize>11</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="autoFillBackground">
+             <bool>true</bool>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QPlainTextEdit { background-color: rgba(235, 213, 141, 150);}
 QScrollBar { background-color: rgb(235, 213, 141); }</string>
-               </property>
-               <property name="frameShape">
-                <enum>QFrame::NoFrame</enum>
-               </property>
-               <property name="verticalScrollBarPolicy">
-                <enum>Qt::ScrollBarAlwaysOn</enum>
-               </property>
-               <property name="backgroundVisible">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOn</enum>
+            </property>
+            <property name="backgroundVisible">
+             <bool>false</bool>
+            </property>
            </widget>
-           <widget class="QWidget" name="subBattle">
-            <widget class="QLabel" name="label">
-             <property name="geometry">
-              <rect>
-               <x>260</x>
-               <y>70</y>
-               <width>181</width>
-               <height>41</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>選擇招式</string>
-             </property>
-            </widget>
-           </widget>
-           <widget class="QWidget" name="subPokemon">
-            <widget class="QLabel" name="label_2">
-             <property name="geometry">
-              <rect>
-               <x>270</x>
-               <y>70</y>
-               <width>181</width>
-               <height>51</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>選擇上場的寶可夢</string>
-             </property>
-            </widget>
-           </widget>
-           <widget class="QWidget" name="subBag">
-            <widget class="QLabel" name="label_3">
-             <property name="geometry">
-              <rect>
-               <x>280</x>
-               <y>80</y>
-               <width>121</width>
-               <height>20</height>
-              </rect>
-             </property>
-             <property name="text">
-              <string>選擇道具</string>
-             </property>
-            </widget>
-           </widget>
-          </widget>
-         </item>
-        </layout>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="subBattle">
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>260</x>
+            <y>70</y>
+            <width>181</width>
+            <height>41</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>選擇招式</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="subPokemon">
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>270</x>
+            <y>70</y>
+            <width>181</width>
+            <height>51</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>選擇上場的寶可夢</string>
+          </property>
+         </widget>
+        </widget>
+        <widget class="QWidget" name="subBag">
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>280</x>
+            <y>80</y>
+            <width>121</width>
+            <height>20</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>選擇道具</string>
+          </property>
+         </widget>
+        </widget>
        </widget>
       </item>
       <item>
