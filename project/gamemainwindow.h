@@ -7,6 +7,8 @@
 
 #include <QMainWindow>
 
+#include "Game.h"
+
 #define gameWindow GameMainWindow::singleton()
 
 QT_BEGIN_NAMESPACE
@@ -55,7 +57,7 @@ private slots:
 private:
     Ui::GameMainWindow *ui;
     QImage backgroundImg;
-
+    Game gameManager;
 };
 
 #endif // GAMEMAINWINDOW_H

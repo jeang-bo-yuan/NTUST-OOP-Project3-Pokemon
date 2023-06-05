@@ -30,7 +30,7 @@
      <bold>false</bold>
     </font>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout" stretch="3,1">
+   <layout class="QVBoxLayout" name="verticalLayout" stretch="2,1">
     <item>
      <widget class="QStackedWidget" name="mainStack">
       <property name="currentIndex">
@@ -316,19 +316,11 @@ QScrollBar { background-color: rgb(235, 213, 141); }</string>
          </widget>
         </widget>
         <widget class="QWidget" name="subBag">
-         <widget class="QLabel" name="label_3">
-          <property name="geometry">
-           <rect>
-            <x>280</x>
-            <y>80</y>
-            <width>121</width>
-            <height>20</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>選擇道具</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="BagSelecter" name="subBagSelecter" native="true"/>
+          </item>
+         </layout>
         </widget>
        </widget>
       </item>
@@ -440,6 +432,12 @@ QScrollBar { background-color: rgb(235, 213, 141); }</string>
    <class>FileSelecter</class>
    <extends>QWidget</extends>
    <header>FileSelecter.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>BagSelecter</class>
+   <extends>QWidget</extends>
+   <header>BagSelecter.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

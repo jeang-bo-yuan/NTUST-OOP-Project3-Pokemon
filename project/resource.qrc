@@ -2,5 +2,9 @@
     <qresource prefix="/">
         <file>media/Pokemon_logo.svg</file>
         <file>media/background.png</file>
+        <file>media/bag/Hyper Potion.png</file>
+        <file>media/bag/Max Potion.png</file>
+        <file>media/bag/Potion.png</file>
+        <file>media/bag/Super Potion.png</file>
     </qresource>
 </RCC>

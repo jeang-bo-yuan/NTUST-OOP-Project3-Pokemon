@@ -4,7 +4,7 @@
 #include <vector>
 #include <sstream>
 
-std::map<std::string, int> effectIndex =
+const std::map<std::string, int> effectIndex =
 {
 	{"normal",0},
 	{"fire",1},
@@ -26,7 +26,7 @@ std::map<std::string, int> effectIndex =
 	{"fairy",17}
 };
 
-std::vector<std::vector<float>> effectTable =
+const std::vector<std::vector<float>> effectTable =
 {
 	{1,1,1,1,1,1,1,1,1,1,1,1,0.5,0,1,1,0.5,1},
 	{1,0.5,0.5,1,2,2,1,1,1,1,1,2,0.5,1,0.5,1,2,1},

@@ -46,6 +46,10 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     connect(ui->buttonBattle, &QPushButton::clicked, this, &GameMainWindow::selectBattle);
     connect(ui->buttonPokemon, &QPushButton::clicked, this, &GameMainWindow::selectPokemon);
     connect(ui->buttonBag, &QPushButton::clicked, this, &GameMainWindow::selectBag);
+    connect(ui->subBagSelecter, &BagSelecter::itemSelected, this, [this](std::string s) {
+        std::cout << "Player use " << s << std::endl;
+        selectLogWindow();
+    });
 }
 
 GameMainWindow::~GameMainWindow()
@@ -81,6 +85,9 @@ void GameMainWindow::startGame() {
     ui->mainStack->setCurrentIndex(1);
     selectLogWindow();
     ui->optionGroup->show();
+
+    // initialize selecters
+    ui->subBagSelecter->init(gameManager.currentPlayer);
 }
 
 void GameMainWindow::runAway() {

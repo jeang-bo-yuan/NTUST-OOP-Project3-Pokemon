@@ -6,6 +6,9 @@ Game::Game()
 {
 	player1 = new Player();
 	player2 = new Player();
+    // added temporarily
+    currentPlayer = player1;
+    opponentPlayer = player2;
 	
 	Object* potion = new Object("Potion", 20);
 	Object* superPotion = new Object("Super Potion", 60);
