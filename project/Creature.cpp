@@ -56,6 +56,8 @@ void Creature::getSkill(skill source)
 
 istream& operator>>(istream&  input,Creature& goal)
 {
+    input >> goal.name;
+
     int count;
 
     input>>count;

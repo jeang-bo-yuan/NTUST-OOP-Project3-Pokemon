@@ -17,6 +17,7 @@ SOURCES += \
     LogWindow.cpp \
     Object.cpp \
     Player.cpp \
+    PokemonSelecter.cpp \
     main.cpp \
     gamemainwindow.cpp
 
@@ -28,6 +29,7 @@ HEADERS += \
     LogWindow.h \
     Object.h \
     Player.h \
+    PokemonSelecter.h \
     gamemainwindow.h
 
 FORMS += \

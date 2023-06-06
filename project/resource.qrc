@@ -6,5 +6,29 @@
         <file>media/bag/Max Potion.png</file>
         <file>media/bag/Potion.png</file>
         <file>media/bag/Super Potion.png</file>
+        <file>media/Pokemon/Blastoise.png</file>
+        <file>media/Pokemon/Charizard.png</file>
+        <file>media/Pokemon/Venusaur.png</file>
+        <file>media/types/Bug.png</file>
+        <file>media/types/Dark.png</file>
+        <file>media/types/Dragon.png</file>
+        <file>media/types/Electric.png</file>
+        <file>media/types/Fairy.png</file>
+        <file>media/types/Fight.png</file>
+        <file>media/types/Fire.png</file>
+        <file>media/types/Flying.png</file>
+        <file>media/types/Ghost.png</file>
+        <file>media/types/Grass.png</file>
+        <file>media/types/Ground.png</file>
+        <file>media/types/Ice.png</file>
+        <file>media/types/Normal.png</file>
+        <file>media/types/Poison.png</file>
+        <file>media/types/Psychic.png</file>
+        <file>media/types/Rock.png</file>
+        <file>media/types/Steel.png</file>
+        <file>media/types/Water.png</file>
+        <file>media/Pokemon-pix/Blastoise.png</file>
+        <file>media/Pokemon-pix/Charizard.png</file>
+        <file>media/Pokemon-pix/Venusaur.png</file>
     </qresource>
 </RCC>

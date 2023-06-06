@@ -4,11 +4,12 @@
 
 #include "LogWindow.h"
 #include <iostream>
+#include <fstream>
 
-//#include <QPaintEvent>
 #include <QPainter>
 #include <QImage>
 #include <QPalette>
+#include <QEventLoop>
 
 GameMainWindow::GameMainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -46,10 +47,7 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     connect(ui->buttonBattle, &QPushButton::clicked, this, &GameMainWindow::selectBattle);
     connect(ui->buttonPokemon, &QPushButton::clicked, this, &GameMainWindow::selectPokemon);
     connect(ui->buttonBag, &QPushButton::clicked, this, &GameMainWindow::selectBag);
-    connect(ui->subBagSelecter, &BagSelecter::itemSelected, this, [this](std::string s) {
-        std::cout << "Player use " << s << std::endl;
-        selectLogWindow();
-    });
+    connect(ui->subBagSelecter, &BagSelecter::itemSelected, this, &GameMainWindow::itemSelected);
 }
 
 GameMainWindow::~GameMainWindow()
@@ -68,18 +66,50 @@ void GameMainWindow::paintEvent(QPaintEvent *) {
     painter.drawImage(this->rect(), backgroundImg);
 }
 
+int GameMainWindow::choosePokemon(bool allowNull) {
+    ui->subPokemonSelecter->setAllowNull(allowNull);
 
+    int originalSubStackIndex = ui->subStack->currentIndex();
+    ui->subStack->setCurrentIndex(2);
+    bool originalVisible = ui->optionGroup->isVisible();
+    ui->optionGroup->hide();
+
+    QEventLoop loop;
+    connect(ui->subPokemonSelecter, &PokemonSelecter::pokemonSelected, &loop, [&loop](PokemonButton* button) {
+        // exit with pokemon index
+        if (button != nullptr)
+            loop.exit(button->getIndex());
+        else
+            loop.exit(-1);
+    });
+    int result = loop.exec();
+
+    ui->subStack->setCurrentIndex(originalSubStackIndex);
+    ui->optionGroup->setVisible(originalVisible);
+    return result;
+}
 
 void GameMainWindow::startGame() {
     if (!ui->checkBoxCmdFile->isChecked()) {
         std::cout << "載入寶可夢... " << qPrintable(ui->filePokemon->getFile()) << std::endl;
         std::cout << "載入招式... " << qPrintable(ui->fileMove->getFile()) << std::endl;
         std::cout << "載入玩家... " << qPrintable(ui->fileGame->getFile()) << std::endl;
+
+        std::fstream Fin(ui->filePokemon->getFile().toStdString());
+        gameManager.currentPlayer->reset();
+        while (true) {
+            Creature* p = new Creature;
+            Fin >> *p;
+            if (p->getName() == "") break;
+            gameManager.currentPlayer->creatures.push_back(p);
+        }
+        std::cerr << "Warning: Game Data isn't loaded from game manager\n";
     }
     else {
         std::cout << "載入command file... " << qPrintable(ui->fileCmdFile->getFile()) << std::endl;
+        std::cerr << "Loading command file isn't implemented yet\n";
+        return;
     }
-    std::cerr << "Loading Game Data isn't implemented yet\n";
 
     // 切換stack
     ui->mainStack->setCurrentIndex(1);
@@ -88,6 +118,7 @@ void GameMainWindow::startGame() {
 
     // initialize selecters
     ui->subBagSelecter->init(gameManager.currentPlayer);
+    ui->subPokemonSelecter->init(gameManager.currentPlayer);
 }
 
 void GameMainWindow::runAway() {
@@ -114,17 +145,12 @@ void GameMainWindow::selectBattle() {
 }
 
 void GameMainWindow::selectPokemon() {
-    uncheckOptions();
-
-    if (ui->subStack->currentIndex() == 2) {
-        // 切回log
-        selectLogWindow();
+    int index = choosePokemon(true);
+    if (index >= 0) {
+        std::cout << index << " selected" << std::endl;
+        std::cerr << "Warning: Pokemon index isn't send to game manager\n";
     }
-    else {
-        ui->buttonPokemon->setChecked(true);
-        ui->subStack->setCurrentIndex(2);
-        // show buttons and let player choose
-    }
+    selectLogWindow();
 }
 
 void GameMainWindow::selectBag() {
@@ -151,6 +177,12 @@ void GameMainWindow::uncheckOptions() {
     ui->buttonBattle->setChecked(false);
     ui->buttonPokemon->setChecked(false);
     ui->buttonBag->setChecked(false);
+}
+
+void GameMainWindow::itemSelected(std::string name)
+{
+    std::cout << "Player use " << name << std::endl;
+    selectLogWindow();
 }
 
 
