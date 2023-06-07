@@ -6,16 +6,16 @@
 #define LOGWINDOW_H
 
 #include <QWidget>
-#include <QPlainTextEdit>
+#include <QTextEdit>
 #include <string>
 #include <sstream>
 
 
 /**
- * @brief 顯示log的widget，繼承自QPlainTextEdit
+ * @brief 顯示log的widget，繼承自QTextEdit
  * @details 內含兩個class，可用來將ostream的輸出重新導向到LogWindow中
  */
-class LogWindow : public QPlainTextEdit
+class LogWindow : public QTextEdit
 
 {
     Q_OBJECT
@@ -23,7 +23,10 @@ class LogWindow : public QPlainTextEdit
 public:
     /**
      * @brief stringbuf class for LogWindow
-     * @details 建立一個輸出用buffer，可以用std::ostream的rdbuf方法來使用建好的buffer，flush時buffer內容會附加到LogWindow中（用textCursor->insertText）
+     * @details 建立一個輸出用buffer，可以用std::ostream的rdbuf方法來使用建好的buffer
+     *
+     * flush時buffer內容會附加到LogWindow中（用textCursor->insertText），
+     * 每次附加時在前方加上換行，行尾換行會被移掉
      */
     class LogStringBuf : public std::stringbuf {
         LogWindow* logW; //!< where output goes
@@ -41,7 +44,11 @@ public:
 
     /**
      * @brief stringbuf class for LogWindow, but for output error
-     * @details 建立一個輸出用buffer，可以用std::ostream的rdbuf方法來使用建好的buffer，flush時buffer內容會附加到LogWindow中（用textCursor()->insertHtml）
+     * @details 建立一個輸出用buffer，可以用std::ostream的rdbuf方法來使用建好的buffer
+     *
+     * **只有在行尾有換行符時，flush才會將buffer內容輸出**
+     * flush時buffer內容會附加到LogWindow中（用textCursor()->insertHtml），
+     * 每次附加時在前方加上換行，行尾換行會被移掉
      */
     class ErrorLogStringBuf : public std::stringbuf {
         LogWindow* logW; //!< where output goes

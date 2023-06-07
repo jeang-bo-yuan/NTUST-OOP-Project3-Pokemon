@@ -269,7 +269,7 @@
              <bool>true</bool>
             </property>
             <property name="styleSheet">
-             <string notr="true">QPlainTextEdit { background-color: rgba(235, 213, 141, 150);}
+             <string notr="true">QTextEdit { background-color: rgba(235, 213, 141, 150);}
 QScrollBar { background-color: rgb(235, 213, 141); }</string>
             </property>
             <property name="frameShape">
@@ -277,9 +277,6 @@ QScrollBar { background-color: rgb(235, 213, 141); }</string>
             </property>
             <property name="verticalScrollBarPolicy">
              <enum>Qt::ScrollBarAlwaysOn</enum>
-            </property>
-            <property name="backgroundVisible">
-             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -416,11 +413,6 @@ QScrollBar { background-color: rgb(235, 213, 141); }</string>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>LogWindow</class>
-   <extends>QPlainTextEdit</extends>
-   <header>LogWindow.h</header>
-  </customwidget>
-  <customwidget>
    <class>FileSelecter</class>
    <extends>QWidget</extends>
    <header>FileSelecter.h</header>
@@ -437,6 +429,11 @@ QScrollBar { background-color: rgb(235, 213, 141); }</string>
    <extends>QWidget</extends>
    <header>PokemonSelecter.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>LogWindow</class>
+   <extends>QTextEdit</extends>
+   <header>LogWindow.h</header>
   </customwidget>
  </customwidgets>
  <resources>
