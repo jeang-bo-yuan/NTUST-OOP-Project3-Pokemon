@@ -16,14 +16,18 @@
 class ItemButton : public QFrame {
     Q_OBJECT
 
-    QImage itemImage;
-    QLabel* itemName;
+    int index;
     int count;
     QLabel* itemCount;
 
 public:
-    ItemButton(const std::string& _name, int _count, QWidget* parent = nullptr);
+    ItemButton(Object* object, int index, QWidget* parent = nullptr);
 
+    void useOne();
+
+    int getIndex() const { return index; }
+
+protected:
     // Intend: 被點擊時，看道具可不可以選，若可以則emit signal
     // Pre: count > 0 才可選
     // Post: 選擇成功，--count
@@ -39,7 +43,7 @@ signals:
     // Intend: 被選中時發出
     // Pre: none
     // Post: none
-    void itemSelected(std::string name);
+    void itemSelected(ItemButton* button);
 };
 
 /**
@@ -62,8 +66,8 @@ public slots:
 signals:
     // Intend: 有道具被選中時發出
     // Pre: none
-    // Post: none
-    void itemSelected(std::string name);
+    // Post: 指標
+    void itemSelected(ItemButton* button);
 
 private:
     QGridLayout* bagSlots;

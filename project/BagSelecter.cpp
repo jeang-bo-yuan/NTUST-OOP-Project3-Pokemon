@@ -9,29 +9,34 @@
 // ItemButton 的實作
 
 // ctor
-ItemButton::ItemButton(const std::string &_name, int _count, QWidget *parent)
+ItemButton::ItemButton(Object* object, int index, QWidget* parent)
     : QFrame(parent)
-    , itemImage(QString(":/media/bag/") + _name.c_str()), itemName(new QLabel(_name.c_str()))
-    , count(_count), itemCount(new QLabel(QString::number(count)))
+    , index(index), count(object->getUsageCount()), itemCount(new QLabel(QString::number(count)))
 {
     QHBoxLayout* hLayout = new QHBoxLayout(this);
+    QLabel* itemName = new QLabel(object->getName().c_str());
     QLabel* img = new QLabel;
-    img->setPixmap(QPixmap::fromImage(itemImage));
+    img->setPixmap(QPixmap(QString(":/media/bag/") + object->getName().c_str()));
 
     hLayout->addWidget(img);
     hLayout->addWidget(itemName);
     hLayout->addWidget(itemCount);
 
     this->setMinimumHeight(70);
+    this->setDisabled(count <= 0);
+}
+
+void ItemButton::useOne() {
+    --count;
+    itemCount->setText(QString::number(count));
+    this->setDisabled(count <= 0);
 }
 
 // deal with mouse clicked
 void ItemButton::mousePressEvent(QMouseEvent * e)
 {
-    if (e->button() == Qt::LeftButton /* && count > 0 */) {
-        --count;
-        itemCount->setText(QString::number(count));
-        emit itemSelected(itemName->text().toStdString());
+    if (e->button() == Qt::LeftButton && count > 0) {
+        emit itemSelected(this);
     }
 }
 
@@ -61,8 +66,7 @@ void BagSelecter::init(const Player *player)
 
     // add ItemButton
     for (int i = 0; i < player->objects.size(); ++i) {
-        Object* o = player->objects[i];
-        ItemButton* button = new ItemButton(o->getName(), o->getUsageCount());
+        ItemButton* button = new ItemButton(player->objects[i], i);
 
         bagSlots->addWidget(button, i / 3, i % 3);
         connect(button, &ItemButton::itemSelected, this, &BagSelecter::itemSelected);

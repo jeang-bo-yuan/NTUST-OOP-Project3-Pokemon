@@ -103,6 +103,9 @@ void GameMainWindow::startGame() {
             if (p->getName() == "") break;
             gameManager.currentPlayer->creatures.push_back(p);
         }
+        for (auto p : gameManager.currentPlayer->objects) {
+            p->setUsageCount(3);
+        }
         std::cerr << "Warning: Game Data isn't loaded from game manager\n";
     }
     else {
@@ -179,10 +182,16 @@ void GameMainWindow::uncheckOptions() {
     ui->buttonBag->setChecked(false);
 }
 
-void GameMainWindow::itemSelected(std::string name)
+void GameMainWindow::itemSelected(ItemButton* button)
 {
-    std::cout << "Player use " << name << std::endl;
-    selectLogWindow();
+    int pokemonIndex = choosePokemon(true);
+
+    if (pokemonIndex != -1) {
+        std::cout << "Player use " << button->getIndex() << " on " << pokemonIndex << std::endl;
+        std::cerr << "Warning: using item isn't implemented in game manager yet!\n";
+        button->useOne();
+        selectLogWindow();
+    }
 }
 
 

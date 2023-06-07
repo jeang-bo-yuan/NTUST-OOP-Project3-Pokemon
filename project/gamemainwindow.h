@@ -7,6 +7,7 @@
 
 #include <QMainWindow>
 
+#include "BagSelecter.h"
 #include "Game.h"
 
 #define gameWindow GameMainWindow::singleton()
@@ -61,7 +62,7 @@ private slots:
     void uncheckOptions();
 
     // 選定道具
-    void itemSelected(std::string name);
+    void itemSelected(ItemButton* button);
 
 private:
     Ui::GameMainWindow *ui;
