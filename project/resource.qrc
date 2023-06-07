@@ -31,5 +31,8 @@
         <file>media/Pokemon-pix/Charizard.png</file>
         <file>media/Pokemon-pix/Venusaur.png</file>
         <file>media/back.png</file>
+        <file>media/move-type/physical.png</file>
+        <file>media/move-type/special.png</file>
+        <file>media/move-type/status.png</file>
     </qresource>
 </RCC>

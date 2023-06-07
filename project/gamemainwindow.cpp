@@ -1,4 +1,6 @@
-
+/************************************************************
+ * \author 蔣博元
+ ***********************************************************/
 #include "gamemainwindow.h"
 #include "ui_gamemainwindow.h"
 
@@ -48,6 +50,7 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     connect(ui->buttonPokemon, &QPushButton::clicked, this, &GameMainWindow::selectPokemon);
     connect(ui->buttonBag, &QPushButton::clicked, this, &GameMainWindow::selectBag);
     connect(ui->subBagSelecter, &BagSelecter::itemSelected, this, &GameMainWindow::itemSelected);
+    connect(ui->subSkillSelecter, &SkillSelecter::skillSelected, this, &GameMainWindow::skillSelected);
 }
 
 GameMainWindow::~GameMainWindow()
@@ -103,6 +106,14 @@ void GameMainWindow::startGame() {
             if (p->getName() == "") break;
             gameManager.currentPlayer->creatures.push_back(p);
         }
+        Fin.close();
+        Fin.clear();
+        Fin.open(ui->fileMove->getFile().toStdString());
+        for (int i = 0; i < 6; ++i) {
+            skill theSkill;
+            Fin >> theSkill;
+            gameManager.currentPlayer->creatures[0]->skills.emplace_back(std::move(theSkill));
+        }
         for (auto p : gameManager.currentPlayer->objects) {
             p->setUsageCount(3);
         }
@@ -122,6 +133,7 @@ void GameMainWindow::startGame() {
     // initialize selecters
     ui->subBagSelecter->init(gameManager.currentPlayer);
     ui->subPokemonSelecter->init(gameManager.currentPlayer);
+    ui->subSkillSelecter->init(gameManager.currentPlayer->creatures[0]);
 }
 
 void GameMainWindow::runAway() {
@@ -192,6 +204,14 @@ void GameMainWindow::itemSelected(ItemButton* button)
         button->useOne();
         selectLogWindow();
     }
+}
+
+void GameMainWindow::skillSelected(SkillButton *button)
+{
+    std::cout << "use skill " << button->getIndex() << std::endl;
+    std::cerr << "Warning: using skill isn't implemented in game manager yet!\n";
+
+    selectLogWindow();
 }
 
 

@@ -9,3 +9,7 @@
 - [type](https://pokemongo.fandom.com/zh/wiki/%E5%B1%AC%E6%80%A7?variant=zh-tw)
 - [background](https://www.deviantart.com/phoenixoflight92/art/Pokemon-X-and-Y-battle-background-10-490608175)
 - [logo](https://commons.wikimedia.org/wiki/File:International_Pok%C3%A9mon_logo.svg)
+- Move Type Icon
+  - [Special Move](https://www.deviantart.com/jormxdos/art/Special-Move-Icon-934387511)
+  - [Status Move](https://www.deviantart.com/jormxdos/art/Status-Move-Icon-934387530)
+  - [Physical Move](https://www.deviantart.com/jormxdos/art/Physical-Move-Icon-934387518)

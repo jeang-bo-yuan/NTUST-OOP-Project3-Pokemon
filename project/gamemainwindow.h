@@ -8,6 +8,7 @@
 #include <QMainWindow>
 
 #include "BagSelecter.h"
+#include "SkillSelecter.h"
 #include "Game.h"
 
 #define gameWindow GameMainWindow::singleton()
@@ -63,6 +64,8 @@ private slots:
 
     // 選定道具
     void itemSelected(ItemButton* button);
+    // 選定技能
+    void skillSelected(SkillButton* button);
 
 private:
     Ui::GameMainWindow *ui;

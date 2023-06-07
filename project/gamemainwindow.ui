@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>630</height>
+    <width>1098</width>
+    <height>698</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -16,6 +16,13 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="font">
+   <font>
+    <family>微軟正黑體</family>
+    <pointsize>11</pointsize>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="focusPolicy">
    <enum>Qt::NoFocus</enum>
   </property>
@@ -23,13 +30,6 @@
    <string>GameMainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="font">
-    <font>
-     <family>Source Code Pro</family>
-     <pointsize>11</pointsize>
-     <bold>false</bold>
-    </font>
-   </property>
    <layout class="QVBoxLayout" name="verticalLayout" stretch="2,1">
     <item>
      <widget class="QStackedWidget" name="mainStack">
@@ -269,8 +269,8 @@
              <bool>true</bool>
             </property>
             <property name="styleSheet">
-             <string notr="true">QTextEdit { background-color: rgba(235, 213, 141, 150);}
-QScrollBar { background-color: rgb(235, 213, 141); }</string>
+             <string notr="true">QTextEdit { background-color: rgba(0,0,0,0);}
+QScrollBar { background-color: rgb(0,0,0,0); }</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
@@ -283,19 +283,11 @@ QScrollBar { background-color: rgb(235, 213, 141); }</string>
          </layout>
         </widget>
         <widget class="QWidget" name="subBattle">
-         <widget class="QLabel" name="label">
-          <property name="geometry">
-           <rect>
-            <x>260</x>
-            <y>70</y>
-            <width>181</width>
-            <height>41</height>
-           </rect>
-          </property>
-          <property name="text">
-           <string>選擇招式</string>
-          </property>
-         </widget>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="SkillSelecter" name="subSkillSelecter" native="true"/>
+          </item>
+         </layout>
         </widget>
         <widget class="QWidget" name="subPokemon">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -404,8 +396,8 @@ QScrollBar { background-color: rgb(235, 213, 141); }</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1000</width>
-     <height>25</height>
+     <width>1098</width>
+     <height>29</height>
     </rect>
    </property>
   </widget>
@@ -434,6 +426,12 @@ QScrollBar { background-color: rgb(235, 213, 141); }</string>
    <class>LogWindow</class>
    <extends>QTextEdit</extends>
    <header>LogWindow.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SkillSelecter</class>
+   <extends>QWidget</extends>
+   <header>SkillSelecter.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
