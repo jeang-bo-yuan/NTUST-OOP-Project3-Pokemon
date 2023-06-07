@@ -30,5 +30,6 @@
         <file>media/Pokemon-pix/Blastoise.png</file>
         <file>media/Pokemon-pix/Charizard.png</file>
         <file>media/Pokemon-pix/Venusaur.png</file>
+        <file>media/back.png</file>
     </qresource>
 </RCC>

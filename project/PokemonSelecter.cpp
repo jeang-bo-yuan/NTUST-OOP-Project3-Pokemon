@@ -84,6 +84,8 @@ PokemonSelecter::PokemonSelecter(QWidget* parent)
     // button back
     {
         buttonBack = new QPushButton("Back");
+        buttonBack->setIcon(QIcon(":/media/back.png"));
+        buttonBack->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         connect(buttonBack, &QPushButton::clicked, this, [this]() { emit pokemonSelected(nullptr); });
         gLayout->addWidget(buttonBack,1);
     }
