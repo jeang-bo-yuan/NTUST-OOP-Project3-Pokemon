@@ -33,6 +33,7 @@ int LogWindow::LogStringBuf::sync()
 
     // clear buffer
     this->str("");
+    logW->repaint();
     return 0;
 }
 
@@ -51,5 +52,6 @@ int LogWindow::ErrorLogStringBuf::sync()
 
     // clear buffer
     this->str("");
+    logW->repaint();
     return 0;
 }

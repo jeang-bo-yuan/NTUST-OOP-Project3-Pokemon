@@ -8,6 +8,7 @@
 #include <QMainWindow>
 
 #include "BagSelecter.h"
+#include "PokemonSelecter.h"
 #include "SkillSelecter.h"
 #include "Game.h"
 
@@ -62,10 +63,12 @@ private slots:
     // 取消選取戰鬥選單（將按鈕設成uncheck）
     void uncheckOptions();
 
-    // 選定道具
+    // 選bag -> 選定道具
     void itemSelected(ItemButton* button);
-    // 選定技能
+    // 選battle -> 選定技能
     void skillSelected(SkillButton* button);
+    // 選pokemon -> 選定寶可夢
+    void pokemonSelected(PokemonButton* button);
 
 private:
     Ui::GameMainWindow *ui;

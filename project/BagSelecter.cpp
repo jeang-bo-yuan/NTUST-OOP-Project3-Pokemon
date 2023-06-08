@@ -17,12 +17,16 @@ ItemButton::ItemButton(Object* object, int index, QWidget* parent)
 {
     QHBoxLayout* hLayout = new QHBoxLayout(this);
     QLabel* itemName = new QLabel(object->getName().c_str());
+    itemName->setMinimumWidth(100);
+    itemName->setAlignment(Qt::AlignCenter);
     QLabel* img = new QLabel;
     img->setPixmap(QPixmap(QString(":/media/bag/") + object->getName().c_str()));
 
     hLayout->addWidget(img);
     hLayout->addWidget(itemName);
     hLayout->addWidget(itemCount);
+    hLayout->setAlignment(Qt::AlignCenter);
+    hLayout->setSpacing(10);
 
     this->setMinimumHeight(70);
     this->setDisabled(count <= 0);

@@ -13,6 +13,11 @@
 #include <QPalette>
 #include <QEventLoop>
 
+#define SUBSTACK_LOG 0
+#define SUBSTACK_BATTLE 1
+#define SUBSTACK_POKEMON 2
+#define SUBSTACK_BAG 3
+
 GameMainWindow::GameMainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::GameMainWindow), backgroundImg(":/media/background.png")
@@ -73,7 +78,7 @@ int GameMainWindow::choosePokemon(bool allowNull) {
     ui->subPokemonSelecter->setAllowNull(allowNull);
 
     int originalSubStackIndex = ui->subStack->currentIndex();
-    ui->subStack->setCurrentIndex(2);
+    ui->subStack->setCurrentIndex(SUBSTACK_POKEMON);
     bool originalVisible = ui->optionGroup->isVisible();
     ui->optionGroup->hide();
 
@@ -136,6 +141,8 @@ void GameMainWindow::startGame() {
     ui->subSkillSelecter->init(gameManager.currentPlayer->creatures[0]);
 }
 
+// 按下optionGroup中的按鈕的slot... ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 void GameMainWindow::runAway() {
     std::cout << "玩家逃跑了" << std::endl;
 
@@ -148,51 +155,62 @@ void GameMainWindow::runAway() {
 void GameMainWindow::selectBattle() {
     uncheckOptions();
 
-    if (ui->subStack->currentIndex() == 1) {
+    if (ui->subStack->currentIndex() == SUBSTACK_BATTLE) {
         // 切回log
         selectLogWindow();
     }
     else {
         ui->buttonBattle->setChecked(true);
-        ui->subStack->setCurrentIndex(1);
         // show buttons and let player choose
+        ui->subStack->setCurrentIndex(SUBSTACK_BATTLE);
     }
 }
 
 void GameMainWindow::selectPokemon() {
-    int index = choosePokemon(true);
-    if (index >= 0) {
-        std::cout << index << " selected" << std::endl;
-        std::cerr << "Warning: Pokemon index isn't send to game manager\n";
+    uncheckOptions();
+
+    if (ui->subStack->currentIndex() == SUBSTACK_POKEMON) {
+        selectLogWindow();
     }
-    selectLogWindow();
+    else {
+        ui->buttonPokemon->setChecked(true);
+        // show buttons and let player choose
+        ui->subPokemonSelecter->setAllowNull(false);
+        ui->subStack->setCurrentIndex(SUBSTACK_POKEMON);
+        // 這個連結是一次性的
+        connect(ui->subPokemonSelecter, &PokemonSelecter::pokemonSelected, this, &GameMainWindow::pokemonSelected, Qt::UniqueConnection);
+
+    }
 }
 
 void GameMainWindow::selectBag() {
     uncheckOptions();
 
-    if (ui->subStack->currentIndex() == 3) {
+    if (ui->subStack->currentIndex() == SUBSTACK_BAG) {
         // 切回log
         selectLogWindow();
     }
     else {
         ui->buttonBag->setChecked(true);
-        ui->subStack->setCurrentIndex(3);
         // show buttons and let player choose
+        ui->subStack->setCurrentIndex(SUBSTACK_BAG);
     }
 }
 
 void GameMainWindow::selectLogWindow() {
     uncheckOptions();
 
-    ui->subStack->setCurrentIndex(0);
+    ui->subStack->setCurrentIndex(SUBSTACK_LOG);
 }
 
 void GameMainWindow::uncheckOptions() {
     ui->buttonBattle->setChecked(false);
     ui->buttonPokemon->setChecked(false);
     ui->buttonBag->setChecked(false);
+    ui->subPokemonSelecter->reject();
 }
+
+// 玩家選擇要幹嘛後的slots //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void GameMainWindow::itemSelected(ItemButton* button)
 {
@@ -212,6 +230,18 @@ void GameMainWindow::skillSelected(SkillButton *button)
     std::cerr << "Warning: using skill isn't implemented in game manager yet!\n";
 
     selectLogWindow();
+}
+
+void GameMainWindow::pokemonSelected(PokemonButton *button)
+{
+    // let connection be destroyed after a pokemon is choosen
+    disconnect(ui->subPokemonSelecter, &PokemonSelecter::pokemonSelected, this, &GameMainWindow::pokemonSelected);
+
+    if (button != nullptr) {
+        std::cout << button->getIndex() << " selected" << std::endl;
+        std::cerr << "Warning: switching pokemon is implemented yet!\n";
+        selectLogWindow();
+    }
 }
 
 

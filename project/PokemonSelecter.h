@@ -69,6 +69,11 @@ public:
     void init(Player* player);
 
     void setAllowNull(bool allowNull) { buttonBack->setVisible(allowNull); }
+
+public slots:
+    // 效果等同按下"back"
+    void reject() { emit pokemonSelected(nullptr); }
+
 signals:
     // emit when a pokemon is selected
     // nullptr, if "back" is clicked
