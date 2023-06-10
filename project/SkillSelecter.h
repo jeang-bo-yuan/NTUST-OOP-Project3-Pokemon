@@ -47,7 +47,7 @@ class SkillSelecter : public QScrollArea {
     QGridLayout* skillSlots;
 
 public:
-    SkillSelecter(QWidget* parent = nullptr);
+    explicit SkillSelecter(QWidget* parent = nullptr);
 
     // Intend: 將面版上的按鈕設成creature的技能
     // Pre: creature != nullptr

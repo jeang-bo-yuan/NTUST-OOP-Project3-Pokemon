@@ -238,7 +238,23 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="playing"/>
+      <widget class="QWidget" name="playing">
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="1">
+         <widget class="GameViewer" name="computerView" native="true"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="GameViewer" name="playerView" native="true">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
     <item>
@@ -260,17 +276,17 @@
            <widget class="LogWindow" name="logWindow">
             <property name="font">
              <font>
-              <family>Source Sans Pro Black</family>
-              <pointsize>11</pointsize>
-              <bold>true</bold>
+              <family>微軟正黑體</family>
+              <pointsize>12</pointsize>
+              <bold>false</bold>
              </font>
             </property>
             <property name="autoFillBackground">
              <bool>true</bool>
             </property>
             <property name="styleSheet">
-             <string notr="true">QTextEdit { background-color: rgba(0,0,0,0);}
-QScrollBar { background-color: rgb(0,0,0,0); }</string>
+             <string notr="true">QTextEdit { background-color: rgba(0,0,0,0); }
+QScrollBar { background-color: rgba(0,0,0,0); }</string>
             </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
@@ -431,6 +447,12 @@ QScrollBar { background-color: rgb(0,0,0,0); }</string>
    <class>SkillSelecter</class>
    <extends>QWidget</extends>
    <header>SkillSelecter.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>GameViewer</class>
+   <extends>QWidget</extends>
+   <header>GameViewer.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

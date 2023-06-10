@@ -34,5 +34,6 @@
         <file>media/move-type/physical.png</file>
         <file>media/move-type/special.png</file>
         <file>media/move-type/status.png</file>
+        <file>media/pokemon_ball.png</file>
     </qresource>
 </RCC>

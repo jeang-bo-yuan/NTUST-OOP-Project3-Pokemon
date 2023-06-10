@@ -34,7 +34,9 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     ui->filePokemon->setFile("PokemonLib.txt");
     ui->fileGame->setFile("GameData.txt");
     ui->fileCmdFile->setFile("case.txt");
-    this->setMinimumSize(1000, 630);
+    this->setMinimumSize(1121, 698);
+    ui->playerView->layout()->setAlignment(Qt::AlignBottom | Qt::AlignLeft);
+    ui->computerView->layout()->setAlignment(Qt::AlignTop | Qt::AlignRight);
 
     // 半透明背景色
     QPalette backgroundP;
@@ -56,6 +58,7 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     connect(ui->buttonBag, &QPushButton::clicked, this, &GameMainWindow::selectBag);
     connect(ui->subBagSelecter, &BagSelecter::itemSelected, this, &GameMainWindow::itemSelected);
     connect(ui->subSkillSelecter, &SkillSelecter::skillSelected, this, &GameMainWindow::skillSelected);
+    std::cerr << "Warning: Connection between Game and GameViewer isn't established\n";
 }
 
 GameMainWindow::~GameMainWindow()
@@ -98,11 +101,14 @@ int GameMainWindow::choosePokemon(bool allowNull) {
 }
 
 void GameMainWindow::startGame() {
+    ui->logWindow->clear();
+
     if (!ui->checkBoxCmdFile->isChecked()) {
         std::cout << "載入寶可夢... " << qPrintable(ui->filePokemon->getFile()) << std::endl;
         std::cout << "載入招式... " << qPrintable(ui->fileMove->getFile()) << std::endl;
         std::cout << "載入玩家... " << qPrintable(ui->fileGame->getFile()) << std::endl;
 
+        // 下面是測試用程式，之後要刪掉
         std::fstream Fin(ui->filePokemon->getFile().toStdString());
         gameManager.currentPlayer->reset();
         while (true) {
@@ -110,6 +116,7 @@ void GameMainWindow::startGame() {
             Fin >> *p;
             if (p->getName() == "") break;
             gameManager.currentPlayer->creatures.push_back(p);
+            gameManager.opponentPlayer->creatures.push_back(new Creature(*p));
         }
         Fin.close();
         Fin.clear();
@@ -122,6 +129,8 @@ void GameMainWindow::startGame() {
         for (auto p : gameManager.currentPlayer->objects) {
             p->setUsageCount(3);
         }
+        gameManager.currentPlayer->currentCreature = gameManager.currentPlayer->creatures[0];
+        gameManager.opponentPlayer->currentCreature = gameManager.opponentPlayer->creatures[0];
         std::cerr << "Warning: Game Data isn't loaded from game manager\n";
     }
     else {
@@ -136,9 +145,13 @@ void GameMainWindow::startGame() {
     ui->optionGroup->show();
 
     // initialize selecters
-    ui->subBagSelecter->init(gameManager.currentPlayer);
-    ui->subPokemonSelecter->init(gameManager.currentPlayer);
-    ui->subSkillSelecter->init(gameManager.currentPlayer->creatures[0]);
+    player = gameManager.currentPlayer;
+    computer = gameManager.opponentPlayer;
+    ui->subBagSelecter->init(player);
+    ui->subPokemonSelecter->init(player);
+    ui->subSkillSelecter->init(player->currentCreature);
+    ui->playerView->init(player);
+    ui->computerView->init(computer);
 }
 
 // 按下optionGroup中的按鈕的slot... ////////////////////////////////////////////////////////////////////////////////////////////////////////

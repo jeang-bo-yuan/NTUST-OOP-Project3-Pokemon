@@ -74,6 +74,8 @@ private:
     Ui::GameMainWindow *ui;
     QImage backgroundImg;
     Game gameManager;
+    Player* player = nullptr;
+    Player* computer = nullptr;
 };
 
 #endif // GAMEMAINWINDOW_H

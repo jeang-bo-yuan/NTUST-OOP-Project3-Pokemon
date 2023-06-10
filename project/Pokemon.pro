@@ -14,6 +14,7 @@ SOURCES += \
     Creature.cpp \
     FileSelecter.cpp \
     Game.cpp \
+    GameViewer.cpp \
     LogWindow.cpp \
     Object.cpp \
     Player.cpp \
@@ -27,6 +28,7 @@ HEADERS += \
     Creature.h \
     FileSelecter.h \
     Game.h \
+    GameViewer.h \
     LogWindow.h \
     Object.h \
     Player.h \

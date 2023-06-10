@@ -61,7 +61,7 @@ class PokemonSelecter : public QWidget {
     QPushButton* buttonBack;
 
 public:
-    PokemonSelecter(QWidget* parent = nullptr);
+    explicit PokemonSelecter(QWidget* parent = nullptr);
 
     // Intend: 依player擁有的pokemon初始化按鈕
     // Pre: player != nullptr
