@@ -19,10 +19,13 @@ class GameViewer : public QWidget
 
     QHBoxLayout* pokeBallBox;
     QLabel* name;
+    QHBoxLayout* condition;
     QProgressBar* hpBar;
     QLabel* pokemonImg;
 
     void setData(Player* player);
+
+    void setCondition(Player* player);
 
 public:
     explicit GameViewer(QWidget *parent = nullptr);
@@ -34,7 +37,7 @@ public slots:
     // 更新hp+異常狀態
     void updateHp(Player* player);
 
-    // 更新pokemon+顯示的name, hp
+    // 更新pokemon img + 顯示的name, hp
     void switchPokemon(Player* player);
 
 signals:

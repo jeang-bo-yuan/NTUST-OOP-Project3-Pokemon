@@ -5,6 +5,8 @@
 
 void GameViewer::setData(Player *player)
 {
+    setCondition(player);
+
     // name and hp
     {
         name->setText(player->currentCreature->getName().c_str());
@@ -18,6 +20,13 @@ void GameViewer::setData(Player *player)
         pokemonImg->setPixmap(img.scaled(pokemonImg->size()));
     }
 }
+
+void GameViewer::setCondition(Player *player)
+{
+   // todo
+}
+
+/////////////////////////////////////////////////////////////////////////
 
 GameViewer::GameViewer(QWidget *parent)
     : QWidget{parent}
@@ -44,8 +53,13 @@ GameViewer::GameViewer(QWidget *parent)
         hpBar = new QProgressBar;
         hpBar->setFormat("%v/%m");
 
+        condition = new QHBoxLayout;
+
         QVBoxLayout* layout = new QVBoxLayout(w);
-        layout->addWidget(name);
+        QHBoxLayout* hL = new QHBoxLayout();
+        hL->addWidget(name);
+        hL->addLayout(condition);
+        layout->addLayout(hL);
         layout->addWidget(hpBar);
 
         mainLayout->addWidget(w);
@@ -85,6 +99,7 @@ void GameViewer::init(Player *player)
 void GameViewer::updateHp(Player *player)
 {
     int newHp = player->currentCreature->getHp();
+    setCondition(player);
     if (hpBar->value() == newHp) return;
 
     // 以動畫顯示hp變化
