@@ -21,7 +21,7 @@ class SkillButton : public QFrame {
     QLabel* skillPP;
 
 public:
-    SkillButton(const Skill& theSkill, int index, QWidget* parent = nullptr);
+    SkillButton(const skill& theSkill, int index, QWidget* parent = nullptr);
 
     int getIndex() const { return index; }
 
@@ -52,7 +52,7 @@ public:
     // Intend: 將面版上的按鈕設成creature的技能
     // Pre: creature != nullptr
     // Post: 建立按鈕
-    void init(Creature creature);
+    void init(Creature* creature);
 
 signals:
     void skillSelected(SkillButton*);

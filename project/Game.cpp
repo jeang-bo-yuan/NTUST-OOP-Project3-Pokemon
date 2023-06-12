@@ -192,20 +192,6 @@ void Game::loadGame(std::string pokemonLibPath,std::string moveLibPath,std::stri
     loadMoveLib(moveLibPath);
     loadGameData(gameDataPath);
 
-<<<<<<< Updated upstream
-=======
-    player1->objects.push_back(potion);
-    player1->objects.push_back(superPotion);
-    player1->objects.push_back(hyperPotion);
-    player1->objects.push_back(maxPotion);
-    player2->objects.push_back(potion);
-    player2->objects.push_back(superPotion);
-    player2->objects.push_back(hyperPotion);
-    player2->objects.push_back(maxPotion);
-
-    currentPlayer = player1;
-    opponentPlayer = player2;
->>>>>>> Stashed changes
 }
 
 void Game::newGame()
@@ -257,7 +243,6 @@ std::string Game::useSkill(int skillIndex, Creature* goal)
 
     stringstream result;
 
-<<<<<<< Updated upstream
     Creature* source = currentPlayer->currentCreature;
 
     source->skills[skillIndex].pp--;
@@ -339,11 +324,6 @@ std::string Game::useSkill(int skillIndex, Creature* goal)
     }
 
     goal->getSkill(currentSkill);
-=======
-    result << "[Turn "<< turn << "] "<< currentPlayer->getCurrentCreature().getName() << " used " << goal->getSkillName(skillIndex) << "!" << endl;
-    currentPlayer->getCurrentCreature().useSkill(skillIndex, goal);
-
->>>>>>> Stashed changes
     return result.str();
 }
 

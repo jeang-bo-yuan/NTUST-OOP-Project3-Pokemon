@@ -3,11 +3,8 @@
 #include <map>
 #include <vector>
 #include <sstream>
-<<<<<<< Updated upstream
 #include "Skill.h"
 #include "Creature.h"
-=======
->>>>>>> Stashed changes
 
 typedef struct skillInfo
 {

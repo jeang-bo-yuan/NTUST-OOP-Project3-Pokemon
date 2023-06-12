@@ -4,19 +4,8 @@ Player::Player()
 {
 }
 
-Creature& Player::getCurrentCreature()
-{
-	return creatures[currentCreatureIndex];
-}
-
-void Player::setCurrentCreature(int index)
-{
-	currentCreatureIndex = index;
-}
-
 void Player::reset()
 {
-<<<<<<< Updated upstream
     for(auto o:objects)
         delete o;
 
@@ -25,7 +14,5 @@ void Player::reset()
 
 	creatures.clear();
     objects.clear();
-=======
->>>>>>> Stashed changes
 }
 
