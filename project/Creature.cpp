@@ -56,8 +56,6 @@ void Creature::getSkill(skill source)
 
 istream& operator>>(istream&  input,Creature& goal)
 {
-    input >> goal.name;
-
     int count;
 
     input>>count;
@@ -117,3 +115,9 @@ void Creature::heal(int volume)
 {
     hp+=volume;
 }
+
+double Creature::getDodgeRate()
+{
+    return dodgeRate;
+}
+

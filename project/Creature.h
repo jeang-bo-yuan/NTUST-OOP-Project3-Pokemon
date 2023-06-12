@@ -16,7 +16,7 @@ typedef struct skill
     int pp;
     int atk;
     std::string condition;
-    float magnification;
+    double magnification;
     friend std::istream& operator>>(std::istream& input,skill& goal);
 }skill;
 
@@ -31,6 +31,7 @@ class Creature
     int spDef;
     int speed;
     int level;
+    double dodgeRate = 0.3;
 public:
     Creature();
     void getSkill(skill source);
@@ -41,6 +42,7 @@ public:
     int getDef();
     int getSpAtk();
     int getSpDef();
+    double getDodgeRate();
     std::string getName();
     void heal(int volume);
     friend std::istream& operator>>(std::istream& input,Creature& goal);
@@ -48,5 +50,6 @@ public:
 public:
     std::vector<std::string> types;
     std::vector<skill>skills;
+    std::vector<std::string> conditions;
 };
 
