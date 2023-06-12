@@ -35,5 +35,17 @@
         <file>media/types/rock.png</file>
         <file>media/types/steel.png</file>
         <file>media/types/water.png</file>
+        <file>media/Pokemon/Beedrill.png</file>
+        <file>media/Pokemon/Butterfree.png</file>
+        <file>media/Pokemon/Pikachu.png</file>
+        <file>media/Pokemon-pix/Beedrill.png</file>
+        <file>media/Pokemon-pix/Butterfree.png</file>
+        <file>media/Pokemon-pix/Pikachu.png</file>
+        <file>media/Pokemon/Sandslash.png</file>
+        <file>media/Pokemon-pix/Sandslash.png</file>
+        <file>media/Pokemon/Wigglytuff.png</file>
+        <file>media/Pokemon-pix/Wigglytuff.png</file>
+        <file>media/Pokemon-pix/Primeape.png</file>
+        <file>media/Pokemon/Primeape.png</file>
     </qresource>
 </RCC>

@@ -21,7 +21,7 @@ PokemonButton::PokemonButton(Creature* pokemon, int index, QWidget *parent)
         QLabel* img = new QLabel;
         img->setMinimumWidth(56);
         QPixmap imgPixmap(QString(":/media/Pokemon-pix/") + pokemon->getName().c_str());
-        img->setPixmap(imgPixmap.scaled(56, 42));
+        img->setPixmap(imgPixmap.scaled(56, 42, Qt::KeepAspectRatio, Qt::SmoothTransformation));
         gLayout->addWidget(img);
     }
 

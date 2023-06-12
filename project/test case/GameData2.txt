@@ -1,0 +1,20 @@
+6
+Primeape 4
+Ember Flamethrower DragonBreath AirSlash
+Wigglytuff 4
+Ember Flamethrower DragonBreath AirSlash
+Sandslash 4
+PoisonPowder VineWhip SeedBomb SolarBeam
+Pikachu 4
+Ember Flamethrower DragonBreath AirSlash
+Beedrill 4
+FlashCannon WaterGun WaterPulse AquaTail
+Butterfree 4
+FlashCannon WaterGun WaterPulse AquaTail
+3
+Beedrill 4
+FlashCannon WaterGun WaterPulse AquaTail
+Charizard 4
+DragonClaw Flamethrower DragonBreath AirSlash
+Venusaur 4
+PoisonPowder VineWhip SeedBomb SolarBeam

@@ -17,7 +17,7 @@ void GameViewer::setData(Player *player)
     // image
     {
         QPixmap img (QString(":/media/Pokemon/") + player->currentCreature->getName().c_str());
-        pokemonImg->setPixmap(img.scaled(pokemonImg->size()));
+        pokemonImg->setPixmap(img.scaled(pokemonImg->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
 }
 
