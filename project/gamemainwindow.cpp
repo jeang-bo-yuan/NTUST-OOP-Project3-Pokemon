@@ -104,34 +104,15 @@ void GameMainWindow::startGame() {
     ui->logWindow->clear();
 
     if (!ui->checkBoxCmdFile->isChecked()) {
-        std::cout << "載入寶可夢... " << qPrintable(ui->filePokemon->getFile()) << std::endl;
-        std::cout << "載入招式... " << qPrintable(ui->fileMove->getFile()) << std::endl;
-        std::cout << "載入玩家... " << qPrintable(ui->fileGame->getFile()) << std::endl;
+        std::string pokemonLib = ui->filePokemon->getFile().toStdString();
+        std::string moveLib = ui->fileMove->getFile().toStdString();
+        std::string gameData = ui->fileGame->getFile().toStdString();
 
-        // 下面是測試用程式，之後要刪掉
-        std::fstream Fin(ui->filePokemon->getFile().toStdString());
-        gameManager.currentPlayer->reset();
-        while (true) {
-            Creature* p = new Creature;
-            Fin >> *p;
-            if (p->getName() == "") break;
-            gameManager.currentPlayer->creatures.push_back(p);
-            gameManager.opponentPlayer->creatures.push_back(new Creature(*p));
-        }
-        Fin.close();
-        Fin.clear();
-        Fin.open(ui->fileMove->getFile().toStdString());
-        for (int i = 0; i < 6; ++i) {
-            skill theSkill;
-            Fin >> theSkill;
-            gameManager.currentPlayer->creatures[0]->skills.emplace_back(std::move(theSkill));
-        }
-        for (auto p : gameManager.currentPlayer->objects) {
-            p->setUsageCount(3);
-        }
-        gameManager.currentPlayer->currentCreature = gameManager.currentPlayer->creatures[0];
-        gameManager.opponentPlayer->currentCreature = gameManager.opponentPlayer->creatures[0];
-        std::cerr << "Warning: Game Data isn't loaded from game manager\n";
+        std::cout << "載入寶可夢... " << pokemonLib << std::endl;
+        std::cout << "載入招式... " << moveLib << std::endl;
+        std::cout << "載入玩家... " << gameData << std::endl;
+
+        gameManager.loadGame(pokemonLib, moveLib, gameData);
     }
     else {
         std::cout << "載入command file... " << qPrintable(ui->fileCmdFile->getFile()) << std::endl;

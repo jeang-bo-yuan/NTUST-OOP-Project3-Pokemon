@@ -9,24 +9,6 @@
         <file>media/Pokemon/Blastoise.png</file>
         <file>media/Pokemon/Charizard.png</file>
         <file>media/Pokemon/Venusaur.png</file>
-        <file>media/types/Bug.png</file>
-        <file>media/types/Dark.png</file>
-        <file>media/types/Dragon.png</file>
-        <file>media/types/Electric.png</file>
-        <file>media/types/Fairy.png</file>
-        <file>media/types/Fight.png</file>
-        <file>media/types/Fire.png</file>
-        <file>media/types/Flying.png</file>
-        <file>media/types/Ghost.png</file>
-        <file>media/types/Grass.png</file>
-        <file>media/types/Ground.png</file>
-        <file>media/types/Ice.png</file>
-        <file>media/types/Normal.png</file>
-        <file>media/types/Poison.png</file>
-        <file>media/types/Psychic.png</file>
-        <file>media/types/Rock.png</file>
-        <file>media/types/Steel.png</file>
-        <file>media/types/Water.png</file>
         <file>media/Pokemon-pix/Blastoise.png</file>
         <file>media/Pokemon-pix/Charizard.png</file>
         <file>media/Pokemon-pix/Venusaur.png</file>
@@ -35,5 +17,23 @@
         <file>media/move-type/special.png</file>
         <file>media/move-type/status.png</file>
         <file>media/pokemon_ball.png</file>
+        <file>media/types/bug.png</file>
+        <file>media/types/dark.png</file>
+        <file>media/types/dragon.png</file>
+        <file>media/types/electric.png</file>
+        <file>media/types/fairy.png</file>
+        <file>media/types/fight.png</file>
+        <file>media/types/fire.png</file>
+        <file>media/types/flying.png</file>
+        <file>media/types/ghost.png</file>
+        <file>media/types/grass.png</file>
+        <file>media/types/ground.png</file>
+        <file>media/types/ice.png</file>
+        <file>media/types/normal.png</file>
+        <file>media/types/poison.png</file>
+        <file>media/types/psychic.png</file>
+        <file>media/types/rock.png</file>
+        <file>media/types/steel.png</file>
+        <file>media/types/water.png</file>
     </qresource>
 </RCC>
