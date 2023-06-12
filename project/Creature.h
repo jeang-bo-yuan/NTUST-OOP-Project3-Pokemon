@@ -1,13 +1,32 @@
+/*****************************************************************//**
+ * File: Creature.h
+ * Author: TENG-FENG YOU (vic.feng1234@gmail.com)
+ * Create Date: 2023-06-12
+ * Editor: TENG-FENG YOU (vic.feng1234@gmail.com)
+ * Update Date: 2023-06-12
+ * Description: the 寶可夢
+ *********************************************************************/
 #pragma once
 
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Skill.h"
+#include "Common.h"
+#include "SkillLibary.h"
+
+using namespace std;
+
+double getTypeRate(TYPE attack, TYPE defend);
+
 
 class Creature
 {
-    std::string name;
+private:
+    string name;
+
+    vector<TYPE> types;
+    vector<Skill>skills;
+
     int hp;
     int maxHp;
     int atk;
@@ -15,27 +34,41 @@ class Creature
     int spAtk;
     int spDef;
     int speed;
-    int level;
+    const int level = 50;
     double dodgeRate = 0.3;
 public:
+    friend class CreatureLibray;
     Creature();
-    void getSkill(Skill source);
-    int getHp();
-    int getMaxHp();
-    int getSpeed();
-    int getAtk();
-    int getDef();
-    int getSpAtk();
-    int getSpDef();
+
+    Creature(const Creature & creature);
+
+    void useSkill(int index, Creature* target);
+
     double getDodgeRate();
-    std::string getName();
+
+    void beRealDamange(int value);
+
+    const std::string getName();
+
+    bool isSameType(TYPE type);
+
+    friend istream& operator>>(istream& is, Creature& creature);
+
+    Creature& operator=(const Creature& creature);
+
+    // Accessor
+    int getHp() const;
+    int getMaxHp() const;
+    int getSpeed() const;
+    int getDef() const;
+    int getSpAtk() const;
+    int getSpDef() const;
+    double getDodgeRate() const;
     void heal(int volume);
-
-    friend std::istream& operator>>(std::istream& input,Creature& goal);
-
-public:
-    std::vector<std::string> types;
-    std::vector<Skill>skills;
-    std::vector<std::string> conditions;
+    int getSkillSize() const;
+    string getSkillName(int index) const;
+    Skill getSkill(int index) const;
+    int getTypeSize() const;
+    const string getTypeName(int index) const;
+    void addSkill(Skill skill);
 };
-

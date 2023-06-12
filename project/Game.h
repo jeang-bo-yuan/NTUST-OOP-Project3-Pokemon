@@ -3,8 +3,9 @@
 #include <map>
 #include <vector>
 #include <sstream>
-#include "Skill.h"
 #include "Creature.h"
+#include "SkillLibary.h"
+#include "CreatureLibary.h"
 
 typedef struct skillInfo
 {
@@ -18,6 +19,10 @@ class Game
 {
     Player player1;
     Player player2;
+
+    SkillLibray skillLib;
+    CreatureLibray creatureLib;
+
     int turn;
     bool isTesting = false;
     std::stringstream log;
@@ -28,10 +33,6 @@ public:
     void newGame();
 
     std::string nextRound();
-
-    void loadPokemonLib(std::string path);
-    void loadMoveLib(std::string path);
-    void loadGameData(std::string path);
 
     void loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath);
 

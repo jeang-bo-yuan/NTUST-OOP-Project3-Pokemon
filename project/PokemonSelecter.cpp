@@ -27,9 +27,9 @@ PokemonButton::PokemonButton(Creature* pokemon, int index, QWidget *parent)
 
     // types
     QHBoxLayout* typeBox = new QHBoxLayout;
-    for (int i = 0; i < pokemon->types.size(); ++i) {
+    for (int i = 0; i < pokemon->getTypeSize(); ++i) {
         QLabel* typeImg = new QLabel;
-        QPixmap imgPixmap(QString(":/media/types/") + pokemon->types[i].c_str());
+        QPixmap imgPixmap(QString(":/media/types/") + pokemon->getTypeName(i).c_str());
         typeImg->setPixmap(imgPixmap.scaled(35, 35));
         typeBox->addWidget(typeImg);
     }

@@ -111,7 +111,6 @@ void GameMainWindow::startGame() {
         std::cout << "載入寶可夢... " << pokemonLib << std::endl;
         std::cout << "載入招式... " << moveLib << std::endl;
         std::cout << "載入玩家... " << gameData << std::endl;
-
         gameManager.loadGame(pokemonLib, moveLib, gameData);
     }
     else {
@@ -119,6 +118,8 @@ void GameMainWindow::startGame() {
         std::cerr << "Loading command file isn't implemented yet\n";
         return;
     }
+
+
 
     // 切換stack
     ui->mainStack->setCurrentIndex(1);

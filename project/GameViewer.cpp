@@ -5,6 +5,7 @@
 
 void GameViewer::setData(Player *player)
 {
+
     setCondition(player);
 
     // name and hp

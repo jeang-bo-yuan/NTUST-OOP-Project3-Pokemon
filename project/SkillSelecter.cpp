@@ -7,8 +7,8 @@
 
 // SkillButton
 
-SkillButton::SkillButton(const skill& theSkill, int index, QWidget* parent)
-    : QFrame(parent), index(index), pp(theSkill.pp), skillPP(new QLabel(QString::number(theSkill.pp)))
+SkillButton::SkillButton(const Skill& theSkill, int index, QWidget* parent)
+    : QFrame(parent), index(index), pp(theSkill.PP), skillPP(new QLabel(QString::number(theSkill.PP)))
 {
     QHBoxLayout* mainLayout = new QHBoxLayout(this);
     mainLayout->setAlignment(Qt::AlignCenter);
@@ -16,7 +16,7 @@ SkillButton::SkillButton(const skill& theSkill, int index, QWidget* parent)
     // type icon
     {
         QLabel* type = new QLabel;
-        QPixmap img(QString(":/media/types/") + theSkill.type.c_str());
+        QPixmap img(QString(":/media/types/") + typeToStr(theSkill.type).c_str());
         type->setPixmap(img.scaled(50, 50));
         mainLayout->addWidget(type);
     }
@@ -24,7 +24,7 @@ SkillButton::SkillButton(const skill& theSkill, int index, QWidget* parent)
     // physical or special
     {
         QLabel* move_type = new QLabel;
-        QPixmap img(QString(":/media/move-type/") + (theSkill.isPhysical ? "physical" : "special"));
+        QPixmap img(QString(":/media/move-type/") + (theSkill.skillType == SKILL_TYPE::PHYSICAL ? "physical" : "special"));
         move_type->setPixmap(img.scaled(50, 50));
         mainLayout->addWidget(move_type);
     }
@@ -76,8 +76,8 @@ void SkillSelecter::init(Creature* creature) {
 
     // create buttons
     {
-        for (int i = 0; i < creature->skills.size(); ++i) {
-            SkillButton* button = new SkillButton(creature->skills[i], i);
+        for (int i = 0; i < creature->getSkillSize(); ++i) {
+            SkillButton* button = new SkillButton(creature->getSkill(i), i);
             connect(button, &SkillButton::skillSelected, this, &SkillSelecter::skillSelected);
             skillSlots->addWidget(button, i / 2, i % 2);
         }
