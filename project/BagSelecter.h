@@ -23,7 +23,7 @@ class ItemButton : public QFrame {
     QLabel* itemCount;
 
 public:
-    ItemButton(Object* object, int index, QWidget* parent = nullptr);
+    ItemButton(const Object& object, int index, QWidget* parent = nullptr);
 
     void useOne();
 

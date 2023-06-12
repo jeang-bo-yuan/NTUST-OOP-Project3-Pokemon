@@ -17,12 +17,12 @@
 class PokemonButton : public QFrame {
     Q_OBJECT
 
-    Creature* pokemonPtr;
+    const Creature& pokemon;
     int index;
     QLabel* pokemonHp;
 
 public:
-    PokemonButton(Creature* pokemon, int index, QWidget* parent = nullptr);
+    PokemonButton(const Creature& pokemon, int index, QWidget* parent = nullptr);
 
     int getIndex() const { return index; }
 

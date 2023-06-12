@@ -11,16 +11,16 @@
 // ItemButton 的實作
 
 // ctor
-ItemButton::ItemButton(Object* object, int index, QWidget* parent)
+ItemButton::ItemButton(const Object& object, int index, QWidget* parent)
     : QFrame(parent)
-    , index(index), count(object->getUsageCount()), itemCount(new QLabel(QString::number(count)))
+    , index(index), count(object.getUsageCount()), itemCount(new QLabel(QString::number(count)))
 {
     QHBoxLayout* hLayout = new QHBoxLayout(this);
-    QLabel* itemName = new QLabel(object->getName().c_str());
+    QLabel* itemName = new QLabel(object.getName().c_str());
     itemName->setMinimumWidth(100);
     itemName->setAlignment(Qt::AlignCenter);
     QLabel* img = new QLabel;
-    img->setPixmap(QPixmap(QString(":/media/bag/") + object->getName().c_str()));
+    img->setPixmap(QPixmap(QString(":/media/bag/") + object.getName().c_str()));
 
     hLayout->addWidget(img);
     hLayout->addWidget(itemName);
@@ -71,8 +71,8 @@ void BagSelecter::init(const Player *player)
     }
 
     // add ItemButton
-    for (int i = 0; i < player->objects.size(); ++i) {
-        ItemButton* button = new ItemButton(player->objects[i], i);
+    for (int i = 0; i < player->objectsSize(); ++i) {
+        ItemButton* button = new ItemButton(player->getObject(i), i);
 
         bagSlots->addWidget(button, i / 3, i % 3);
         connect(button, &ItemButton::itemSelected, this, &BagSelecter::itemSelected);

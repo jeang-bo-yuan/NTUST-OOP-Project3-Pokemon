@@ -22,56 +22,16 @@ void Game::loadGame(std::string pokemonLibPath,std::string moveLibPath,std::stri
     
     // ifstream gameData(gameDataPath);
     ifstream gameData("D:/GitHub/Pokemon/project/test case/GameData.txt");
-    int playerCreatureNum;
 
-    gameData >> playerCreatureNum;
-    for (int i = 0; i < playerCreatureNum; i++)
-    {
-		string creatureName;
-		gameData >> creatureName;
-		player1.creatures.push_back(new Creature(creatureLib.getCreature(creatureName)));
-
-        int skillNum;
-        gameData >> skillNum;
-
-        for (int j = 0; j < skillNum; j++)
-        {
-			string skillName;
-			gameData >> skillName;
-			player1.creatures[i]->addSkill(skillLib.getSkill(skillName));
-		}
-	}
-
-    int oppentNum;
-    gameData >> oppentNum;
-    for (int i = 0; i < oppentNum; i++)
-    {
-        string creatureName;
-        gameData >> creatureName;
-        player2.creatures.push_back(new Creature(creatureLib.getCreature(creatureName)));
-
-        int skillNum;
-        gameData >> skillNum;
-
-        for (int j = 0; j < skillNum; j++)
-        {
-			string skillName;
-			gameData >> skillName;
-			player2.creatures[i]->addSkill(skillLib.getSkill(skillName));
-		}
-
-    }
-    
-
+    gameData >> player[0] >> player[1];
 }
 
 void Game::newGame()
 {
     isTesting = false;
-    player1 = Player();
-    player2 = Player();
-    currentPlayer = &player1;
-    opponentPlayer = &player2;
+    player[0] = Player();
+    player[1] = Player();
+    currentPlayerIndex = 0;
     pokemonLib.clear();
     moveLib.clear();
     turn = 1;
@@ -82,14 +42,13 @@ void Game::newGame()
     Object hyperPotion("Hyper Potion", 120);
     Object maxPotion("Max Potion", -1);
 
-    player1.objects.push_back(new Object(potion));
-    player1.objects.push_back(new Object(superPotion));
-    player1.objects.push_back(new Object(hyperPotion));
-    player1.objects.push_back(new Object(maxPotion));
-    player2.objects.push_back(new Object(potion));
-    player2.objects.push_back(new Object(superPotion));
-    player2.objects.push_back(new Object(hyperPotion));
-    player2.objects.push_back(new Object(maxPotion));
+   for (int i = 0; i < 2; i++) {
+        player[i].addObject(Object(potion));
+        player[i].addObject(Object(superPotion));
+        player[i].addObject(Object(hyperPotion));
+        player[i].addObject(Object(maxPotion));
+   }
+
 }
 
 std::string Game::nextRound()
@@ -114,12 +73,36 @@ std::string Game::useSkill(int skillIndex, Creature* goal)
 
     stringstream result;
 
-    Creature* source = currentPlayer->currentCreature;
-    auto currentSkill = source->getSkill(skillIndex);
+    auto currentSkill = player[currentPlayerIndex].getCurrentCreature().getSkill(skillIndex);
 
-    result<<"[Turn "<<turn<<"] "<<source->getName()<<" used "<<currentSkill.name<<"!\n";
+    result<<"[Turn "<<turn<<"] "<< player[currentPlayerIndex].getCurrentCreature().getName() << " used " << currentSkill.name << "!\n";
 
-    source->useSkill(skillIndex, goal);
+    player[currentPlayerIndex].getCurrentCreature().useSkill(skillIndex, goal);
     return result.str();
+}
+
+void Game::swapTurn()
+{
+    if (currentPlayerIndex) {
+        currentPlayerIndex = 0;
+    }
+    else {
+        currentPlayerIndex = 1;
+    }
+}
+
+Player* Game::getCurrentPlayer()
+{
+    return &player[currentPlayerIndex];
+}
+
+Player* Game::getNotCurrentPlayer()
+{
+    if (currentPlayerIndex) {
+        return &player[0];
+    }
+    else {
+        return &player[1];
+    }
 }
 

@@ -5,17 +5,31 @@
 
 class Player
 {
-	
+private:
+	std::vector<Object> objects;
+	std::vector<Creature> creatures;
+	int currentCreatureIndex;
 public:
 	Player();
 	
-    std::vector<Object*> objects;
+	void loadFromFile(istream& in);
 
-    std::vector<Creature*> creatures;
+	const Creature& getCurrentCreature() const;
+	Creature& getCurrentCreature();
+	const Creature& getCreature(int index) const;
+	Creature& getCreature(int index);
+	const Object& getObject(int index) const;
+	void switchCurrentCreature(int index);
+	void addCreature(Creature creature);
+	void addObject(Object object);
 
-    Creature* currentCreature;
+
+	int objectsSize() const;
+	int creaturesSize() const;
 
 	void reset();
+
+	friend istream& operator>>(istream& is, Player& player);
 
 };
 

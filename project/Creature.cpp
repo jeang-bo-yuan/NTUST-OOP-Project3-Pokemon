@@ -237,7 +237,7 @@ void Creature::addSkill(Skill skill)
 	skills.push_back(skill);
 }
 
-const string Creature::getName()
+const string& Creature::getName() const
 {
 	return name;
 }

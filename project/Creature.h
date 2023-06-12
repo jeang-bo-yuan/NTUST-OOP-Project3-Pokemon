@@ -48,7 +48,7 @@ public:
 
     void beRealDamange(int value);
 
-    const std::string getName();
+    const std::string& getName() const;
 
     bool isSameType(TYPE type);
 

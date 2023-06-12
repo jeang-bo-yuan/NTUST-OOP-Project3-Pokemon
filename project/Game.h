@@ -17,8 +17,9 @@ typedef struct skillInfo
 
 class Game
 {
-    Player player1;
-    Player player2;
+private:
+    Player player[2];
+    int currentPlayerIndex;
 
     SkillLibray skillLib;
     CreatureLibray creatureLib;
@@ -42,11 +43,11 @@ public:
 
     std::string useSkill(int skillIndex, class Creature* goal);
 
-    int getTurn();
+    void swapTurn();
 
+    Player* getCurrentPlayer();
+    Player* getNotCurrentPlayer();
 public:
-    Player* currentPlayer;
-    Player* opponentPlayer;
     std::vector<Skill> moveLib;
     std::vector<Creature> pokemonLib;
 };

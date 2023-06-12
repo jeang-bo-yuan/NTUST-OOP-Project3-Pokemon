@@ -127,11 +127,11 @@ void GameMainWindow::startGame() {
     ui->optionGroup->show();
 
     // initialize selecters
-    player = gameManager.currentPlayer;
-    computer = gameManager.opponentPlayer;
+    player = gameManager.getCurrentPlayer();
+    computer = gameManager.getNotCurrentPlayer();
     ui->subBagSelecter->init(player);
     ui->subPokemonSelecter->init(player);
-    ui->subSkillSelecter->init(player->currentCreature);
+    ui->subSkillSelecter->init(&player->getCurrentCreature());
     ui->playerView->init(player);
     ui->computerView->init(computer);
 }
