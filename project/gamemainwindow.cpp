@@ -102,17 +102,80 @@ int GameMainWindow::choosePokemon(bool allowNull) {
 
 void GameMainWindow::startGame() {
     ui->logWindow->clear();
+    player = gameManager.currentPlayer;
+    computer = gameManager.opponentPlayer;
 
     if (!ui->checkBoxCmdFile->isChecked()) {
         std::string pokemonLib = ui->filePokemon->getFile().toStdString();
         std::string moveLib = ui->fileMove->getFile().toStdString();
         std::string gameData = ui->fileGame->getFile().toStdString();
 
+<<<<<<< Updated upstream
         std::cout << "載入寶可夢... " << pokemonLib << std::endl;
         std::cout << "載入招式... " << moveLib << std::endl;
         std::cout << "載入玩家... " << gameData << std::endl;
 
         gameManager.loadGame(pokemonLib, moveLib, gameData);
+=======
+        // 下面是測試用程式，之後要刪掉
+        
+       
+        // skillLibray.loadFromFile(ui->fileMove->getFile().toStdString());
+        skillLibray.loadFromFile("D:/GitHub/Pokemon/project/test case/MoveLib.txt");
+        cout << "Skill Library loaded\n";
+
+        // std::fstream Fin(ui->filePokemon->getFile().toStdString());
+        creatureLibray.loadFromFile("D:/GitHub/Pokemon/project/test case/PokemonLib.txt");
+        cout << "Pokemon Library loaded\n";
+       
+
+        // gameManager.loadFromFile(ui->fileGame->getFile().toStdString());
+        ifstream Fin("D:/GitHub/Pokemon/project/test case/GameData.txt");
+
+        int playerNum;
+        Fin >> playerNum;
+
+        for (int i = 0; i < playerNum; i++) {
+            string creatureName;
+            int skillNum;
+
+            Fin >> creatureName >> skillNum;
+
+            player->creatures.push_back(creatureLibray.getCreature(creatureName));
+            for (int j = 0; j < skillNum; j++) {
+				string skillName;
+				Fin >> skillName;
+                player->creatures[i].addSkill(skillLibray.getSkill(skillName));
+			}
+
+        }
+
+        Fin >> playerNum;
+
+        for (int i = 0; i < playerNum; i++) {
+			string creatureName;
+			int skillNum;
+			Fin >> creatureName >> skillNum;
+			computer->creatures.push_back(creatureLibray.getCreature(creatureName));
+			for (int j = 0; j < skillNum; j++) {
+                string skillName;
+                Fin >> skillName;
+                computer->creatures[i].addSkill(skillLibray.getSkill(skillName));
+            }
+        }
+
+        Fin.close();
+
+        cout << "Pokemon Library loaded\n";
+
+
+        for (auto p : gameManager.currentPlayer->objects) {
+            p->setUsageCount(3);
+        }
+        gameManager.currentPlayer->setCurrentCreature(0);
+        gameManager.opponentPlayer->setCurrentCreature(0);
+        std::cerr << "Warning: Game Data isn't loaded from game manager\n";
+>>>>>>> Stashed changes
     }
     else {
         std::cout << "載入command file... " << qPrintable(ui->fileCmdFile->getFile()) << std::endl;
@@ -126,11 +189,10 @@ void GameMainWindow::startGame() {
     ui->optionGroup->show();
 
     // initialize selecters
-    player = gameManager.currentPlayer;
-    computer = gameManager.opponentPlayer;
+
     ui->subBagSelecter->init(player);
     ui->subPokemonSelecter->init(player);
-    ui->subSkillSelecter->init(player->currentCreature);
+    ui->subSkillSelecter->init(player->getCurrentCreature());
     ui->playerView->init(player);
     ui->computerView->init(computer);
 }

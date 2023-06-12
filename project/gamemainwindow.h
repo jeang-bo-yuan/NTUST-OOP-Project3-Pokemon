@@ -10,6 +10,8 @@
 #include "BagSelecter.h"
 #include "PokemonSelecter.h"
 #include "SkillSelecter.h"
+#include "CreatureLibray.h"
+
 #include "Game.h"
 
 #define gameWindow GameMainWindow::singleton()
@@ -76,6 +78,8 @@ private:
     Game gameManager;
     Player* player = nullptr;
     Player* computer = nullptr;
+    SkillLibray skillLibray;
+    CreatureLibray creatureLibray;
 };
 
 #endif // GAMEMAINWINDOW_H

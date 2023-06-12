@@ -9,15 +9,20 @@ void GameViewer::setData(Player *player)
 
     // name and hp
     {
-        name->setText(player->currentCreature->getName().c_str());
-        hpBar->setRange(0, player->currentCreature->getMaxHp());
-        hpBar->setValue(player->currentCreature->getHp());
+        name->setText(player->getCurrentCreature().getName().c_str());
+        hpBar->setRange(0, player->getCurrentCreature().getMaxHp());
+        hpBar->setValue(player->getCurrentCreature().getHp());
     }
 
     // image
     {
+<<<<<<< Updated upstream
         QPixmap img (QString(":/media/Pokemon/") + player->currentCreature->getName().c_str());
         pokemonImg->setPixmap(img.scaled(pokemonImg->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+=======
+        QPixmap img (QString(":/media/Pokemon/") + player->getCurrentCreature().getName().c_str());
+        pokemonImg->setPixmap(img.scaled(pokemonImg->size()));
+>>>>>>> Stashed changes
     }
 }
 
@@ -98,7 +103,7 @@ void GameViewer::init(Player *player)
 
 void GameViewer::updateHp(Player *player)
 {
-    int newHp = player->currentCreature->getHp();
+    int newHp = player->getCurrentCreature().getHp();
     setCondition(player);
     if (hpBar->value() == newHp) return;
 
@@ -120,7 +125,7 @@ void GameViewer::switchPokemon(Player *player)
     setData(player);
 
     for (int i = 0; i < player->creatures.size(); ++i) {
-        if (player->creatures[i]->getHp() == 0) {
+        if (player->creatures[i].getHp() == 0) {
             pokeBallBox->itemAt(i)->widget()->setDisabled(true);
         }
     }
