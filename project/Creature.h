@@ -3,22 +3,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
-
-typedef struct skill
-{
-    std::string name;
-    std::string type;
-    int level = 50;
-    bool isPhysical;
-    int power;
-    int accuracy;
-    int pp;
-    int atk;
-    std::string condition;
-    double magnification;
-    friend std::istream& operator>>(std::istream& input,skill& goal);
-}skill;
+#include "Skill.h"
 
 class Creature
 {
@@ -34,7 +19,7 @@ class Creature
     double dodgeRate = 0.3;
 public:
     Creature();
-    void getSkill(skill source);
+    void getSkill(Skill source);
     int getHp();
     int getMaxHp();
     int getSpeed();
@@ -45,11 +30,12 @@ public:
     double getDodgeRate();
     std::string getName();
     void heal(int volume);
+
     friend std::istream& operator>>(std::istream& input,Creature& goal);
 
 public:
     std::vector<std::string> types;
-    std::vector<skill>skills;
+    std::vector<Skill>skills;
     std::vector<std::string> conditions;
 };
 

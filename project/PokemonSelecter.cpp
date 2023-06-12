@@ -9,7 +9,7 @@
 
 // PokemonButton
 
-PokemonButton::PokemonButton(Creature *pokemon, int index, QWidget *parent)
+PokemonButton::PokemonButton(Creature* pokemon, int index, QWidget *parent)
     : QFrame(parent), pokemonPtr(pokemon), index(index), pokemonHp(nullptr)
 {
     QHBoxLayout* gLayout = new QHBoxLayout(this);

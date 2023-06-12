@@ -3,41 +3,12 @@
 
 using namespace std;
 
-istream& operator>>(istream& input,skill& goal)
-{
-    std::string type;
-
-    input>>goal.name>>type;
-
-    for(auto& c:type)
-    {
-        if(c>='A' && c<='Z')
-            c+=0x20;
-    }
-
-    goal.type = type;
-
-    input>>type;
-
-    if(type == "Physical")
-        goal.isPhysical = true;
-    else
-        goal.isPhysical = false;
-
-    input>>goal.power>>goal.accuracy>>goal.pp;
-
-    if(input.peek() == ' ')
-        input>>goal.condition;
-
-    return input;
-}
-
 Creature::Creature()
 {
 
 }
 
-void Creature::getSkill(skill source)
+void Creature::getSkill(Skill source)
 {
     double damage = (2*source.level+10)/250*source.power;
 
@@ -56,6 +27,9 @@ void Creature::getSkill(skill source)
 
 istream& operator>>(istream&  input,Creature& goal)
 {
+
+    input>>goal.name;
+
     int count;
 
     input>>count;
@@ -65,6 +39,9 @@ istream& operator>>(istream&  input,Creature& goal)
         string typeName;
 
         input>>typeName;
+
+        sToLower(typeName);
+
         goal.types.push_back(typeName);
     }
 
@@ -113,7 +90,7 @@ string Creature::getName()
 
 void Creature::heal(int volume)
 {
-    hp+=volume;
+   hp = min(hp+volume,maxHp);
 }
 
 double Creature::getDodgeRate()

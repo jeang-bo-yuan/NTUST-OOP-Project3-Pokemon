@@ -19,6 +19,7 @@ SOURCES += \
     Object.cpp \
     Player.cpp \
     PokemonSelecter.cpp \
+    Skill.cpp \
     SkillSelecter.cpp \
     main.cpp \
     gamemainwindow.cpp
@@ -33,6 +34,7 @@ HEADERS += \
     Object.h \
     Player.h \
     PokemonSelecter.h \
+    Skill.h \
     SkillSelecter.h \
     gamemainwindow.h
 

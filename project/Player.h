@@ -9,12 +9,13 @@ class Player
 public:
 	Player();
 	
-	std::vector<Object*> objects;
+    std::vector<Object*> objects;
 
-	std::vector<class Creature*> creatures;
+    std::vector<Creature*> creatures;
 
-	class Creature* currentCreature;
+    Creature* currentCreature;
 
 	void reset();
 
 };
+

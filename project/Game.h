@@ -3,56 +3,8 @@
 #include <map>
 #include <vector>
 #include <sstream>
-
-std::map<std::string,int> conditionId =
-    {
-        {"PAR",0},
-        {"BRN",1},
-        {"PSN",2}
-};
-
-std::map<std::string, int> effectIndex =
-    {
-        {"normal",0},
-        {"fire",1},
-        {"water",2},
-        {"electric",3},
-        {"grass",4},
-        {"ice",5},
-        {"fighting",6},
-        {"poison",7},
-        {"ground",8},
-        {"flying",9},
-        {"psychic",10},
-        {"bug",11},
-        {"rock",12},
-        {"ghost",13},
-        {"dragon",14},
-        {"dark",15},
-        {"steel",16},
-        {"fairy",17}
-};
-
-std::vector<std::vector<float>> effectTable =
-    {
-        {1,1,1,1,1,1,1,1,1,1,1,1,0.5,0,1,1,0.5,1},
-        {1,0.5,0.5,1,2,2,1,1,1,1,1,2,0.5,1,0.5,1,2,1},
-        {1,2,0.5,1,0.5,1,1,1,2,1,1,1,2,1,0.5,1,1,1},
-        {1,1,2,0.5,0.5,1,1,1,0,2,1,1,1,1,0.5,1,1,1},
-        {1,0.5,2,1,0.5,1,1,0.5,2,0.5,1,0.5,2,1,0.5,1,0.5,1},
-        {1,0.5,0.5,1,2,0.5,1,1,2,2,1,1,1,1,2,1,0.5,1},
-        {2,1,1,1,1,2,1,0.5,1,0.5,0.5,0.5,2,0,1,2,2,0.5},
-        {1,1,1,1,2,1,1,0.5,0.5,1,1,1,0.5,0.5,1,1,0,2},
-        {1,2,1,2,0.5,1,1,2,1,0,1,0.5,2,1,1,1,2,1},
-        {1,1,1,0.5,2,1,2,1,1,1,1,2,0.5,1,1,1,0.5,1},
-        {1,1,1,1,1,1,2,2,1,1,0.5,1,1,1,1,0,0.5,1},
-        {1,0.5,1,1,2,1,0.5,0.5,1,0.5,2,1,1,0.5,1,2,0.5,0.5},
-        {1,2,1,1,1,2,0.5,1,0.5,2,1,2,1,1,1,1,0.5,1},
-        {0,1,1,1,1,1,1,1,1,1,2,1,1,2,1,0.5,1,1},
-        {1,1,1,1,1,1,2,1,1,1,1,1,1,1,2,0.5,1,0},
-        {1,1,1,1,1,1,0.5,1,1,1,2,1,1,2,1,0.5,0.5,0.5},
-        {1,0.5,0.5,0.5,1,2,1,1,1,1,1,1,2,1,1,1,0.5,2}
-};
+#include "Skill.h"
+#include "Creature.h"
 
 typedef struct skillInfo
 {
@@ -64,8 +16,8 @@ typedef struct skillInfo
 
 class Game
 {
-    Player* player1;
-    Player* player2;
+    Player player1;
+    Player player2;
     int turn;
     bool isTesting = false;
     std::stringstream log;
@@ -77,7 +29,11 @@ public:
 
     std::string nextRound();
 
-    void loadGame();
+    void loadPokemonLib(std::string path);
+    void loadMoveLib(std::string path);
+    void loadGameData(std::string path);
+
+    void loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath);
 
     void setTesting();
 
@@ -90,4 +46,6 @@ public:
 public:
     Player* currentPlayer;
     Player* opponentPlayer;
+    std::vector<Skill> moveLib;
+    std::vector<Creature> pokemonLib;
 };
