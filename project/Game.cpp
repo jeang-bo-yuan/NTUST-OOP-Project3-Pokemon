@@ -155,9 +155,13 @@ void Game::newGame()
 
    for (int i = 0; i < 2; i++) {
         player[i].addObject(Object(potion));
+        player[i].getObject(0).setObjectDescription("回愎20點生命");
         player[i].addObject(Object(superPotion));
+        player[i].getObject(1).setObjectDescription("回愎60點生命");
         player[i].addObject(Object(hyperPotion));
+        player[i].getObject(2).setObjectDescription("回愎120點生命");
         player[i].addObject(Object(maxPotion));
+        player[i].getObject(3).setObjectDescription("回愎全部生命");
    }
 
 }
