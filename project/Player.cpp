@@ -73,6 +73,13 @@ void Player::swapCreature(const string& creatureName, int turn)
 	this->swapCreature(index);
 }
 
+void Player::setCreatureIsHuman(const bool isHuman)
+{
+	for (int i = 0; i < creatures.size(); i++) {
+		creatures[i].isHuman = isHuman;
+	}
+}
+
 int Player::findCreatureIndex(const string& creatureName) const
 {
 	for (int i = 0; i < creatures.size(); i++) {

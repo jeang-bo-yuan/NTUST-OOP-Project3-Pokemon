@@ -40,6 +40,8 @@ private:
     double dodgeRate = 0.3;
 
     bool paralyzed;
+public:
+    bool isHuman;
 
 public:
     friend class CreatureLibray;

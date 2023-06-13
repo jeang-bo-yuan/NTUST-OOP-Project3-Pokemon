@@ -26,6 +26,7 @@ public:
 
 	void useObject(const string& creatureName, const string& objectName);
 	void swapCreature(const string& creatureName, int turn);
+	void setCreatureIsHuman(const bool isHuman);
 
 
 	int findCreatureIndex(const string& creatureName) const;

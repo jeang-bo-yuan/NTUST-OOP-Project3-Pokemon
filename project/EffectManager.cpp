@@ -26,31 +26,23 @@ void EffectManager::addEffect(EFFECT_NAME name, Creature* target, int turn, bool
 		target->decreaseSpeed();
 
 		cout << "[Turn " << turn << " ] ";
-		if (humanAttack) {
+		if (!target->isHuman) {
 			cout << "The opposing ";
 		}
 		cout << target->getName() << " is paralyzed, so it may be unable to move!" << endl;
+
+		EffectManager::useEffect(target, turn);
 	}
 	else {
 		// Print info
 		cout << "[Turn " << turn << " ] ";
-		if (humanAttack) {
+		if (!target->isHuman) {
 			cout << "The opposing ";
 		}
 		cout << target->getName() << " was " << EffectManager::getEffectNameSmall(name) << "ed!" << endl;
 	}
 }
 
-// Intent: 使用Effect
-// Pre: None
-// Post: 使用Effect
-void EffectManager::useEffect(int turn)
-{
-	for (auto& effect : effects) {
-		cout << "[Turn " << turn << "] " << effect.getCreature()->getName() << " is hurt by its ";
-		effect.use();
-	}
-}
 
 // Intent: 印出Creature所擁有的Effect
 // Pre: target: 要印出Effect的Creature
@@ -90,7 +82,11 @@ void EffectManager::useEffect(Creature* creature, int turn)
 	for (auto& effect : effects) {
 		if (effect.getCreature() == creature) {
 			if (effect.getName() == "BRN" || effect.getName() == "PSN") {
-				cout << "[Turn " << turn << "] " << effect.getCreature()->getName() << " is hurt by its ";
+				cout << "[Turn " << turn << "] ";
+				if (!creature->isHuman) {
+					cout << "The opposing ";
+				}
+				cout << effect.getCreature()->getName() << " is hurt by its ";
 
 				cout << getEffectNameSmall(effect.getEffectName());
 
