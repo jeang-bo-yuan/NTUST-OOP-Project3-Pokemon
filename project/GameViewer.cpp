@@ -11,19 +11,17 @@ void GameViewer::setData(Player *player)
 {
     setCondition(player);
 
-
+    // image
+    {
+        QPixmap img (QString(":/media/Pokemon/") + player->getCurrentCreature().getName().c_str());
+        pokemonImg->setPixmap(img.scaled(pokemonImg->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+    }
 
     // name and hp
     {
         name->setText(player->getCurrentCreature().getName().c_str());
         hpBar->setRange(0, player->getCurrentCreature().getMaxHp());
         hpBar->setValue(player->getCurrentCreature().getHp());
-    }
-
-    // image
-    {
-        QPixmap img (QString(":/media/Pokemon/") + player->getCurrentCreature().getName().c_str());
-        pokemonImg->setPixmap(img.scaled(pokemonImg->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
 
     for (int i = 0; i < player->creaturesSize(); ++i) {

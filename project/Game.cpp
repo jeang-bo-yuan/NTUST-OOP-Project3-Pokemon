@@ -163,8 +163,9 @@ void Game::newGame()
 
 std::string Game::nextRound()
 {
-    log.clear();
-    return std::string();
+   log.clear();
+   ++turn;
+   return std::string();
 }
 
 void Game::setTesting()

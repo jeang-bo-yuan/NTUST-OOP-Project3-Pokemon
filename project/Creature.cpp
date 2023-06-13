@@ -134,7 +134,7 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 void Creature::useSkill(string skillName, Creature& target, int turn, bool humanAttack)
 {
 	int index = 0;
-	for (auto i : skills) {
+    for (const auto& i : skills) {
 		if (i.name == skillName) {
 			break;
 		}

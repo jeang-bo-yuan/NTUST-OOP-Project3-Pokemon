@@ -356,6 +356,7 @@ void GameMainWindow::nextRound()
     }
 
     ui->optionGroup->show();
+    gameManager.nextRound();
 }
 
 void GameMainWindow::backToMain()
