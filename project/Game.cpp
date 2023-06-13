@@ -63,10 +63,10 @@ void Game::loadFromFile(const string& filename)
             if (player[humanIndex].getCurrentCreature().getSpeed() >= player[computerIndex].getCurrentCreature().getSpeed()) {
                 player[humanIndex].getCurrentCreature().useSkill(skill1, player[computerIndex].getCurrentCreature(), turn, true);
                 if (player[computerIndex].getCurrentCreature().getHp() <= 0) goto END;
-                player[computerIndex].getCurrentCreature().useSkill(skill2, player[computerIndex].getCurrentCreature(), turn, false);
+                player[computerIndex].getCurrentCreature().useSkill(skill2, player[humanIndex].getCurrentCreature(), turn, false);
 			}
             else {
-                player[computerIndex].getCurrentCreature().useSkill(skill2, player[computerIndex].getCurrentCreature(), turn, false);
+                player[computerIndex].getCurrentCreature().useSkill(skill2, player[humanIndex].getCurrentCreature(), turn, false);
                 if (player[humanIndex].getCurrentCreature().getHp() <= 0) goto END;
                 player[humanIndex].getCurrentCreature().useSkill(skill1, player[computerIndex].getCurrentCreature(), turn, true);
 			}
