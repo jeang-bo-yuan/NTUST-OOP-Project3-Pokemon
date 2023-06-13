@@ -5,9 +5,11 @@ Test
 Battle
 VineWhip
 WaterGun
+Status
 Battle
 PoisonPowder
 FlashCannon
+Status
 Bag
 Potion
 Venusaur

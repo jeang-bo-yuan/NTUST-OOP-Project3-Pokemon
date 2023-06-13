@@ -28,9 +28,28 @@ Creature& Player::getCreature(int index)
 	return creatures[index];
 }
 
+Creature& Player::getCreature(const string name)
+{
+	for (auto& i : creatures) {
+		if (i.getName() == name) {
+			return i;
+		}
+	}
+
+}
+
 const Object& Player::getObject(int index) const
 {
     return objects[index];
+}
+
+Object& Player::getObject(const string& str)
+{
+	for (int i = 0; i < objects.size(); i++) {
+		if (objects[i].getName() == str) {
+			return objects[i];
+		}
+	}
 }
 
 Object &Player::getObject(int index)
@@ -71,6 +90,13 @@ void Player::swapCreature(const string& creatureName, int turn)
 	}
 
 	this->swapCreature(index);
+}
+
+void Player::setCreatureIsHuman(const bool isHuman)
+{
+	for (int i = 0; i < creatures.size(); i++) {
+		creatures[i].isHuman = isHuman;
+	}
 }
 
 int Player::findCreatureIndex(const string& creatureName) const

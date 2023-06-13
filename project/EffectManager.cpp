@@ -25,32 +25,24 @@ void EffectManager::addEffect(EFFECT_NAME name, Creature* target, int turn, bool
 	if (name == EFFECT_NAME::PARALYSIS) {
 		target->decreaseSpeed();
 
-		cout << "[Turn " << turn << " ] ";
-		if (humanAttack) {
+		cout << "[Turn " << turn << "] ";
+		if (!target->isHuman) {
 			cout << "The opposing ";
 		}
 		cout << target->getName() << " is paralyzed, so it may be unable to move!" << endl;
+
+		EffectManager::useEffect(target, turn);
 	}
 	else {
 		// Print info
-		cout << "[Turn " << turn << " ] ";
-		if (humanAttack) {
+		cout << "[Turn " << turn << "] ";
+		if (!target->isHuman) {
 			cout << "The opposing ";
 		}
 		cout << target->getName() << " was " << EffectManager::getEffectNameSmall(name) << "ed!" << endl;
 	}
 }
 
-// Intent: 使用Effect
-// Pre: None
-// Post: 使用Effect
-void EffectManager::useEffect(int turn)
-{
-	for (auto& effect : effects) {
-		cout << "[Turn " << turn << "] " << effect.getCreature()->getName() << " is hurt by its ";
-		effect.use();
-	}
-}
 
 // Intent: 印出Creature所擁有的Effect
 // Pre: target: 要印出Effect的Creature
@@ -89,14 +81,19 @@ void EffectManager::useEffect(Creature* creature, int turn)
 {
 	for (auto& effect : effects) {
 		if (effect.getCreature() == creature) {
-			if (effect.getName() == "BRN" || effect.getName() == "PSN") {
-				cout << "[Turn " << turn << "] " << effect.getCreature()->getName() << " is hurt by its ";
-
-				cout << getEffectNameSmall(effect.getEffectName());
-
-				cout << "!" << endl;
-
-				effect.use();
+			if (effect.getName() == "BRN") {
+				cout << "[Turn " << turn << "] ";
+				if (!creature->isHuman) {
+					cout << "The opposing ";
+				}
+				cout << effect.getCreature()->getName() << " is hurt by its burn!" << endl;
+			}
+			else if (effect.getName() == "PSN") {
+				cout << "[Turn " << turn << "] ";
+				if (!creature->isHuman) {
+					cout << "The opposing ";
+				}
+				cout << effect.getCreature()->getName() << " is hurt by its poisoning!" << endl;
 			}
 			else if (effect.getName() == "PAR") {
 				std::random_device rd;
@@ -114,6 +111,7 @@ void EffectManager::useEffect(Creature* creature, int turn)
 					creature->setParalyzed(false);
 				}
 			}
+			effect.use();
 		}
 	}
 }

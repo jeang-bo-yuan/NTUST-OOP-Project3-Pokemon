@@ -23,10 +23,10 @@ void Effect::use()
 		// target->setParalysis(true);
 		break;
 	case EFFECT_NAME::BURN:
-		target->beRealDamange(target->getMaxHp() / 16); // 造成生命1/16的傷害
+		target->beRealDamange(target->getMaxHp() / double(16)); // 造成生命1/16的傷害
 		break;
 	case EFFECT_NAME::POISON:
-		target->beRealDamange(target->getMaxHp() / 16);// 造成生命1/16的傷害
+		target->beRealDamange(target->getMaxHp() / double(16));// 造成生命1/16的傷害
 		break;
 	}
 }

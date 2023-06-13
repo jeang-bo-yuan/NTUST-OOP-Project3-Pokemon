@@ -33,6 +33,9 @@ void Game::loadGame(std::string pokemonLibPath,std::string moveLibPath,std::stri
     
 
     gameData >> player[0] >> player[1];
+
+    player[0].setCreatureIsHuman(true);
+    player[1].setCreatureIsHuman(false);
 }
 
 void Game::loadFromFile(const string& filename)
@@ -77,7 +80,7 @@ void Game::loadFromFile(const string& filename)
             file >> potion >> creatureName >> computerSkill;
 
 
-            player[humanIndex].useObject(potion, creatureName);
+            useObject(&player[humanIndex].getObject(potion), &player[humanIndex].getCreature(creatureName));
 
             player[computerIndex].getCurrentCreature().useSkill(computerSkill, player[humanIndex].getCurrentCreature(), turn, false);
         }
@@ -183,6 +186,10 @@ void Game::setTesting()
 
 std::string Game::useObject(Object* object, Creature* goal)
 {
+
+
+    cout << "[Turn " << turn << "] " << "You used a " << object->getName() << "!" << endl;
+    cout << "[Turn " << turn << "] " << goal->getName() << " had its HP restored." << endl;
     return object->effectToCreature(goal);
 }
 
