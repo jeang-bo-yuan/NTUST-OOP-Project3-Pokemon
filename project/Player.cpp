@@ -30,7 +30,12 @@ Creature& Player::getCreature(int index)
 
 const Object& Player::getObject(int index) const
 {
-	return objects[index];
+    return objects[index];
+}
+
+Object &Player::getObject(int index)
+{
+    return objects[index];
 }
 
 void Player::switchCurrentCreature(int index)

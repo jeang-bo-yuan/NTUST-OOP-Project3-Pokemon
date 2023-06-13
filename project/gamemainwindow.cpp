@@ -211,10 +211,23 @@ void GameMainWindow::itemSelected(ItemButton* button)
     int pokemonIndex = choosePokemon(true);
 
     if (pokemonIndex != -1) {
-        std::cout << "Player use " << button->getIndex() << " on " << pokemonIndex << std::endl;
-        std::cerr << "Warning: using item isn't implemented in game manager yet!\n";
-        button->useOne();
+        ui->optionGroup->hide();
         selectLogWindow();
+        qDebug() << "use object" << button->getIndex() << "on" << pokemonIndex;
+
+        // use object
+        std::cout << gameManager.useObject(&player->getObject(button->getIndex())
+                                         , &player->getCreature(pokemonIndex));
+        std::cout.flush();
+        ui->playerView->updateHp(player);
+
+        waitFor(500);
+        // 對手攻擊
+        gameManager.computerAttack(rand() % computer->getCurrentCreature().getSkillSize());
+        // 更新玩家血量
+        ui->playerView->updateHp(player);
+
+        nextRound();
     }
 }
 
@@ -271,8 +284,8 @@ void GameMainWindow::pokemonSelected(PokemonButton *button)
     // let connection be destroyed after a pokemon is choosen
     disconnect(ui->subPokemonSelecter, &PokemonSelecter::pokemonSelected, this, &GameMainWindow::pokemonSelected);
 
-    int idx = button->getIndex();
     if (button != nullptr) {
+        int idx = button->getIndex();
         ui->optionGroup->hide();
         selectLogWindow();
 

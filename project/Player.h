@@ -19,6 +19,7 @@ public:
 	const Creature& getCreature(int index) const;
 	Creature& getCreature(int index);
 	const Object& getObject(int index) const;
+    Object &getObject(int index);
 	void switchCurrentCreature(int index);
 	void addCreature(Creature creature);
 	void addObject(Object object);
