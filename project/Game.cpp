@@ -2,6 +2,7 @@
 #include "EffectManager.h"
 #include <random>
 #include <fstream>
+#include <QDebug>
 
 #define TEST
 
@@ -61,10 +62,12 @@ void Game::loadFromFile(const string& filename)
 
             if (player[humanIndex].getCurrentCreature().getSpeed() >= player[computerIndex].getCurrentCreature().getSpeed()) {
                 player[humanIndex].getCurrentCreature().useSkill(skill1, player[computerIndex].getCurrentCreature(), turn, true);
+                if (player[computerIndex].getCurrentCreature().getHp() <= 0) goto END;
                 player[computerIndex].getCurrentCreature().useSkill(skill2, player[computerIndex].getCurrentCreature(), turn, false);
 			}
             else {
                 player[computerIndex].getCurrentCreature().useSkill(skill2, player[computerIndex].getCurrentCreature(), turn, false);
+                if (player[humanIndex].getCurrentCreature().getHp() <= 0) goto END;
                 player[humanIndex].getCurrentCreature().useSkill(skill1, player[computerIndex].getCurrentCreature(), turn, true);
 			}
         }
@@ -108,10 +111,29 @@ void Game::loadFromFile(const string& filename)
             cout << "Unknow command!! " << " What is " << command << endl;
         }
 
-        EffectManager::useEffect(turn);
+        END:
+
+        EffectManager::useEffect(&player[humanIndex].getCurrentCreature(), turn);
+        EffectManager::useEffect(&player[computerIndex].getCurrentCreature(), turn);
+
+        for (int index = 0; index <= 1; ++index)
+        if (player[index].getCurrentCreature().getHp() <= 0) {
+            for (int i = 0; i < player[index].creaturesSize(); ++i) {
+                if (&player[index].getCreature(i) == &player[index].getCurrentCreature()) {
+                    player[index].swapCreature(i + 1);
+                    std::cout << "[" << turn << "]" << (index == computerIndex ? "computer" : "human") << " swap fainted pokemon to " << player[index].getCurrentCreature().getName() << endl;
+                    break;
+                }
+            }
+        }
+
+        qDebug() << turn << player[humanIndex].getCurrentCreature().getName().c_str() << player[computerIndex].getCurrentCreature().getName().c_str();
 
         turn++;
     }
+
+    file.close();
+    currentPlayerIndex = humanIndex;
 }
 
 void Game::newGame()
@@ -124,6 +146,7 @@ void Game::newGame()
     moveLib.clear();
     turn = 1;
     log.clear();
+    EffectManager::reset();
 
     Object potion("Potion", 20);
     Object superPotion("Super Potion", 60);

@@ -25,6 +25,12 @@ void GameViewer::setData(Player *player)
         QPixmap img (QString(":/media/Pokemon/") + player->getCurrentCreature().getName().c_str());
         pokemonImg->setPixmap(img.scaled(pokemonImg->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
     }
+
+    for (int i = 0; i < player->creaturesSize(); ++i) {
+        if (player->getCreature(i).getHp() == 0) {
+            pokeBallBox->itemAt(i)->widget()->setDisabled(true);
+        }
+    }
 }
 
 void GameViewer::setCondition(Player *player)
@@ -140,11 +146,5 @@ void GameViewer::updateHp(Player *player)
 void GameViewer::switchPokemon(Player *player)
 {
     setData(player);
-
-    for (int i = 0; i < player->creaturesSize(); ++i) {
-        if (player->getCreature(i).getHp() == 0) {
-            pokeBallBox->itemAt(i)->widget()->setDisabled(true);
-        }
-    }
 }
 
