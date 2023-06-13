@@ -52,6 +52,7 @@ void Game::loadFromFile(const string& filename)
     while (file >> command) {
         if (command == "Test") {
             isTesting = true;
+            EffectManager::setParRate(1);
             continue;
         }
         else if (command == "Battle") {

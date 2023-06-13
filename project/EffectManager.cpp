@@ -8,6 +8,7 @@
  *********************************************************************/
 #include "EffectManager.h"
 #include <iostream>
+#include <random>
 #include "Creature.h"
 
 std::vector<Effect> EffectManager::effects;
@@ -15,9 +16,28 @@ std::vector<Effect> EffectManager::effects;
 // Intent: 添加Effect到Creatue上
 // Pre: name: Effect名稱, target: 要添加Effect的Creature
 // Post: 將Effect添加到Creature上
-void EffectManager::addEffect(EFFECT_NAME name, Creature* target)
+void EffectManager::addEffect(EFFECT_NAME name, Creature* target, int turn, bool humanAttack)
 {
 	effects.push_back(Effect(name, target));
+
+	// 如果是麻痺就降低target的速度
+	if (name == EFFECT_NAME::PARALYSIS) {
+		target->decreaseSpeed();
+
+		cout << "[Turn " << turn << " ] ";
+		if (humanAttack) {
+			cout << "The opposing ";
+		}
+		cout << target->getName() << " is paralyzed, so it may be unable to move!" << endl;
+	}
+	else {
+		// Print info
+		cout << "[Turn " << turn << " ] ";
+		if (humanAttack) {
+			cout << "The opposing ";
+		}
+		cout << target->getName() << " was " << EffectManager::getEffectNameSmall(name) << "ed!" << endl;
+	}
 }
 
 // Intent: 使用Effect
@@ -71,19 +91,35 @@ void EffectManager::useEffect(Creature* creature, int turn)
 			if (effect.getName() == "BRN" || effect.getName() == "PSN") {
 				cout << "[Turn " << turn << "] " << effect.getCreature()->getName() << " is hurt by its ";
 
-				if (effect.getName() == "BRN") {
-					cout << "burn";
-				}
-				else if (effect.getName() == "PSN") {
-					cout << "poison";
-				}
+				cout << getEffectNameSmall(effect.getEffectName());
 
 				cout << "!" << endl;
 
 				effect.use();
 			}
+			else if (effect.getName() == "PAR") {
+				std::random_device rd;
+				std::mt19937 gen(rd());
+
+				std::uniform_real_distribution<double> dis(0.0, 1.0);
+
+				// 生成随机数
+				double randomNum = dis(gen);
+
+				if (randomNum <= parRate) {
+					creature->setParalyzed(true);
+				}
+				else {
+					creature->setParalyzed(false);
+				}
+			}
 		}
 	}
+}
+
+void EffectManager::setParRate(double rate)
+{
+	parRate = parRate;
 }
 
 // Intetn: 重置Effect

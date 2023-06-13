@@ -17,6 +17,7 @@ Effect::Effect(EFFECT_NAME name, Creature* target) : name(name), target(target)
 
 void Effect::use()
 {
+
 	switch (name) {
 	case EFFECT_NAME::PARALYSIS:
 		// target->setParalysis(true);
