@@ -10,7 +10,6 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QProgressBar>
-#include <QSoundEffect>
 #include "Player.h"
 
 
@@ -23,9 +22,6 @@ class GameViewer : public QWidget
     QHBoxLayout* condition;
     QProgressBar* hpBar;
     QLabel* pokemonImg;
-
-    static QSoundEffect damageSound;
-    static QSoundEffect healSound;
 
     void setData(Player* player);
 

@@ -11,14 +11,16 @@
 #include <vector>
 
 
+
 class EffectManager
 {
 private:
 	static std::vector<Effect> effects;
-
 public:
 	EffectManager() = default;
 	~EffectManager() = default;
 	static void addEffect(EFFECT_NAME name, Creature* target);
-	static void useEffect();
+	static void useEffect(int turn);
+	static void printEffect(Creature* target);
+	static const string getEffectNameSmall(EFFECT_NAME name);
 };

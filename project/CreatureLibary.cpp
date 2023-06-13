@@ -35,8 +35,6 @@ void CreatureLibray::loadFromFile(const std::string& fileName)
 
         creatures[creature.name] = creature;
 
-        cout << creature.name << " " << creature.maxHp << " " << creature.atk << " " << creature.def << " " << creature.spAtk << " " << creature.spDef << " " << creature.speed << endl;
-
     }
 
 

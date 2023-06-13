@@ -18,7 +18,9 @@ enum class TYPE {
 };
 
 
+
+
 TYPE strToType(const std::string& str);
 const std::string typeToStr(TYPE type);
 
-void waitFor(int msec);
+

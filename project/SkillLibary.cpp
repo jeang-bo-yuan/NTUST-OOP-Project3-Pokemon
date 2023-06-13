@@ -62,14 +62,17 @@ void SkillLibray::loadFromFile(const string& fileName)
 		if (temp == "") {
 			effect = EFFECT_NAME::NONE;
 		}
-		else if (temp == "PARALYSIS") {
+		else if (temp == "PAR") {
 			effect = EFFECT_NAME::PARALYSIS;
 		}
-		else if (temp == "BURN") {
+		else if (temp == "BUN") {
 			effect = EFFECT_NAME::BURN;
 		}
-		else if (temp == "POISON") {
+		else if (temp == "PSN") {
 			effect = EFFECT_NAME::POISON;
+		}
+		else {
+			effect = EFFECT_NAME::NONE;
 		}
 
 		Skill skill = { name, power, accuracy, PP, type, skillType, effect };

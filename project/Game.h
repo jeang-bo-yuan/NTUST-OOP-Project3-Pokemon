@@ -6,6 +6,7 @@
 #include "Creature.h"
 #include "SkillLibary.h"
 #include "CreatureLibary.h"
+#include "GameControl.h"
 
 class Game
 {
@@ -30,12 +31,14 @@ public:
     std::string nextRound();
 
     void loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath);
+    void loadFromFile(const string& filename);
 
     void setTesting();
 
     std::string useObject(Object* object, class Creature* goal);
 
     void useSkill(int skillIndex, class Creature& goal); // 怪物使用技能
+    void useSkill(const string& skillName, class Creature& goal); // 怪物使用技能
     void swapCreature(int creatureIndex); // 怪物交換
 
     void humanAttack(int index);
@@ -44,6 +47,9 @@ public:
     int getComputerCurrentCreatureHp() const;
     const string getHumanCurrentCreatureName() const;
     const string getComputerCurrentCreatureName() const;
+    void printStatus();
+    void printCheck();
+
 
     void swapTurn();
 

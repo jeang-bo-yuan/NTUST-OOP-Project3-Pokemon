@@ -31,3 +31,33 @@ void Effect::use()
 		break;
 	}
 }
+
+Creature* Effect::getCreature() const
+{
+	return target;
+}
+
+const string Effect::getName() const
+{
+	switch (name) {
+	case EFFECT_NAME::PARALYSIS:
+		return "PAR";
+		break;
+	case EFFECT_NAME::BURN:
+		return "BRN";
+		break;
+	case EFFECT_NAME::POISON:
+		return "PSN";
+		break;
+	}
+}
+
+bool Effect::isNone() const
+{
+	if (name == EFFECT_NAME::NONE) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}

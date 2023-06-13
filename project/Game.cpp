@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "EffectManager.h"
 #include <random>
 #include <fstream>
 
@@ -15,15 +16,91 @@ Game::Game()
 void Game::loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath)
 {
     newGame();
-    skillLib.loadFromFile(moveLibPath);
-//    skillLib.loadFromFile("D:/GitHub/Pokemon/project/test case/MoveLib.txt");
-    creatureLib.loadFromFile(pokemonLibPath);
-//    creatureLib.loadFromFile("D:/GitHub/Pokemon/project/test case/PokemonLib.txt");
+    // skillLib.loadFromFile(moveLibPath);
+    skillLib.loadFromFile("D:/GitHub/Pokemon/project/test case/MoveLib.txt");
+    // creatureLib.loadFromFile(pokemonLibPath);
+    creatureLib.loadFromFile("D:/GitHub/Pokemon/project/test case/PokemonLib.txt");
     
-    ifstream gameData(gameDataPath);
-//    ifstream gameData("D:/GitHub/Pokemon/project/test case/GameData.txt");
+    // ifstream gameData(gameDataPath);
+    ifstream gameData("D:/GitHub/Pokemon/project/test case/GameData.txt");
 
     gameData >> player[0] >> player[1];
+}
+
+void Game::loadFromFile(const string& filename)
+{
+    string pokemonLibPath, moveLibPath, gameDataPath;
+    string command;
+
+    ifstream file("D:/GitHub/Pokemon/project/test case/case.txt");
+
+    file >> pokemonLibPath >> moveLibPath >> gameDataPath;
+
+    loadGame(pokemonLibPath, moveLibPath, gameDataPath);
+
+    while (file >> command) {
+        if (command == "Test") {
+            isTesting = true;
+            continue;
+        }
+        else if (command == "Battle") {
+            string skill1, skill2;
+
+            file >> skill1 >> skill2;
+
+            if (player[humanIndex].getCurrentCreature().getSpeed() >= player[computerIndex].getCurrentCreature().getSpeed()) {
+                player[humanIndex].getCurrentCreature().useSkill(skill1, player[computerIndex].getCurrentCreature(), turn, true);
+                player[computerIndex].getCurrentCreature().useSkill(skill2, player[computerIndex].getCurrentCreature(), turn, false);
+			}
+            else {
+                player[computerIndex].getCurrentCreature().useSkill(skill2, player[computerIndex].getCurrentCreature(), turn, false);
+                player[humanIndex].getCurrentCreature().useSkill(skill1, player[computerIndex].getCurrentCreature(), turn, true);
+			}
+        }
+        else if (command == "Bag") {
+            string potion, creatureName, computerSkill;
+
+            file >> potion >> creatureName >> computerSkill;
+
+
+            player[humanIndex].useObject(potion, creatureName);
+
+            player[computerIndex].getCurrentCreature().useSkill(computerSkill, player[humanIndex].getCurrentCreature(), turn, false);
+        }
+        else if (command == "Pokemon") {
+            string creatureName, computerSkill;
+
+            file >> creatureName >> computerSkill;
+
+            int index = player[humanIndex].findCreatureIndex(creatureName);
+
+            if (index == -1) {
+                cout << "creature: " << creatureName << " not find!" << endl;
+            }
+
+            swapCreature(index);
+            player[computerIndex].getCurrentCreature().useSkill(computerSkill, player[humanIndex].getCurrentCreature(), turn, false);
+
+        }
+        else if (command == "Status") {
+            printStatus();
+            continue;
+        }
+        else if (command == "Check") {
+            printCheck();
+            continue;
+        }
+        else if (command == "Run") {
+            exit(0);
+        }
+        else {
+            cout << "Unknow command!! " << " What is " << command << endl;
+        }
+
+        EffectManager::useEffect(turn);
+
+        turn++;
+    }
 }
 
 void Game::newGame()
@@ -77,18 +154,23 @@ void Game::useSkill(int skillIndex, Creature& goal)
 
     cout << "[Turn "<<turn<<"] "<< player[currentPlayerIndex].getCurrentCreature().getName() << " used " << currentSkill.name << "!\n";
 
-    player[currentPlayerIndex].getCurrentCreature().useSkill(skillIndex, goal, turn);
+    player[currentPlayerIndex].getCurrentCreature().useSkill(skillIndex, goal, turn, currentPlayerIndex == humanIndex);
+}
+
+void Game::useSkill(const string& skillName, Creature& goal)
+{
+    stringstream result;
 }
 
 void Game::swapCreature(int creatureIndex)
 {
-    currentPlayerIndex = humanIndex;
     cout << "[Turn " << turn << "] " << player[currentPlayerIndex].getCurrentCreature().getName() << ", switch out!" << endl;
     cout << "[Turn " << turn << "] " << "Come back!" << endl;
-    player[currentPlayerIndex].switchCurrentCreature(creatureIndex);
+    player[currentPlayerIndex].swapCreature(creatureIndex);
     cout << "[Turn " << turn << "] " << "Go! " << player[currentPlayerIndex].getCurrentCreature().getName() << "!" << endl;
 
 }
+
 
 // Intent: human attack
 // Post: None
@@ -123,6 +205,30 @@ const string Game::getHumanCurrentCreatureName() const
 const string Game::getComputerCurrentCreatureName() const
 {
     return player[computerIndex].getCurrentCreature().getName();
+}
+
+void Game::printStatus()
+{
+    cout << "[Turn " << turn << "]" << " ";
+    auto& humanCreature = player[humanIndex].getCurrentCreature();
+    cout << humanCreature.getName() << " " << humanCreature.getHp();
+    EffectManager::printEffect(&humanCreature);
+
+    cout << " ";
+    auto& computerCreature = player[computerIndex].getCurrentCreature();
+    cout << computerCreature.getName() << " " << computerCreature.getHp();
+    EffectManager::printEffect(&computerCreature);
+    cout << endl;
+}
+
+void Game::printCheck()
+{
+    cout << "[Turn " << turn << "] ";
+    auto& humanCreature = player[humanIndex].getCurrentCreature();
+    for (int i = 0; i < humanCreature.getSkillSize(); i++) {
+        cout << humanCreature.getSkill(i).name << " " << humanCreature.getSkill(i).PP << " ";
+    }
+    cout << endl;
 }
 
 void Game::swapTurn()

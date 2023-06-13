@@ -8,8 +8,6 @@
  *********************************************************************/
 #include "Common.h"	
 #include <string>
-#include <QTimer>
-#include <QEventLoop>
 
 using namespace std;
 
@@ -57,12 +55,6 @@ const std::string typeToStr(TYPE type)
 	if (type == TYPE::DRAGON) return "Dragon";
 	if (type == TYPE::DARK) return "Dark";
 	if (type == TYPE::STEEL) return "Steel";
-    if (type == TYPE::FAIRY) return "Fairy";
-    return "Normal";
-}
-void waitFor(int msec)
-{
-    QEventLoop loop;
-    QTimer::singleShot(msec, &loop, &QEventLoop::quit);
-    loop.exec();
+	if (type == TYPE::FAIRY) return "Fairy";
+	return "Normal";
 }

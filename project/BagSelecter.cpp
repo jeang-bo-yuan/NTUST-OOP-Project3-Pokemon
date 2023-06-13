@@ -13,8 +13,7 @@
 // ctor
 ItemButton::ItemButton(const Object& object, int index, QWidget* parent)
     : QFrame(parent)
-    , index(index), count(object.getUsageCount())
-    , itemCount(new QLabel(count >= 0 ? QString::number(count) : QString(u8"∞")))
+    , index(index), count(object.getUsageCount()), itemCount(new QLabel(QString::number(count)))
 {
     QHBoxLayout* hLayout = new QHBoxLayout(this);
     QLabel* itemName = new QLabel(object.getName().c_str());
@@ -30,24 +29,19 @@ ItemButton::ItemButton(const Object& object, int index, QWidget* parent)
     hLayout->setSpacing(10);
 
     this->setMinimumHeight(70);
-    this->setDisabled(count == 0);
+    this->setDisabled(count <= 0);
 }
 
 void ItemButton::useOne() {
-    if (count > 0) {
-        --count;
-        itemCount->setText(QString::number(count));
-        this->setDisabled(count == 0);
-    }
-    else if (count < 0) {
-        itemCount->setText(u8"∞");
-    }
+    --count;
+    itemCount->setText(QString::number(count));
+    this->setDisabled(count <= 0);
 }
 
 // deal with mouse clicked
 void ItemButton::mousePressEvent(QMouseEvent * e)
 {
-    if (e->button() == Qt::LeftButton && count != 0) {
+    if (e->button() == Qt::LeftButton && count > 0) {
         emit itemSelected(this);
     }
 }

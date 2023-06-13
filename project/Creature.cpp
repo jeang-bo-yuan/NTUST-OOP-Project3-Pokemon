@@ -1,12 +1,13 @@
 #include "Creature.h"
 #include "Common.h"
 #include "SkillLibary.h"
+#include "EffectManager.h"
 
 using namespace std;
 
 double getTypeRate(TYPE attack, TYPE defend)
 {
-    static const float effectTable[18][18] =
+	float effectTable[18][18] =
 	{
 		{1,1,1,1,1,1,1,1,1,1,1,1,0.5,0,1,1,0.5,1},
 		{1,0.5,0.5,1,2,2,1,1,1,1,1,2,0.5,1,0.5,1,2,1},
@@ -51,7 +52,7 @@ Creature::Creature(const Creature& creature)
 
 
 // 回傳type 傷害
-void Creature::useSkill(int index, Creature& target, int turn)
+void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 {
 	Skill& nowSkill = skills[index];
 	int damage = 0;
@@ -63,6 +64,24 @@ void Creature::useSkill(int index, Creature& target, int turn)
 	if (nowSkill.PP <= 0) {
 		
 		cout << "PP不足" << endl;
+		return;
+	}
+
+	cout << "[Turn " << turn << " ] ";
+	if (!humanAttack) {
+		cout << "The opposing ";
+	}
+	cout << name << " used " << nowSkill.name << "!" << endl;
+
+	// 技能有特殊效果
+	if (nowSkill.effect != EFFECT_NAME::NONE) {
+		EffectManager::addEffect(nowSkill.effect, &target);
+		// [Turn 2] The opposing Blastoise was poisoned!
+		cout << "[Turn " << turn << " ] ";
+		if (humanAttack) {
+			cout << "The opposing ";
+		}
+		cout << target.name << " was " << EffectManager::getEffectNameSmall(nowSkill.effect) << "ed!" << endl;
 		return;
 	}
 
@@ -92,28 +111,36 @@ void Creature::useSkill(int index, Creature& target, int turn)
 	else {
 		typeDamange = getTypeRate(nowSkill.type, target.types[0]);
 	}
-	
-	cout << "typedamange" << typeDamange << endl;
 
 	if (typeDamange >= 2) {
-		cout << "[Turn" <<  turn << " ] " << "it's super effective!" << endl;
+		cout << "[Turn " <<  turn << " ] " << "it's super effective!" << endl;
 	}
 	else if (typeDamange <= 0.5) {
-		cout << "[Turn" << turn << " ] " << "it's not very effective..." << endl;
+		cout << "[Turn " << turn << " ] " << "it's not very effective..." << endl;
 	}
 	else if (typeDamange == 0) {
-		cout << "[Turn" << turn << " ] " << "it doesn't affect..." << endl;
+		cout << "[Turn " << turn << " ] " << "it doesn't affect..." << endl;
 	}
 
 	if (false) { // if cit
-		cout << "[Turn" << turn << " ] " << "it's a critical hit!" << endl;
+		cout << "[Turn " << turn << " ] " << "it's a critical hit!" << endl;
 	}
 
 	damage = int((double(2) * level + double(10)) / double(250) * nowSkill.power * atk / def + 2) * 1 * stabDamange * typeDamange;
 
 	target.beRealDamange(damage);
+}
 
-	cout << "target hp: " << target.hp << endl;
+void Creature::useSkill(string skillName, Creature& target, int turn, bool humanAttack)
+{
+	int index = 0;
+	for (auto i : skills) {
+		if (i.name == skillName) {
+			break;
+		}
+		index++;
+	}
+	useSkill(index, target, turn, humanAttack);
 }
 
 bool Creature::isSameType(TYPE type)
