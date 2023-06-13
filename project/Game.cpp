@@ -44,7 +44,7 @@ void Game::loadFromFile(const string& filename)
     string command;
 
 #ifdef TEST
-    ifstream file("D:/GitHub/Pokemon/project/test case/case.txt");
+    ifstream file("D:/GitHub/Pokemon/project/test case/case2.txt");
 #else
     ifstream file(filename);
 #endif
@@ -108,6 +108,7 @@ void Game::loadFromFile(const string& filename)
             continue;
         }
         else if (command == "Run") {
+    
             exit(0);
         }
         else {
@@ -152,9 +153,9 @@ void Game::newGame()
     EffectManager::reset();
 
     Object potion("Potion", 20);
-    Object superPotion("Super Potion", 60);
-    Object hyperPotion("Hyper Potion", 120);
-    Object maxPotion("Max Potion", -1);
+    Object superPotion("SuperPotion", 60);
+    Object hyperPotion("HyperPotion", 120);
+    Object maxPotion("MaxPotion", -1);
 
    for (int i = 0; i < 2; i++) {
         player[i].addObject(Object(potion));
