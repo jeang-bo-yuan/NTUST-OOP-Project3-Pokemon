@@ -16,14 +16,16 @@ class EffectManager
 {
 private:
 	static std::vector<Effect> effects;
+	static double parRate;
 public:
 	EffectManager() = default;
 	~EffectManager() = default;
-	static void addEffect(EFFECT_NAME name, Creature* target);
+	static void addEffect(EFFECT_NAME name, Creature* target, int turn, bool humanAttack);
 	static void useEffect(int turn);
 	static void printEffect(Creature* target);
 	static const string getEffectNameSmall(EFFECT_NAME name);
 
 	static void useEffect(Creature* creature, int turn);
+	static void setParRate(double rate);
 	static void reset();
 };

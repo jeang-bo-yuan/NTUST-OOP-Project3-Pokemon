@@ -48,12 +48,18 @@ Creature::Creature(const Creature& creature)
 	this->speed = creature.speed;
 	this->types = creature.types;
 	this->skills = creature.skills;
+	this->paralyzed = creature.paralyzed;
 }
 
 
 // 回傳type 傷害
 void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 {
+	if (this->paralyzed) {
+		cout << "[Turn " << turn << " ] ";
+		cout << name << " is paralyzed! It can't move!" << endl;
+
+	}
 	Skill& nowSkill = skills[index];
 	int damage = 0;
 	double atk;
@@ -75,14 +81,7 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 
 	// 技能有特殊效果
 	if (nowSkill.effect != EFFECT_NAME::NONE) {
-		EffectManager::addEffect(nowSkill.effect, &target);
-		// [Turn 2] The opposing Blastoise was poisoned!
-		cout << "[Turn " << turn << " ] ";
-		if (humanAttack) {
-			cout << "The opposing ";
-		}
-		cout << target.name << " was " << EffectManager::getEffectNameSmall(nowSkill.effect) << "ed!" << endl;
-		return;
+		EffectManager::addEffect(nowSkill.effect, &target, turn, humanAttack);
 	}
 
 	string typeName;
@@ -219,6 +218,7 @@ Creature& Creature::operator=(const Creature& creature)
 	speed = creature.speed;
 	dodgeRate = creature.dodgeRate;
 	skills = creature.skills;
+	paralyzed = creature.paralyzed;
 	return *this;
 }
 
@@ -296,4 +296,14 @@ const string& Creature::getName() const
 void Creature::heal(int volume)
 {
 	hp = min(hp + volume, maxHp);
+}
+
+void Creature::decreaseSpeed()
+{
+	speed = speed / 2;
+}
+
+void Creature::setParalyzed(bool can)
+{
+	paralyzed = can;
 }

@@ -39,6 +39,7 @@ private:
     const int level = 50;
     double dodgeRate = 0.3;
 
+    bool paralyzed;
 
 public:
     friend class CreatureLibray;
@@ -49,8 +50,6 @@ public:
     void useSkill(int index, Creature& target, int turn, bool humanAttack);
     void useSkill(string skillName, Creature& target, int turn, bool humanAttack);
 
-    double getDodgeRate();
-
     void beRealDamange(int value);
 
     const std::string& getName() const;
@@ -60,6 +59,10 @@ public:
     friend istream& operator>>(istream& is, Creature& creature);
 
     Creature& operator=(const Creature& creature);
+    void heal(int volume);
+
+    void decreaseSpeed();
+    void setParalyzed(bool can);
 
     // Accessor
     int getHp() const;
@@ -68,8 +71,8 @@ public:
     int getDef() const;
     int getSpAtk() const;
     int getSpDef() const;
+    double getDodgeRate();
     double getDodgeRate() const;
-    void heal(int volume);
     int getSkillSize() const;
     string getSkillName(int index) const;
     Skill getSkill(int index) const;

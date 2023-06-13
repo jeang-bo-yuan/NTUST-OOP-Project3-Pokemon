@@ -34,6 +34,7 @@ public:
 
 	Creature* getCreature() const;
 	const string getName() const;
+	const EFFECT_NAME getEffectName() const { return name; }
 	bool isNone() const;
 
 };
