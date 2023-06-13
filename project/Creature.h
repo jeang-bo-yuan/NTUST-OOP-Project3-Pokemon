@@ -14,9 +14,11 @@
 #include "Common.h"
 #include "SkillLibary.h"
 
+
 using namespace std;
 
 double getTypeRate(TYPE attack, TYPE defend);
+
 
 
 class Creature
@@ -36,13 +38,15 @@ private:
     int speed;
     const int level = 50;
     double dodgeRate = 0.3;
+
+
 public:
     friend class CreatureLibray;
     Creature();
 
     Creature(const Creature & creature);
 
-    void useSkill(int index, Creature* target);
+    void useSkill(int index, Creature& target, int turn);
 
     double getDodgeRate();
 

@@ -8,7 +8,7 @@
 // SkillButton
 
 SkillButton::SkillButton(const Skill& theSkill, int index, QWidget* parent)
-    : QFrame(parent), index(index), pp(theSkill.PP), skillPP(new QLabel(QString::number(theSkill.PP)))
+    : QFrame(parent), index(index), pp(theSkill.PP), skillPP(new QLabel(QString::number(theSkill.PP))), skill(theSkill)
 {
     QHBoxLayout* mainLayout = new QHBoxLayout(this);
     mainLayout->setAlignment(Qt::AlignCenter);

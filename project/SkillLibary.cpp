@@ -74,8 +74,6 @@ void SkillLibray::loadFromFile(const string& fileName)
 
 		Skill skill = { name, power, accuracy, PP, type, skillType, effect };
 
-		cout << skill.PP;
-
 		skillLibray[name] = skill;
 	}
 

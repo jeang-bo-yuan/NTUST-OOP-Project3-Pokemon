@@ -222,7 +222,10 @@ void GameMainWindow::itemSelected(ItemButton* button)
 void GameMainWindow::skillSelected(SkillButton *button)
 {
     std::cout << "use skill " << button->getIndex() << std::endl;
-    std::cerr << "Warning: using skill isn't implemented in game manager yet!\n";
+
+    gameManager.humanAttack(button->getIndex());
+
+    // 換對方攻擊
 
     selectLogWindow();
 }

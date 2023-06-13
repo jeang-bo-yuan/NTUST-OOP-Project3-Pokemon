@@ -19,6 +19,7 @@ class SkillButton : public QFrame {
     int index;
     int pp;
     QLabel* skillPP;
+    const Skill& skill;
 
 public:
     SkillButton(const Skill& theSkill, int index, QWidget* parent = nullptr);

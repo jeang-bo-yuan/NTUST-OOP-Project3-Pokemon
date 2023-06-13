@@ -6,18 +6,12 @@
 #include "Creature.h"
 #include "SkillLibary.h"
 #include "CreatureLibary.h"
-
-typedef struct skillInfo
-{
-    bool isAccuracy;
-    short effectiveType;
-    bool isCritical;
-
-}skillInfo;
+#include "GameControl.h"
 
 class Game
 {
 private:
+    const int humanIndex = 0;
     Player player[2];
     int currentPlayerIndex;
 
@@ -41,12 +35,17 @@ public:
 
     std::string useObject(Object* object, class Creature* goal);
 
-    std::string useSkill(int skillIndex, class Creature* goal);
+    void useSkill(int skillIndex, class Creature& goal); // 怪物使用技能
+    void swapCreature(int creatureIndex); // 怪物交換
+
+    void humanAttack(int index);
 
     void swapTurn();
 
     Player* getCurrentPlayer();
     Player* getNotCurrentPlayer();
+
+
 public:
     std::vector<Skill> moveLib;
     std::vector<Creature> pokemonLib;

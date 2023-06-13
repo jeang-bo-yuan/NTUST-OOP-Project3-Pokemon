@@ -67,7 +67,7 @@ std::string Game::useObject(Object* object, Creature* goal)
     return object->effectToCreature(goal);
 }
 
-std::string Game::useSkill(int skillIndex, Creature* goal)
+void Game::useSkill(int skillIndex, Creature& goal)
 {
     srand(time(0));
 
@@ -75,10 +75,23 @@ std::string Game::useSkill(int skillIndex, Creature* goal)
 
     auto currentSkill = player[currentPlayerIndex].getCurrentCreature().getSkill(skillIndex);
 
-    result<<"[Turn "<<turn<<"] "<< player[currentPlayerIndex].getCurrentCreature().getName() << " used " << currentSkill.name << "!\n";
+    cout << "[Turn "<<turn<<"] "<< player[currentPlayerIndex].getCurrentCreature().getName() << " used " << currentSkill.name << "!\n";
 
-    player[currentPlayerIndex].getCurrentCreature().useSkill(skillIndex, goal);
-    return result.str();
+    player[currentPlayerIndex].getCurrentCreature().useSkill(skillIndex, goal, turn);
+}
+
+void Game::swapCreature(int creatureIndex)
+{
+    cout << "[Turn " << turn << "] " << player[currentPlayerIndex].getCurrentCreature().getName() << ", switch out!" << endl;
+    cout << "[Turn " << turn << "] " << "Come back!" << endl;
+    player[currentPlayerIndex].switchCurrentCreature(creatureIndex);
+    cout << "[Turn " << turn << "] " << "Go! " << player[currentPlayerIndex].getCurrentCreature().getName() << "!" << endl;
+
+}
+
+void Game::humanAttack(int index)
+{
+    useSkill(index, player[1].getCurrentCreature());
 }
 
 void Game::swapTurn()
@@ -105,4 +118,6 @@ Player* Game::getNotCurrentPlayer()
         return &player[1];
     }
 }
+
+
 

@@ -50,7 +50,8 @@ Creature::Creature(const Creature& creature)
 }
 
 
-void Creature::useSkill(int index, Creature* target)
+// 回傳type 傷害
+void Creature::useSkill(int index, Creature& target, int turn)
 {
 	Skill& nowSkill = skills[index];
 	int damage = 0;
@@ -60,6 +61,7 @@ void Creature::useSkill(int index, Creature* target)
 	double typeDamange;
 
 	if (nowSkill.PP <= 0) {
+		
 		cout << "PP不足" << endl;
 		return;
 	}
@@ -70,25 +72,48 @@ void Creature::useSkill(int index, Creature* target)
 
 	if (nowSkill.skillType == PHYSICAL) {
 		atk = this->atk;
-		def = target->def;
+		def = target.def;
 	}
 	else {
 		atk = this->spAtk;
-		def = target->spDef;
+		def = target.spDef;
 	}
 
-	if (target->isSameType(nowSkill.type)) {
+	if (target.isSameType(nowSkill.type)) {
 		stabDamange = 1.5;
 	}
 	else {
 		stabDamange = 1;
 	}
 
-	typeDamange = getTypeRate(nowSkill.type, target->types[0]) * getTypeRate(nowSkill.type, target->types[1]);
+	if (target.getTypeSize() == 2) {
+		typeDamange = getTypeRate(nowSkill.type, target.types[0]) * getTypeRate(nowSkill.type, target.types[1]);
+	}
+	else {
+		typeDamange = getTypeRate(nowSkill.type, target.types[0]);
+	}
+	
+	cout << "typedamange" << typeDamange << endl;
+
+	if (typeDamange >= 2) {
+		cout << "[Turn" <<  turn << " ] " << "it's super effective!" << endl;
+	}
+	else if (typeDamange <= 0.5) {
+		cout << "[Turn" << turn << " ] " << "it's not very effective..." << endl;
+	}
+	else if (typeDamange == 0) {
+		cout << "[Turn" << turn << " ] " << "it doesn't affect..." << endl;
+	}
+
+	if (false) { // if cit
+		cout << "[Turn" << turn << " ] " << "it's a critical hit!" << endl;
+	}
 
 	damage = int((double(2) * level + double(10)) / double(250) * nowSkill.power * atk / def + 2) * 1 * stabDamange * typeDamange;
 
-	target->beRealDamange(damage);
+	target.beRealDamange(damage);
+
+	cout << "target hp: " << target.hp << endl;
 }
 
 bool Creature::isSameType(TYPE type)
@@ -208,7 +233,6 @@ double Creature::getDodgeRate() const
 
 int Creature::getSkillSize() const
 {
-	cout << skills.size() << endl;
 	return skills.size();
 }
 
