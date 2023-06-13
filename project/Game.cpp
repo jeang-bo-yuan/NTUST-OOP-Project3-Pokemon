@@ -3,6 +3,8 @@
 #include <random>
 #include <fstream>
 
+#define TEST
+
 using namespace std;
 
 
@@ -16,13 +18,18 @@ Game::Game()
 void Game::loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath)
 {
     newGame();
-    skillLib.loadFromFile(moveLibPath);
-//    skillLib.loadFromFile("D:/GitHub/Pokemon/project/test case/MoveLib.txt");
-    creatureLib.loadFromFile(pokemonLibPath);
-//    creatureLib.loadFromFile("D:/GitHub/Pokemon/project/test case/PokemonLib.txt");
+#ifdef TEST
+    ifstream gameData("D:/GitHub/Pokemon/project/test case/GameData.txt");
+    skillLib.loadFromFile("D:/GitHub/Pokemon/project/test case/MoveLib.txt");
+    creatureLib.loadFromFile("D:/GitHub/Pokemon/project/test case/PokemonLib.txt");
+#else
+     skillLib.loadFromFile(moveLibPath);
+     creatureLib.loadFromFile(pokemonLibPath);
+     ifstream gameData(gameDataPath);
+#endif
+
+
     
-    ifstream gameData(gameDataPath);
-//    ifstream gameData("D:/GitHub/Pokemon/project/test case/GameData.txt");
 
     gameData >> player[0] >> player[1];
 }
@@ -32,8 +39,11 @@ void Game::loadFromFile(const string& filename)
     string pokemonLibPath, moveLibPath, gameDataPath;
     string command;
 
+#ifdef TEST
+    ifstream file("D:/GitHub/Pokemon/project/test case/case.txt");
+#else
     ifstream file(filename);
-
+#endif
     file >> pokemonLibPath >> moveLibPath >> gameDataPath;
 
     loadGame(pokemonLibPath, moveLibPath, gameDataPath);
