@@ -12,6 +12,7 @@
 #include "Creature.h"
 
 std::vector<Effect> EffectManager::effects;
+double EffectManager::parRate;
 
 // Intent: 添加Effect到Creatue上
 // Pre: name: Effect名稱, target: 要添加Effect的Creature
@@ -119,7 +120,7 @@ void EffectManager::useEffect(Creature* creature, int turn)
 
 void EffectManager::setParRate(double rate)
 {
-	parRate = parRate;
+    parRate = rate;
 }
 
 // Intetn: 重置Effect
