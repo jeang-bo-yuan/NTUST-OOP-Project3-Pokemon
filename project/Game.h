@@ -6,7 +6,6 @@
 #include "Creature.h"
 #include "SkillLibary.h"
 #include "CreatureLibary.h"
-#include "GameControl.h"
 
 class Game
 {

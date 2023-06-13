@@ -15,13 +15,13 @@ Game::Game()
 void Game::loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath)
 {
     newGame();
-    // skillLib.loadFromFile(moveLibPath);
-    skillLib.loadFromFile("D:/GitHub/Pokemon/project/test case/MoveLib.txt");
-    // creatureLib.loadFromFile(pokemonLibPath);
-    creatureLib.loadFromFile("D:/GitHub/Pokemon/project/test case/PokemonLib.txt");
+    skillLib.loadFromFile(moveLibPath);
+//    skillLib.loadFromFile("D:/GitHub/Pokemon/project/test case/MoveLib.txt");
+    creatureLib.loadFromFile(pokemonLibPath);
+//    creatureLib.loadFromFile("D:/GitHub/Pokemon/project/test case/PokemonLib.txt");
     
-    // ifstream gameData(gameDataPath);
-    ifstream gameData("D:/GitHub/Pokemon/project/test case/GameData.txt");
+    ifstream gameData(gameDataPath);
+//    ifstream gameData("D:/GitHub/Pokemon/project/test case/GameData.txt");
 
     gameData >> player[0] >> player[1];
 }

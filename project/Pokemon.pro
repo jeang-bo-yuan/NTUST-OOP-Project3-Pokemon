@@ -11,7 +11,9 @@ msvc: QMAKE_CXXFLAGS += /utf-8
 
 SOURCES += \
     BagSelecter.cpp \
+  Common.cpp \
     Creature.cpp \
+  CreatureLibary.cpp \
     FileSelecter.cpp \
     Game.cpp \
     GameViewer.cpp \
@@ -19,14 +21,17 @@ SOURCES += \
     Object.cpp \
     Player.cpp \
     PokemonSelecter.cpp \
-    Skill.cpp \
+#    Skill.cpp \
+  SkillLibary.cpp \
     SkillSelecter.cpp \
     main.cpp \
     gamemainwindow.cpp
 
 HEADERS += \
     BagSelecter.h \
+  Common.h \
     Creature.h \
+  CreatureLibary.h \
     FileSelecter.h \
     Game.h \
     GameViewer.h \
@@ -34,7 +39,8 @@ HEADERS += \
     Object.h \
     Player.h \
     PokemonSelecter.h \
-    Skill.h \
+#    Skill.h \
+  SkillLibary.h \
     SkillSelecter.h \
     gamemainwindow.h
 

@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "CreatureLibary.h"
 #include "SkillLibary.h"
+#include <algorithm>
 
 Player::Player()
 {
@@ -54,7 +55,14 @@ int Player::objectsSize() const
 
 int Player::creaturesSize() const
 {
-	return creatures.size();
+    return creatures.size();
+}
+
+bool Player::isAlive() const
+{
+    return std::any_of(creatures.begin(), creatures.end(), [](const Creature& c)->bool {
+        return c.getHp() > 0;
+    });
 }
 
 void Player::reset()

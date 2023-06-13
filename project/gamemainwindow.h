@@ -70,6 +70,9 @@ private slots:
     // 選pokemon -> 選定寶可夢
     void pokemonSelected(PokemonButton* button);
 
+    // 遊戲進入下一回合，包含判斷遊戲是否結束
+    void nextRound();
+
 private:
     Ui::GameMainWindow *ui;
     QImage backgroundImg;

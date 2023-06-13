@@ -27,6 +27,12 @@ public:
 	int objectsSize() const;
 	int creaturesSize() const;
 
+    // Intend: 判斷玩家能否繼續戰鬥
+    // Pre: none
+    // Post: true -> 若玩家任何一隻pokemon血量>0;
+    //       false -> 全部pokemon血量==0
+    bool isAlive() const;
+
 	void reset();
 
 	friend istream& operator>>(istream& is, Player& player);
