@@ -6,11 +6,12 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QMouseEvent>
+#include <QWhatsThis>
 
 // PokemonButton
 
 PokemonButton::PokemonButton(const Creature& pokemon, int index, QWidget *parent)
-    : QFrame(parent), index(index), pokemonHp(nullptr), pokemon(pokemon)
+    : QFrame(parent), pokemon(pokemon), index(index), pokemonHp(nullptr)
 {
     QHBoxLayout* gLayout = new QHBoxLayout(this);
     gLayout->setAlignment(Qt::AlignCenter);
@@ -50,6 +51,15 @@ PokemonButton::PokemonButton(const Creature& pokemon, int index, QWidget *parent
     QLabel* maxHp = new QLabel(QString("/") + QString::number(pokemon.getMaxHp()));
     gLayout->addWidget(pokemonHp);
     gLayout->addWidget(maxHp);
+
+    // whatsThis
+    QString text;
+    text += "Attack: " + QString::number(pokemon.getAtk());
+    text += "\nDef: " + QString::number(pokemon.getDef());
+    text += "\nSp. Atk: " + QString::number(pokemon.getSpAtk());
+    text += "\nSp. Def: " + QString::number(pokemon.getSpDef());
+    text += "\nSpeed: " + QString::number(pokemon.getSpeed());
+    this->setWhatsThis(text);
 }
 
 void PokemonButton::updateHp() {
@@ -61,6 +71,9 @@ void PokemonButton::updateHp() {
 void PokemonButton::mousePressEvent(QMouseEvent* e) {
     if (e->button() == Qt::LeftButton && pokemon.getHp() > 0) {
         emit pokemonSelected(this);
+    }
+    else if (e->button() == Qt::RightButton) {
+        QWhatsThis::showText(e->globalPos(), this->whatsThis(), this);
     }
 }
 

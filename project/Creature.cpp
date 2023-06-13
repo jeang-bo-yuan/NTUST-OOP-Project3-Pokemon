@@ -241,9 +241,11 @@ int Creature::getSpeed() const
 	return speed;
 }
 
+int Creature::getAtk() const { return this->atk; }
+
 int Creature::getDef() const
 {
-	return def;
+    return def;
 }
 
 int Creature::getSpAtk() const
