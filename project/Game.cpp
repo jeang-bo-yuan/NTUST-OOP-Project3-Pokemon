@@ -94,6 +94,31 @@ void Game::humanAttack(int index)
     useSkill(index, player[1].getCurrentCreature());
 }
 
+void Game::computerAttack(int index)
+{
+    useSkill(index, player[humanIndex].getCurrentCreature());
+}
+
+int Game::getHumanCurrentCreatureHp() const
+{
+    return player[humanIndex].getCurrentCreature().getHp();
+}
+
+int Game::getComputerCurrentCreatureHp() const
+{
+    return player[computerIndex].getCurrentCreature().getHp();
+}
+
+const string Game::getHumanCurrentCreatureName() const
+{
+    return player[humanIndex].getCurrentCreature().getName();
+}
+
+const string Game::getComputerCurrentCreatureName() const
+{
+    return player[computerIndex].getCurrentCreature().getName();
+}
+
 void Game::swapTurn()
 {
     if (currentPlayerIndex) {

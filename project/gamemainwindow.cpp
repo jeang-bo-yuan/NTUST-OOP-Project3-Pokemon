@@ -237,6 +237,10 @@ void GameMainWindow::pokemonSelected(PokemonButton *button)
 
     if (button != nullptr) {
         std::cout << button->getIndex() << " selected" << std::endl;
+
+        // 切換pokemon
+        gameManager.swapCreature(button->getIndex());
+
         std::cerr << "Warning: switching pokemon is implemented yet!\n";
         selectLogWindow();
     }

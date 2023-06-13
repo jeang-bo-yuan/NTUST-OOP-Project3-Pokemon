@@ -12,7 +12,8 @@ class Game
 {
 private:
     const int humanIndex = 0;
-    Player player[2];
+    const int computerIndex = 1;
+    Player player[2]; // 0: human, 1: computer
     int currentPlayerIndex;
 
     SkillLibray skillLib;
@@ -39,6 +40,11 @@ public:
     void swapCreature(int creatureIndex); // 怪物交換
 
     void humanAttack(int index);
+    void computerAttack(int index);
+    int getHumanCurrentCreatureHp() const;
+    int getComputerCurrentCreatureHp() const;
+    const string getHumanCurrentCreatureName() const;
+    const string getComputerCurrentCreatureName() const;
 
     void swapTurn();
 
