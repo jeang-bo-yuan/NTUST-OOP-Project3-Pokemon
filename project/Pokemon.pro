@@ -14,6 +14,8 @@ SOURCES += \
   Common.cpp \
     Creature.cpp \
   CreatureLibary.cpp \
+  Effect.cpp \
+  EffectManager.cpp \
     FileSelecter.cpp \
     Game.cpp \
     GameViewer.cpp \
@@ -32,6 +34,8 @@ HEADERS += \
   Common.h \
     Creature.h \
   CreatureLibary.h \
+  Effect.h \
+  EffectManager.h \
     FileSelecter.h \
     Game.h \
     GameViewer.h \

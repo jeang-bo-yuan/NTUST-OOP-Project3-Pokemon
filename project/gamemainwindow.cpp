@@ -59,7 +59,6 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     connect(ui->buttonBag, &QPushButton::clicked, this, &GameMainWindow::selectBag);
     connect(ui->subBagSelecter, &BagSelecter::itemSelected, this, &GameMainWindow::itemSelected);
     connect(ui->subSkillSelecter, &SkillSelecter::skillSelected, this, &GameMainWindow::skillSelected);
-    std::cerr << "Warning: Connection between Game and GameViewer isn't established\n";
 }
 
 GameMainWindow::~GameMainWindow()
