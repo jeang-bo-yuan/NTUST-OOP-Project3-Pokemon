@@ -96,10 +96,18 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 		atk = this->atk;
 		def = target.def;
 	}
-	else {
+	else if (nowSkill.skillType == SPECIAL) {
 		atk = this->spAtk;
 		def = target.spDef;
 	}
+	else if (nowSkill.skillType == STATUS) {
+		return;
+	}
+	else {
+		cout << "技能類型錯誤" << endl;
+		return;
+	}
+	
 
 	if (this->isSameType(nowSkill.type)) {
 		stabDamange = 1.5;
