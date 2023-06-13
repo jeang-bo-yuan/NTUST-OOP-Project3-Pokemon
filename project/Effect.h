@@ -7,8 +7,12 @@
  * Description: This is a effect class
  *********************************************************************/
 #pragma once
+#include <string>
+#include "Common.h"
 
-	class Creature;
+using std::string;
+
+class Creature;
 
 enum class EFFECT_NAME {
 	PARALYSIS,
@@ -27,4 +31,9 @@ public:
 	Effect(EFFECT_NAME name, Creature* target);
 	~Effect() = default;
 	void use();
+
+	Creature* getCreature() const;
+	const string getName() const;
+	bool isNone() const;
+
 };

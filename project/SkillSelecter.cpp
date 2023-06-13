@@ -76,7 +76,6 @@ void SkillSelecter::init(Creature* creature) {
 
     // create buttons
 
-    cout << "getSkill size" << creature->getSkillSize() << endl;
     {
         for (int i = 0; i < creature->getSkillSize(); ++i) {
             SkillButton* button = new SkillButton(creature->getSkill(i), i);

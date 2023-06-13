@@ -31,7 +31,7 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     list->setPlaybackMode(QMediaPlaylist::Loop);
     list->addMedia(QUrl("qrc:/media/music/bgm.mp3"));
     bgm.setPlaylist(list);
-    bgm.setVolume(50);
+    bgm.setVolume(40);
 
     // IO重導向
     std::cout.rdbuf(new LogWindow::LogStringBuf(ui->logWindow));
@@ -124,9 +124,11 @@ void GameMainWindow::startGame() {
         gameManager.loadGame(pokemonLib, moveLib, gameData);
     }
     else {
-        std::cout << "載入command file... " << qPrintable(ui->fileCmdFile->getFile()) << std::endl;
+        std::string cmdFile = ui->fileCmdFile->getFile().toStdString();
+
+        std::cout << "載入command file... " << cmdFile << std::endl;
         std::cerr << "Loading command file isn't implemented yet\n";
-        return;
+        gameManager.loadFromFile(cmdFile);
     }
 
     // initialize selecters
@@ -340,7 +342,7 @@ void GameMainWindow::nextRound()
             // 找到current creature的id，接著switch到i + 1
             for (int i = 0; i < computer->creaturesSize(); ++i) {
                 if (&computer->getCreature(i) == &computer->getCurrentCreature()) {
-                    computer->switchCurrentCreature(i + 1);
+                    computer->swapCreature(i + 1);
                     ui->computerView->switchPokemon(computer);
                     break;
                 }
