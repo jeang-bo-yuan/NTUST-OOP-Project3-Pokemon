@@ -25,7 +25,7 @@ void EffectManager::addEffect(EFFECT_NAME name, Creature* target, int turn, bool
 	if (name == EFFECT_NAME::PARALYSIS) {
 		target->decreaseSpeed();
 
-		cout << "[Turn " << turn << " ] ";
+		cout << "[Turn " << turn << "] ";
 		if (!target->isHuman) {
 			cout << "The opposing ";
 		}
@@ -35,7 +35,7 @@ void EffectManager::addEffect(EFFECT_NAME name, Creature* target, int turn, bool
 	}
 	else {
 		// Print info
-		cout << "[Turn " << turn << " ] ";
+		cout << "[Turn " << turn << "] ";
 		if (!target->isHuman) {
 			cout << "The opposing ";
 		}
@@ -81,18 +81,19 @@ void EffectManager::useEffect(Creature* creature, int turn)
 {
 	for (auto& effect : effects) {
 		if (effect.getCreature() == creature) {
-			if (effect.getName() == "BRN" || effect.getName() == "PSN") {
+			if (effect.getName() == "BRN") {
 				cout << "[Turn " << turn << "] ";
 				if (!creature->isHuman) {
 					cout << "The opposing ";
 				}
-				cout << effect.getCreature()->getName() << " is hurt by its ";
-
-				cout << getEffectNameSmall(effect.getEffectName());
-
-				cout << "!" << endl;
-
-				effect.use();
+				cout << effect.getCreature()->getName() << " is hurt by its burn!" << endl;
+			}
+			else if (effect.getName() == "PSN") {
+				cout << "[Turn " << turn << "] ";
+				if (!creature->isHuman) {
+					cout << "The opposing ";
+				}
+				cout << effect.getCreature()->getName() << " is hurt by its poisoning!" << endl;
 			}
 			else if (effect.getName() == "PAR") {
 				std::random_device rd;
@@ -110,6 +111,7 @@ void EffectManager::useEffect(Creature* creature, int turn)
 					creature->setParalyzed(false);
 				}
 			}
+			effect.use();
 		}
 	}
 }

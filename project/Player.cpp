@@ -28,9 +28,28 @@ Creature& Player::getCreature(int index)
 	return creatures[index];
 }
 
+Creature& Player::getCreature(const string name)
+{
+	for (auto& i : creatures) {
+		if (i.getName() == name) {
+			return i;
+		}
+	}
+
+}
+
 const Object& Player::getObject(int index) const
 {
     return objects[index];
+}
+
+Object& Player::getObject(const string& str)
+{
+	for (int i = 0; i < objects.size(); i++) {
+		if (objects[i].getName() == str) {
+			return objects[i];
+		}
+	}
 }
 
 Object &Player::getObject(int index)

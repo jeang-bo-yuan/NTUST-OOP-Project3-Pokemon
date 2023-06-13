@@ -80,7 +80,7 @@ void Game::loadFromFile(const string& filename)
             file >> potion >> creatureName >> computerSkill;
 
 
-            player[humanIndex].useObject(potion, creatureName);
+            useObject(&player[humanIndex].getObject(potion), &player[humanIndex].getCreature(creatureName));
 
             player[computerIndex].getCurrentCreature().useSkill(computerSkill, player[humanIndex].getCurrentCreature(), turn, false);
         }

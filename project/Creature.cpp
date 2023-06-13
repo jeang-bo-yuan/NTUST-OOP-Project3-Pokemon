@@ -57,7 +57,7 @@ Creature::Creature(const Creature& creature)
 void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 {
 	if (this->paralyzed) {
-		cout << "[Turn " << turn << " ] ";
+		cout << "[Turn " << turn << "] ";
 		if (!this->isHuman) {
 			cout << "The opposing ";
 		}
@@ -77,7 +77,7 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 		return;
 	}
 
-	cout << "[Turn " << turn << " ] ";
+	cout << "[Turn " << turn << "] ";
 	if (!this->isHuman) {
 		cout << "The opposing ";
 	}
@@ -116,20 +116,20 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 	}
 
 	if (typeDamange >= 2) {
-		cout << "[Turn " <<  turn << " ] " << "it's super effective!" << endl;
+		cout << "[Turn " <<  turn << "] " << "It's super effective!" << endl;
 	}
 	else if (typeDamange <= 0.5) {
-		cout << "[Turn " << turn << " ] " << "it's not very effective..." << endl;
+		cout << "[Turn " << turn << "] " << "It's not very effective..." << endl;
 	}
 	else if (typeDamange == 0) {
-		cout << "[Turn " << turn << " ] " << "it doesn't affect..." << endl;
+		cout << "[Turn " << turn << "] " << "It doesn't affect..." << endl;
 	}
 
 	if (false) { // if cit
-		cout << "[Turn " << turn << " ] " << "it's a critical hit!" << endl;
+		cout << "[Turn " << turn << "] " << "It's a critical hit!" << endl;
 	}
 
-	damage = int((double(2) * level + double(10)) / double(250) * nowSkill.power * atk / def + 2) * 1 * stabDamange * typeDamange;
+	damage = int((double(2) * level + double(10)) / double(250) * nowSkill.power * atk / def + double(2)) * double(1) * stabDamange * typeDamange;
 
 	target.beRealDamange(damage);
 }
