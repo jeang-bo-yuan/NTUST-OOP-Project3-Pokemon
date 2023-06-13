@@ -120,11 +120,6 @@ void GameMainWindow::startGame() {
         return;
     }
 
-    // 切換stack
-    ui->mainStack->setCurrentIndex(1);
-    selectLogWindow();
-    ui->optionGroup->show();
-
     // initialize selecters
     player = gameManager.getCurrentPlayer();
     computer = gameManager.getNotCurrentPlayer();
@@ -133,6 +128,11 @@ void GameMainWindow::startGame() {
     ui->subSkillSelecter->init(&player->getCurrentCreature());
     ui->playerView->init(player);
     ui->computerView->init(computer);
+
+    // 切換stack
+    ui->mainStack->setCurrentIndex(1);
+    selectLogWindow();
+    ui->optionGroup->show();
 }
 
 // 按下optionGroup中的按鈕的slot... ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -239,13 +239,11 @@ void GameMainWindow::skillSelected(SkillButton *button)
             if (computer->getCurrentCreature().getHp() <= 0)
                 break;
 
+            waitFor(500);
             // 對手攻擊
             gameManager.computerAttack(rand() % computer->getCurrentCreature().getSkillSize());
             // 更新玩家血量
             ui->playerView->updateHp(player);
-
-            // 讓currentPlayerIndex指向player
-            gameManager.swapTurn();
         }
         else {
             // 電腦攻擊
@@ -254,9 +252,10 @@ void GameMainWindow::skillSelected(SkillButton *button)
             ui->playerView->updateHp(player);
 
             // 玩家掛了
-            if (player->getCurrentCreature().getHp() < 0)
+            if (player->getCurrentCreature().getHp() <= 0)
                 break;
 
+            waitFor(500);
             // 玩家攻擊
             gameManager.humanAttack(button->getIndex());
             // 更新對手血量

@@ -23,5 +23,5 @@ Wigglytuff
 2 Normal Fairy
 247 134 106 139 112 106
 Primeape
-1 Fight
+1 Fighting
 172 172 123 123 134 161

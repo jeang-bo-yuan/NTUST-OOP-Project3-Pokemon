@@ -82,6 +82,7 @@ void Game::useSkill(int skillIndex, Creature& goal)
 
 void Game::swapCreature(int creatureIndex)
 {
+    currentPlayerIndex = humanIndex;
     cout << "[Turn " << turn << "] " << player[currentPlayerIndex].getCurrentCreature().getName() << ", switch out!" << endl;
     cout << "[Turn " << turn << "] " << "Come back!" << endl;
     player[currentPlayerIndex].switchCurrentCreature(creatureIndex);

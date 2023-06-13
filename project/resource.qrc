@@ -34,7 +34,6 @@
         <file>media/types/Dragon.png</file>
         <file>media/types/Electric.png</file>
         <file>media/types/Fairy.png</file>
-        <file>media/types/Fight.png</file>
         <file>media/types/Fire.png</file>
         <file>media/types/Flying.png</file>
         <file>media/types/Ghost.png</file>
@@ -47,5 +46,6 @@
         <file>media/types/Rock.png</file>
         <file>media/types/Steel.png</file>
         <file>media/types/Water.png</file>
+        <file>media/types/Fighting.png</file>
     </qresource>
 </RCC>
