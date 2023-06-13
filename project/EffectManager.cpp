@@ -31,6 +31,9 @@ void EffectManager::useEffect(int turn)
 	}
 }
 
+// Intent: 印出Creature所擁有的Effect
+// Pre: target: 要印出Effect的Creature
+// Post: 印出Creature所擁有的Effect
 void EffectManager::printEffect(Creature* target)
 {
 	for (const auto& i : effects) {
@@ -58,4 +61,35 @@ const string EffectManager::getEffectNameSmall(EFFECT_NAME name)
 	}
 
 	return "unKnow";
+}
+
+// Intent: 觸發creature所擁有的所有effect
+void EffectManager::useEffect(Creature* creature, int turn)
+{
+	for (auto& effect : effects) {
+		if (effect.getCreature() == creature) {
+			if (effect.getName() == "BRN" || effect.getName() == "PSN") {
+				cout << "[Turn " << turn << "] " << effect.getCreature()->getName() << " is hurt by its ";
+
+				if (effect.getName() == "BRN") {
+					cout << "burn";
+				}
+				else if (effect.getName() == "PSN") {
+					cout << "poison";
+				}
+
+				cout << "!" << endl;
+
+				effect.use();
+			}
+		}
+	}
+}
+
+// Intetn: 重置Effect
+// Pre: None
+// Post: 重置Effect
+void EffectManager::reset()
+{
+	effects.clear();
 }

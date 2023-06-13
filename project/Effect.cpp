@@ -23,11 +23,9 @@ void Effect::use()
 		break;
 	case EFFECT_NAME::BURN:
 		target->beRealDamange(target->getMaxHp() / 16); // 造成生命1/16的傷害
-		std::cout << target->getName() << " is hurt by its burn!" << std::endl;
 		break;
 	case EFFECT_NAME::POISON:
 		target->beRealDamange(target->getMaxHp() / 16);// 造成生命1/16的傷害
-		std::cout << target->getName() << " is hurt by its poisoning!" << std::endl;
 		break;
 	}
 }

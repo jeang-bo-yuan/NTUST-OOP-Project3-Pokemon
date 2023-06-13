@@ -23,4 +23,7 @@ public:
 	static void useEffect(int turn);
 	static void printEffect(Creature* target);
 	static const string getEffectNameSmall(EFFECT_NAME name);
+
+	static void useEffect(Creature* creature, int turn);
+	static void reset();
 };
