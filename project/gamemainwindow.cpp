@@ -116,7 +116,7 @@ void GameMainWindow::startGame() {
     else {
         std::cout << "載入command file... " << qPrintable(ui->fileCmdFile->getFile()) << std::endl;
         std::cerr << "Loading command file isn't implemented yet\n";
-        return;
+        gameManager.loadFromFile("f");
     }
 
 

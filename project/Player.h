@@ -19,10 +19,15 @@ public:
 	const Creature& getCreature(int index) const;
 	Creature& getCreature(int index);
 	const Object& getObject(int index) const;
-	void switchCurrentCreature(int index);
+	void swapCreature(int index);
 	void addCreature(Creature creature);
 	void addObject(Object object);
 
+	void useObject(const string& creatureName, const string& objectName);
+	void swapCreature(const string& creatureName, int turn);
+
+
+	int findCreatureIndex(const string& creatureName) const;
 
 	int objectsSize() const;
 	int creaturesSize() const;

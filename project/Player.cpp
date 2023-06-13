@@ -32,7 +32,7 @@ const Object& Player::getObject(int index) const
 	return objects[index];
 }
 
-void Player::switchCurrentCreature(int index)
+void Player::swapCreature(int index)
 {
 	currentCreatureIndex = index;
 }
@@ -45,6 +45,37 @@ void Player::addCreature(Creature creature)
 void Player::addObject(Object object)
 {
 	objects.push_back(object);
+}
+
+void Player::useObject(const string& creatureName, const string& objectName)
+{
+}
+
+void Player::swapCreature(const string& creatureName, int turn)
+{
+	int index = -1;
+	for (int i = 0; i < creatures.size(); i++) {
+		if (creatures[i].getName() == creatureName) {
+			index = i;
+		}
+	}
+
+	if (index == -1) {
+		cout << "Not find the creature " << creatureName << endl;
+	}
+
+	this->swapCreature(index);
+}
+
+int Player::findCreatureIndex(const string& creatureName) const
+{
+	for (int i = 0; i < creatures.size(); i++) {
+		if (creatures[i].getName() == creatureName) {
+			return i;
+		}
+	}
+
+	return -1; // not find
 }
 
 int Player::objectsSize() const
