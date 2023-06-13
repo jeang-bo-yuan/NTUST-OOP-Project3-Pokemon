@@ -68,6 +68,7 @@ public:
     int getHp() const;
     int getMaxHp() const;
     int getSpeed() const;
+    int getAtk() const;
     int getDef() const;
     int getSpAtk() const;
     int getSpDef() const;
