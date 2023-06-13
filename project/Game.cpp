@@ -89,13 +89,18 @@ void Game::swapCreature(int creatureIndex)
 
 }
 
+// Intent: human attack
+// Post: None
+
 void Game::humanAttack(int index)
 {
-    useSkill(index, player[1].getCurrentCreature());
+    currentPlayerIndex = humanIndex;
+    useSkill(index, player[computerIndex].getCurrentCreature());
 }
 
 void Game::computerAttack(int index)
 {
+    currentPlayerIndex = computerIndex;
     useSkill(index, player[humanIndex].getCurrentCreature());
 }
 
