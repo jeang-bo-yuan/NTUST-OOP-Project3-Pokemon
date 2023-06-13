@@ -271,14 +271,23 @@ void GameMainWindow::pokemonSelected(PokemonButton *button)
     // let connection be destroyed after a pokemon is choosen
     disconnect(ui->subPokemonSelecter, &PokemonSelecter::pokemonSelected, this, &GameMainWindow::pokemonSelected);
 
+    int idx = button->getIndex();
     if (button != nullptr) {
-        std::cout << button->getIndex() << " selected" << std::endl;
+        ui->optionGroup->hide();
+        selectLogWindow();
 
         // 切換pokemon
-        gameManager.swapCreature(button->getIndex());
+        gameManager.swapCreature(idx);
+        ui->playerView->switchPokemon(player);
+        ui->subSkillSelecter->init(&player->getCurrentCreature());
 
-        std::cerr << "Warning: switching pokemon is implemented yet!\n";
-        selectLogWindow();
+        waitFor(500);
+        // 電腦攻擊
+        gameManager.computerAttack(rand() % computer->getCurrentCreature().getSkillSize());
+        // 更新玩家血量
+        ui->playerView->updateHp(player);
+
+        nextRound();
     }
 }
 
