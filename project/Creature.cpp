@@ -32,7 +32,7 @@ double getTypeRate(TYPE attack, TYPE defend)
 
 Creature::Creature()
 {
-
+	paralyzed = false;
 }
 
 
@@ -58,7 +58,7 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 	if (this->paralyzed) {
 		cout << "[Turn " << turn << " ] ";
 		cout << name << " is paralyzed! It can't move!" << endl;
-
+		return;
 	}
 	Skill& nowSkill = skills[index];
 	int damage = 0;
@@ -97,12 +97,16 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 		def = target.spDef;
 	}
 
-	if (target.isSameType(nowSkill.type)) {
+	if (this->isSameType(nowSkill.type)) {
 		stabDamange = 1.5;
 	}
 	else {
 		stabDamange = 1;
 	}
+
+
+	cout << typeToStr(nowSkill.type) << endl;
+	cout << typeToStr(target.types[0]) << endl;
 
 	if (target.getTypeSize() == 2) {
 		typeDamange = getTypeRate(nowSkill.type, target.types[0]) * getTypeRate(nowSkill.type, target.types[1]);
