@@ -9,7 +9,8 @@ using namespace std;
 
 enum SKILL_TYPE {
 	SPECIAL,
-	PHYSICAL
+	PHYSICAL,
+	STATUS
 };
 
 struct Skill

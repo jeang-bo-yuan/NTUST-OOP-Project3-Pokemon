@@ -45,6 +45,9 @@ void SkillLibray::loadFromFile(const string& fileName)
 		else if (temp == "Special") {
 			skillType = SKILL_TYPE::SPECIAL;
 		}
+		else {
+			skillType = SKILL_TYPE::STATUS;
+		}
 
 		// 輸入power
 		ss >> power;
