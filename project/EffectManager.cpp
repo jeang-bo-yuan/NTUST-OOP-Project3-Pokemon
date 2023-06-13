@@ -12,7 +12,7 @@
 #include "Creature.h"
 
 std::vector<Effect> EffectManager::effects;
-double EffectManager::parRate;
+double EffectManager::parRate = 0.25;
 
 // Intent: 添加Effect到Creatue上
 // Pre: name: Effect名稱, target: 要添加Effect的Creature

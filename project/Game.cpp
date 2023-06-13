@@ -164,9 +164,12 @@ void Game::newGame()
 
 std::string Game::nextRound()
 {
-   log.clear();
-   ++turn;
-   return std::string();
+    log.clear();
+    ++turn;
+    EffectManager::useEffect(&player[humanIndex].getCurrentCreature(), turn);
+    EffectManager::useEffect(&player[computerIndex].getCurrentCreature(), turn);
+
+    return std::string();
 }
 
 void Game::setTesting()
