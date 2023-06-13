@@ -6,6 +6,7 @@
 #define GAMEMAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMediaPlayer>
 
 #include "BagSelecter.h"
 #include "PokemonSelecter.h"
@@ -73,12 +74,16 @@ private slots:
     // 遊戲進入下一回合，包含判斷遊戲是否結束
     void nextRound();
 
+    void backToMain();
+
 private:
     Ui::GameMainWindow *ui;
     QImage backgroundImg;
     Game gameManager;
     Player* player = nullptr;
     Player* computer = nullptr;
+
+    QMediaPlayer bgm;
 };
 
 #endif // GAMEMAINWINDOW_H

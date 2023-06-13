@@ -47,5 +47,8 @@
         <file>media/types/Steel.png</file>
         <file>media/types/Water.png</file>
         <file>media/types/Fighting.png</file>
+        <file>media/music/damage.wav</file>
+        <file>media/music/heal.wav</file>
+        <file>media/music/bgm.mp3</file>
     </qresource>
 </RCC>

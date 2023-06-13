@@ -13,6 +13,10 @@
   - [Special Move](https://www.deviantart.com/jormxdos/art/Special-Move-Icon-934387511)
   - [Status Move](https://www.deviantart.com/jormxdos/art/Status-Move-Icon-934387530)
   - [Physical Move](https://www.deviantart.com/jormxdos/art/Physical-Move-Icon-934387518)
+- Music
+  - [Damage](https://soundeffects.fandom.com/wiki/Pok%C3%A9mon_Damage)
+  - [Heal](https://soundeffects.fandom.com/wiki/Pok%C3%A9mon_Healing_Sound)
+  - [BGM](https://www.youtube.com/watch?v=Cp-waxoLel8&t=6s)
 
 # 能力值計算機
 

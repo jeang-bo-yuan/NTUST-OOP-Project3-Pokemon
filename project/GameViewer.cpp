@@ -3,6 +3,10 @@
 #include <QTimer>
 #include <QEventLoop>
 
+// definition of static member
+QSoundEffect GameViewer::damageSound;
+QSoundEffect GameViewer::healSound;
+
 void GameViewer::setData(Player *player)
 {
     setCondition(player);
@@ -33,6 +37,9 @@ void GameViewer::setCondition(Player *player)
 GameViewer::GameViewer(QWidget *parent)
     : QWidget{parent}
 {
+    damageSound.setSource(QUrl("qrc:/media/music/damage.wav"));
+    healSound.setSource(QUrl("qrc:/media/music/heal.wav"));
+
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
@@ -104,16 +111,29 @@ void GameViewer::updateHp(Player *player)
     setCondition(player);
     if (hpBar->value() == newHp) return;
 
-    // 以動畫顯示hp變化
+    // 音效
     int delta = hpBar->value() > newHp ? -1 : 1;
+    QSoundEffect& sound = delta == -1 ? damageSound : healSound;
+
+    // 晃動
+    QRect old = pokemonImg->geometry();
+    pokemonImg->setGeometry(old.x() + 10, old.y(), pokemonImg->width(), pokemonImg->height());
+    pokemonImg->repaint();
+
+    // 以動畫顯示hp變化
     QEventLoop loop;
     QTimer timer;
-    connect(&timer, &QTimer::timeout, &loop, [this, &loop, newHp, delta]() {
+    connect(&timer, &QTimer::timeout, &loop, [this, &loop, newHp, delta, old]() {
+        pokemonImg->setGeometry(old);
         hpBar->setValue(hpBar->value() + delta);
-        if (hpBar->value() == newHp)
+        if (hpBar->value() == newHp) {
             loop.exit();
+        }
     });
-    timer.start(10);
+    timer.setInterval(10);
+
+    sound.play();
+    timer.start();
     loop.exec();
 }
 

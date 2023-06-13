@@ -13,6 +13,7 @@
 #include <QPalette>
 #include <QEventLoop>
 #include <QDebug>
+#include <QMediaPlaylist>
 
 #define SUBSTACK_LOG 0
 #define SUBSTACK_BATTLE 1
@@ -24,6 +25,13 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     , ui(new Ui::GameMainWindow), backgroundImg(":/media/background.png")
 {
     ui->setupUi(this);
+
+    // bgm
+    QMediaPlaylist* list = new QMediaPlaylist;
+    list->setPlaybackMode(QMediaPlaylist::Loop);
+    list->addMedia(QUrl("qrc:/media/music/bgm.mp3"));
+    bgm.setPlaylist(list);
+    bgm.setVolume(50);
 
     // IO重導向
     std::cout.rdbuf(new LogWindow::LogStringBuf(ui->logWindow));
@@ -104,6 +112,8 @@ void GameMainWindow::startGame() {
     ui->logWindow->clear();
 
     if (!ui->checkBoxCmdFile->isChecked()) {
+        bgm.setPosition(0);
+        bgm.play();
         std::string pokemonLib = ui->filePokemon->getFile().toStdString();
         std::string moveLib = ui->fileMove->getFile().toStdString();
         std::string gameData = ui->fileGame->getFile().toStdString();
@@ -140,9 +150,7 @@ void GameMainWindow::runAway() {
     std::cout << "玩家逃跑了" << std::endl;
 
     // 切換stack
-    ui->mainStack->setCurrentIndex(0);
-    selectLogWindow();
-    ui->optionGroup->hide();
+    backToMain();
 }
 
 void GameMainWindow::selectBattle() {
@@ -321,7 +329,7 @@ void GameMainWindow::nextRound()
         }
         else {
             std::cout << "You Lose" << std::endl;
-            ui->mainStack->setCurrentIndex(0);
+            backToMain();
             return;
         }
     }
@@ -340,12 +348,20 @@ void GameMainWindow::nextRound()
         }
         else {
             std::cout << "You Win" << std::endl;
-            ui->mainStack->setCurrentIndex(0);
+            backToMain();
             return;
         }
     }
 
     ui->optionGroup->show();
+}
+
+void GameMainWindow::backToMain()
+{
+    bgm.stop();
+    ui->mainStack->setCurrentIndex(0);
+    selectLogWindow();
+    ui->optionGroup->hide();
 }
 
 
