@@ -7,6 +7,7 @@
 #include <QPainter>
 #include <QResizeEvent>
 #include <QScrollBar>
+#include <QWhatsThis>
 
 // ItemButton 的實作
 
@@ -31,6 +32,7 @@ ItemButton::ItemButton(const Object& object, int index, QWidget* parent)
 
     this->setMinimumHeight(70);
     this->setDisabled(count == 0);
+    this->setWhatsThis(QString::fromStdString(object.getObjectDescription()));
 }
 
 void ItemButton::useOne() {
@@ -49,6 +51,9 @@ void ItemButton::mousePressEvent(QMouseEvent * e)
 {
     if (e->button() == Qt::LeftButton && count != 0) {
         emit itemSelected(this);
+    }
+    else if (e->button() == Qt::RightButton) {
+        QWhatsThis::showText(e->globalPos(), this->whatsThis(), this);
     }
 }
 

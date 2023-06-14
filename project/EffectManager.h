@@ -21,6 +21,7 @@ public:
 	EffectManager() = default;
 	~EffectManager() = default;
 	static void addEffect(EFFECT_NAME name, Creature* target, int turn, bool humanAttack);
+    static std::string getEffectStr(Creature* target);
 	static void printEffect(Creature* target);
 	static const string getEffectNameSmall(EFFECT_NAME name);
 

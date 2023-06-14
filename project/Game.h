@@ -30,9 +30,13 @@ public:
     std::string nextRound();
 
     void loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath);
-    void loadFromFile(const string& filename);
+    // Intend: load command file
+    // Pre: none
+    // Post return 1 if game is over; 0 otherwise
+    int loadFromFile(const string& filename);
 
     void setTesting();
+    void setTesting(bool test) { isTesting = test; }
 
     std::string useObject(Object* object, class Creature* goal);
 

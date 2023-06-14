@@ -20,7 +20,7 @@ class GameViewer : public QWidget
 
     QHBoxLayout* pokeBallBox;
     QLabel* name;
-    QHBoxLayout* condition;
+    QLabel* condition;
     QProgressBar* hpBar;
     QLabel* pokemonImg;
 

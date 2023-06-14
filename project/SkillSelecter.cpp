@@ -24,7 +24,9 @@ SkillButton::SkillButton(const Skill& theSkill, int index, QWidget* parent)
     // physical or special
     {
         QLabel* move_type = new QLabel;
-        QPixmap img(QString(":/media/move-type/") + (theSkill.skillType == SKILL_TYPE::PHYSICAL ? "physical" : "special"));
+        QPixmap img(QString(":/media/move-type/") + (theSkill.skillType == SKILL_TYPE::PHYSICAL ? "physical" :
+                                                     theSkill.skillType == SKILL_TYPE::SPECIAL ? "special" :
+                                                                                                  "status"));
         move_type->setPixmap(img.scaled(50, 50));
         mainLayout->addWidget(move_type);
     }

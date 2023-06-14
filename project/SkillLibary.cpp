@@ -68,7 +68,7 @@ void SkillLibray::loadFromFile(const string& fileName)
 		else if (temp == "PAR") {
 			effect = EFFECT_NAME::PARALYSIS;
 		}
-		else if (temp == "BUN") {
+        else if (temp == "BRN") {
 			effect = EFFECT_NAME::BURN;
 		}
 		else if (temp == "PSN") {

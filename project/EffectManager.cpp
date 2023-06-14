@@ -39,8 +39,23 @@ void EffectManager::addEffect(EFFECT_NAME name, Creature* target, int turn, bool
 		if (!target->isHuman) {
 			cout << "The opposing ";
 		}
-		cout << target->getName() << " was " << EffectManager::getEffectNameSmall(name) << "ed!" << endl;
-	}
+        cout << target->getName() << " was " << EffectManager::getEffectNameSmall(name) << "ed!" << endl;
+    }
+}
+
+// Intend: 回傳寶可夢擁有的effect
+// Pre: target: 目標寶可夢
+// Post: 回傳字串，空字串代表沒有
+std::string EffectManager::getEffectStr(Creature *target)
+{
+    std::string result;
+    for (const auto& i : effects) {
+        if (i.getCreature() == target && !i.isNone()) {
+            result.push_back(' ');
+            result.append(i.getName());
+        }
+    }
+    return result;
 }
 
 
@@ -49,11 +64,7 @@ void EffectManager::addEffect(EFFECT_NAME name, Creature* target, int turn, bool
 // Post: 印出Creature所擁有的Effect
 void EffectManager::printEffect(Creature* target)
 {
-	for (const auto& i : effects) {
-		if (i.getCreature() == target && !i.isNone()) {
-			cout << " " << i.getName();
-		}
-	}
+    cout << getEffectStr(target);
 }
 
 const string EffectManager::getEffectNameSmall(EFFECT_NAME name)
