@@ -19,6 +19,28 @@ double EffectManager::parRate = 0.25;
 // Post: 將Effect添加到Creature上
 void EffectManager::addEffect(EFFECT_NAME name, Creature* target, int turn, bool humanAttack)
 {
+    for (auto& effect : effects) {
+        if (effect.getCreature() == target && effect.getEffectName() == name) {
+            cout << "[Turn " << turn << "] ";
+
+            if (!target->isHuman) {
+                cout << "The opposing ";
+            }
+
+            if(name == EFFECT_NAME::PARALYSIS)
+            {
+
+                cout << target->getName() << " is paralyzed, so it may be unable to move!" << endl;
+            }
+            else
+            {
+
+                cout << target->getName() << " was " << EffectManager::getEffectNameSmall(name) << "ed!" << endl;
+            }
+            return;
+        }
+    }
+
 	effects.push_back(Effect(name, target));
 
 	// 如果是麻痺就降低target的速度
