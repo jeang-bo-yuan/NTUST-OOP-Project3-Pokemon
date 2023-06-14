@@ -38,7 +38,7 @@ void Game::loadGame(std::string pokemonLibPath,std::string moveLibPath,std::stri
     player[1].setCreatureIsHuman(false);
 }
 
-void Game::loadFromFile(const string& filename)
+int Game::loadFromFile(const string& filename)
 {
     string pokemonLibPath, moveLibPath, gameDataPath;
     string command;
@@ -108,7 +108,8 @@ void Game::loadFromFile(const string& filename)
             continue;
         }
         else if (command == "Run") {
-            exit(0);
+            cout << "Player run away." << endl;
+            return 1;
         }
         else {
             cout << "Unknow command!! " << " What is " << command << endl;
@@ -120,15 +121,21 @@ void Game::loadFromFile(const string& filename)
         EffectManager::useEffect(&player[computerIndex].getCurrentCreature(), turn);
 
         for (int index = 0; index <= 1; ++index)
-        if (player[index].getCurrentCreature().getHp() <= 0) {
-            for (int i = 0; i < player[index].creaturesSize(); ++i) {
-                if (&player[index].getCreature(i) == &player[index].getCurrentCreature()) {
-                    player[index].swapCreature(i + 1);
-                    std::cout << "[" << turn << "]" << (index == computerIndex ? "computer" : "human") << " swap fainted pokemon to " << player[index].getCurrentCreature().getName() << endl;
-                    break;
+            if (player[index].getCurrentCreature().getHp() <= 0) {
+                // 全掛了
+                if (!player[index].isAlive()) {
+                    cout << "You " << (index == humanIndex ? "lose" : "win") << endl;
+                    return 1;
+                }
+
+                for (int i = 0; i < player[index].creaturesSize(); ++i) {
+                    if (&player[index].getCreature(i) == &player[index].getCurrentCreature()) {
+                        player[index].swapCreature(i + 1);
+                        std::cout << "[" << turn << "]" << (index == computerIndex ? "computer" : "human") << " swap fainted pokemon to " << player[index].getCurrentCreature().getName() << endl;
+                        break;
+                    }
                 }
             }
-        }
 
         qDebug() << turn << player[humanIndex].getCurrentCreature().getName().c_str() << player[computerIndex].getCurrentCreature().getName().c_str();
 
@@ -137,6 +144,7 @@ void Game::loadFromFile(const string& filename)
 
     file.close();
     currentPlayerIndex = humanIndex;
+    return 0;
 }
 
 void Game::newGame()

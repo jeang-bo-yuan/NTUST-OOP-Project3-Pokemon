@@ -113,8 +113,6 @@ void GameMainWindow::startGame() {
     gameManager.setTesting(ui->testingModeCheckBox->isChecked());
 
     if (!ui->checkBoxCmdFile->isChecked()) {
-        bgm.setPosition(0);
-        bgm.play();
         std::string pokemonLib = ui->filePokemon->getFile().toStdString();
         std::string moveLib = ui->fileMove->getFile().toStdString();
         std::string gameData = ui->fileGame->getFile().toStdString();
@@ -129,8 +127,13 @@ void GameMainWindow::startGame() {
 
         std::cout << "載入command file... " << cmdFile << std::endl;
         std::cerr << "Loading command file isn't implemented yet\n";
-        gameManager.loadFromFile(cmdFile);
+        int status = gameManager.loadFromFile(cmdFile);
+        if (status == 1)
+            return;
     }
+
+    bgm.setPosition(0);
+    bgm.play();
 
     // initialize selecters
     player = gameManager.getCurrentPlayer();
@@ -323,6 +326,7 @@ void GameMainWindow::nextRound()
     qDebug() << "(Hp) Player: " << player->getCurrentCreature().getHp() << "Computer: " << computer->getCurrentCreature().getHp();
 
     gameManager.nextRound();
+    waitFor(500);
     ui->playerView->updateHp(player);
     ui->computerView->updateHp(computer);
 
