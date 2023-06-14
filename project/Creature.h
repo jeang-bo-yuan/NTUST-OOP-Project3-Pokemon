@@ -50,8 +50,8 @@ public:
 
     Creature(const Creature & creature);
 
-    void useSkill(int index, Creature& target, int turn, bool humanAttack);
-    void useSkill(string skillName, Creature& target, int turn, bool humanAttack);
+    void useSkill(int index, Creature& target, int turn, bool humanAttack,bool isTesting);
+    void useSkill(string skillName, Creature& target, int turn, bool humanAttack, bool isTesting);
 
     void beRealDamange(int value);
 

@@ -256,14 +256,14 @@ void Game::humanAttack(int index)
 {
     auto currentSkill = player[humanIndex].getCurrentCreature().getSkill(index);
 
-    player[humanIndex].getCurrentCreature().useSkill(index, player[computerIndex].getCurrentCreature(), turn, currentPlayerIndex == humanIndex);
+    player[humanIndex].getCurrentCreature().useSkill(index, player[computerIndex].getCurrentCreature(), turn, currentPlayerIndex == humanIndex,isTesting);
 }
 
 void Game::computerAttack(int index)
 {
     auto currentSkill = player[computerIndex].getCurrentCreature().getSkill(index);
 
-    player[computerIndex].getCurrentCreature().useSkill(index, player[humanIndex].getCurrentCreature(), turn, currentPlayerIndex == humanIndex);
+    player[computerIndex].getCurrentCreature().useSkill(index, player[humanIndex].getCurrentCreature(), turn, currentPlayerIndex == humanIndex,isTesting);
 }
 
 bool Game::isFainted(int playerIndex)

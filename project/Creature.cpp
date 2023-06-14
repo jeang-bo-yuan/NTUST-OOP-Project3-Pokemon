@@ -57,7 +57,7 @@ Creature::Creature(const Creature& creature)
 
 
 // 回傳type 傷害
-void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
+void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack,bool isTesting)
 {
 	if (this->paralyzed) {
 		cout << "[Turn " << turn << "] ";
@@ -72,6 +72,7 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 	double def;
 	double stabDamange;
 	double typeDamange;
+    double criticalDamage = 1;
 
 	if (nowSkill.PP <= 0) {
 		
@@ -89,6 +90,18 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 	string typeName;
 	nowSkill.PP--;
 
+    if(!isTesting)
+    {
+        srand(time(0));
+
+        int r = rand()%100;
+
+        if(r>nowSkill.accuracy)
+        {
+            cout<< "[Turn " << turn << "] "<<target.getName()<<" avoided the attack!\n";
+            return;
+        }
+    }
 
 	if (nowSkill.skillType == PHYSICAL) {
 		atk = this->atk;
@@ -134,8 +147,14 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 		cout << "[Turn " << turn << "] " << "It doesn't affect..." << endl;
 	}
 
-	if (false) { // if cit
-		cout << "[Turn " << turn << "] " << "It's a critical hit!" << endl;
+    if (!isTesting) { // if cit
+        int r = rand()%100;
+
+        if(r<=30)
+        {
+            criticalDamage = 1.5;
+            cout << "[Turn " << turn << "] " << "A critical hit!" << endl;
+        }
 	}
 
 	// 技能有特殊效果
@@ -143,12 +162,12 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 		EffectManager::addEffect(nowSkill.effect, &target, turn, humanAttack);
 	}
 
-	damage = int((double(2) * level + double(10)) / double(250) * nowSkill.power * atk / def + double(2)) * double(1) * stabDamange * typeDamange;
+    damage = int((double(2) * level + double(10)) / double(250) * nowSkill.power * atk / def + double(2)) * criticalDamage * stabDamange * typeDamange;
 
 	target.beRealDamange(damage);
 }
 
-void Creature::useSkill(string skillName, Creature& target, int turn, bool humanAttack)
+void Creature::useSkill(string skillName, Creature& target, int turn, bool humanAttack, bool isTesting)
 {
 	int index = 0;
 
@@ -167,7 +186,7 @@ void Creature::useSkill(string skillName, Creature& target, int turn, bool human
 		return;
 	}
 	else {
-		useSkill(index, target, turn, humanAttack);
+        useSkill(index, target, turn, humanAttack,isTesting);
 	}
 }
 
