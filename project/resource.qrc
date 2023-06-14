@@ -2,10 +2,7 @@
     <qresource prefix="/">
         <file>media/Pokemon_logo.svg</file>
         <file>media/background.png</file>
-        <file>media/bag/Hyper Potion.png</file>
-        <file>media/bag/Max Potion.png</file>
         <file>media/bag/Potion.png</file>
-        <file>media/bag/Super Potion.png</file>
         <file>media/Pokemon/Blastoise.png</file>
         <file>media/Pokemon/Charizard.png</file>
         <file>media/Pokemon/Venusaur.png</file>
@@ -50,5 +47,8 @@
         <file>media/music/damage.wav</file>
         <file>media/music/heal.wav</file>
         <file>media/music/bgm.mp3</file>
+        <file>media/bag/HyperPotion.png</file>
+        <file>media/bag/MaxPotion.png</file>
+        <file>media/bag/SuperPotion.png</file>
     </qresource>
 </RCC>
