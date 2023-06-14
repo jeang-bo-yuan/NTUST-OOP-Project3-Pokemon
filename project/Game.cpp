@@ -172,9 +172,11 @@ void Game::newGame()
 std::string Game::nextRound()
 {
     log.clear();
-    ++turn;
+
     EffectManager::useEffect(&player[humanIndex].getCurrentCreature(), turn);
     EffectManager::useEffect(&player[computerIndex].getCurrentCreature(), turn);
+
+    ++turn;
 
     return std::string();
 }
@@ -201,7 +203,7 @@ void Game::useSkill(int skillIndex, Creature& goal)
 
     auto currentSkill = player[currentPlayerIndex].getCurrentCreature().getSkill(skillIndex);
 
-    cout << "[Turn "<<turn<<"] "<< player[currentPlayerIndex].getCurrentCreature().getName() << " used " << currentSkill.name << "!\n";
+    //cout << "[Turn "<<turn<<"] "<< player[currentPlayerIndex].getCurrentCreature().getName() << " used " << currentSkill.name << "!\n";
 
     player[currentPlayerIndex].getCurrentCreature().useSkill(skillIndex, goal, turn, currentPlayerIndex == humanIndex);
 }
