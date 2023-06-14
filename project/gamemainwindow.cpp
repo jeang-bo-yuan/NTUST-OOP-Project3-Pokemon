@@ -332,7 +332,7 @@ void GameMainWindow::nextRound()
 {
     qDebug() << "(Hp) Player: " << player->getCurrentCreature().getHp() << "Computer: " << computer->getCurrentCreature().getHp();
 
-    gameManager.nextRound();
+    gameManager.nextRound_BandP();
     waitFor(500);
     ui->playerView->updateHp(player);
     ui->computerView->updateHp(computer);
@@ -363,6 +363,7 @@ void GameMainWindow::nextRound()
     }
 
     ui->optionGroup->show();
+    gameManager.nextTurn();
 }
 
 void GameMainWindow::backToMain()

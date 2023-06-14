@@ -28,7 +28,8 @@ private:
 public:
     Game();
 
-    void nextRound(); // 下一回合 for GUI
+    void nextRound_BandP(); // 下一回合 + 進入B&P階段 for GUI
+    void nextTurn() { ++turn; }  // 將turn加一
     void loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath); // 加載遊戲資料
     int loadFromFile(const string& filename); // 從檔案載入遊戲資料 return 1 代表遊戲結束/ return 0 代表繼續
     void setTesting(); // 設定測試模式

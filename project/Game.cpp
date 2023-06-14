@@ -187,7 +187,7 @@ void Game::newGame()
 
 }
 
-void Game::nextRound()
+void Game::nextRound_BandP()
 {
     log.clear();
 
@@ -203,8 +203,6 @@ void Game::nextRound()
 //    auto &enemyCreature = player[computerIndex].getCurrentCreature();
     isFainted(computerIndex);
     isFainted(humanIndex);
-
-    ++turn;
 }
 
 void Game::setTesting()
