@@ -11,3 +11,11 @@ PoisonPowder Poison Status 0 75 35 PSN
 SeedBomb Grass Physical 80 100 15
 VineWhip Grass Physical 45 100 25
 SolarBeam Grass Special 120 100 10
+Thunderbolt Electric Special 90 100 15 PAR
+BoltStrike Electric Physical 130 85 5 PAR
+MudShot Ground Special 55 95 15
+Earthquake Ground Physical 100 100 10
+BugBite Bug Physical 60 100 20
+BugBuzz Bug Special 90 100 10
+CloseCombat Fighting Physical 120 100 5
+Struggle Normal Physical 50 100 1000

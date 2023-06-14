@@ -1,19 +1,19 @@
 6
-Primeape 4
-Ember Flamethrower DragonBreath AirSlash
-Wigglytuff 4
-Ember Flamethrower DragonBreath AirSlash
-Sandslash 4
-PoisonPowder VineWhip SeedBomb SolarBeam
-Pikachu 4
-Ember Flamethrower DragonBreath AirSlash
-Beedrill 4
-FlashCannon WaterGun WaterPulse AquaTail
-Butterfree 4
-FlashCannon WaterGun WaterPulse AquaTail
+Pikachu 2
+Thunderbolt BoltStrike
+Wigglytuff 1
+Struggle
+Sandslash 2
+MudShot Earthquake
+Primeape 2
+CloseCombat Struggle
+Beedrill 3
+PoisonPowder BugBite BugBuzz
+Butterfree 2
+BugBite BugBuzz
 3
-Beedrill 4
-FlashCannon WaterGun WaterPulse AquaTail
+Beedrill 3
+PoisonPowder BugBite BugBuzz
 Charizard 4
 DragonClaw Flamethrower DragonBreath AirSlash
 Venusaur 4

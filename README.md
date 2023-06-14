@@ -1,7 +1,7 @@
 # Pokemon
 物件導向 Project3
 
-# Image Source
+# Media Source
 
 - [pokemon pixel art](https://pokemondb.net/sprites)
 - [pokemon](https://www.pokemon.com/us/pokedex)
@@ -17,6 +17,10 @@
   - [Damage](https://soundeffects.fandom.com/wiki/Pok%C3%A9mon_Damage)
   - [Heal](https://soundeffects.fandom.com/wiki/Pok%C3%A9mon_Healing_Sound)
   - [BGM](https://www.youtube.com/watch?v=Cp-waxoLel8&t=6s)
+
+# Move List
+
+<https://pokemondb.net/move/all>
 
 # 能力值計算機
 
