@@ -47,21 +47,26 @@ void EffectManager::addEffect(EFFECT_NAME name, Creature* target, int turn, bool
 	if (name == EFFECT_NAME::PARALYSIS) {
 		target->decreaseSpeed();
 
-		cout << "[Turn " << turn << "] ";
-		if (!target->isHuman) {
-			cout << "The opposing ";
-		}
-		cout << target->getName() << " is paralyzed, so it may be unable to move!" << endl;
+		cout << "[Turn " << turn << "] " << target->getPrintName() << " is paralyzed, so it may be unable to move!" << endl;
 
-		EffectManager::useEffect(target, turn);
+		std::random_device rd;
+		std::mt19937 gen(rd());
+
+		std::uniform_real_distribution<double> dis(0.0, 1.0);
+
+		// 生成随机数
+		double randomNum = dis(gen);
+
+		if (randomNum <= parRate) {
+			target->setParalyzed(true);
+		}
+		else {
+			target->setParalyzed(false);
+		}
 	}
 	else {
 		// Print info
-		cout << "[Turn " << turn << "] ";
-		if (!target->isHuman) {
-			cout << "The opposing ";
-		}
-        cout << target->getName() << " was " << EffectManager::getEffectNameSmall(name) << "ed!" << endl;
+		cout << "[Turn " << turn << "] " << target->getPrintName() << " was " << EffectManager::getEffectNameSmall(name) << "ed!" << endl;
     }
 }
 

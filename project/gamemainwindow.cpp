@@ -127,7 +127,6 @@ void GameMainWindow::startGame() {
         std::string cmdFile = ui->fileCmdFile->getFile().toStdString();
 
         std::cout << "載入command file... " << cmdFile << std::endl;
-        std::cerr << "Loading command file isn't implemented yet\n";
         int status = gameManager.loadFromFile(cmdFile);
         if (status == 1)
             return;

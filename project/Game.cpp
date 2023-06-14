@@ -4,7 +4,7 @@
 #include <fstream>
 #include <QDebug>
 
-//#define TEST
+#define TEST
 
 using namespace std;
 
