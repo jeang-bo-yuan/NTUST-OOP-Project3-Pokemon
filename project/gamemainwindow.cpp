@@ -335,7 +335,7 @@ void GameMainWindow::nextRound()
     if (player->getCurrentCreature().getHp() <= 0) {
         if (player->isAlive()) {
             int pokemonIndex = choosePokemon();
-            gameManager.swapCreature(pokemonIndex);
+            gameManager.changeCreature(true, pokemonIndex);
             ui->playerView->switchPokemon(player);
             ui->subSkillSelecter->init(&player->getCurrentCreature());
         }
@@ -352,7 +352,7 @@ void GameMainWindow::nextRound()
             // 找到current creature的id，接著switch到i + 1
             for (int i = 0; i < computer->creaturesSize(); ++i) {
                 if (&computer->getCreature(i) == &computer->getCurrentCreature()) {
-                    computer->swapCreature(i + 1);
+                    gameManager.changeCreature(false, i + 1);
                     ui->computerView->switchPokemon(computer);
                     break;
                 }

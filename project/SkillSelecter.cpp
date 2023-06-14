@@ -4,6 +4,8 @@
 #include "SkillSelecter.h"
 #include <QHBoxLayout>
 #include <QMouseEvent>
+#include <QWhatsThis>
+#include <EffectManager.h>
 
 // SkillButton
 
@@ -42,6 +44,15 @@ SkillButton::SkillButton(const Skill& theSkill, int index, QWidget* parent)
         this->setDisabled(pp <= 0);
         mainLayout->addWidget(skillPP);
     }
+
+    // whats this
+    {
+        QString text;
+        text += "Power: " + QString::number(theSkill.power);
+        text += "\nAccuracy: " + QString::number(theSkill.accuracy);
+        text += " %\nCondition: " + QString::fromStdString(EffectManager::getEffectNameSmall(theSkill.effect));
+        this->setWhatsThis(text);
+    }
 }
 
 void SkillButton::mousePressEvent(QMouseEvent *e) {
@@ -50,6 +61,9 @@ void SkillButton::mousePressEvent(QMouseEvent *e) {
         skillPP->setText(QString::number(pp));
         this->setDisabled(pp <= 0);
         emit skillSelected(this);
+    }
+    else if (e->button() == Qt::RightButton) {
+        QWhatsThis::showText(e->globalPos(), this->whatsThis(), this);
     }
 }
 

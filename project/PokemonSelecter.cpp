@@ -7,6 +7,7 @@
 #include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QWhatsThis>
+#include <EffectManager.h>
 
 // PokemonButton
 
@@ -51,15 +52,6 @@ PokemonButton::PokemonButton(const Creature& pokemon, int index, QWidget *parent
     QLabel* maxHp = new QLabel(QString("/") + QString::number(pokemon.getMaxHp()));
     gLayout->addWidget(pokemonHp);
     gLayout->addWidget(maxHp);
-
-    // whatsThis
-    QString text;
-    text += "Attack: " + QString::number(pokemon.getAtk());
-    text += "\nDef: " + QString::number(pokemon.getDef());
-    text += "\nSp. Atk: " + QString::number(pokemon.getSpAtk());
-    text += "\nSp. Def: " + QString::number(pokemon.getSpDef());
-    text += "\nSpeed: " + QString::number(pokemon.getSpeed());
-    this->setWhatsThis(text);
 }
 
 void PokemonButton::updateHp() {
@@ -73,7 +65,15 @@ void PokemonButton::mousePressEvent(QMouseEvent* e) {
         emit pokemonSelected(this);
     }
     else if (e->button() == Qt::RightButton) {
-        QWhatsThis::showText(e->globalPos(), this->whatsThis(), this);
+        // whatsThis
+        QString text;
+        text += "Attack: " + QString::number(pokemon.getAtk());
+        text += "\nDef: " + QString::number(pokemon.getDef());
+        text += "\nSp. Atk: " + QString::number(pokemon.getSpAtk());
+        text += "\nSp. Def: " + QString::number(pokemon.getSpDef());
+        text += "\nSpeed: " + QString::number(pokemon.getSpeed());
+        text += "\n\n" + QString::fromStdString(EffectManager::getEffectStr(&(Creature&)pokemon));
+        QWhatsThis::showText(e->globalPos(), text, this);
     }
 }
 
