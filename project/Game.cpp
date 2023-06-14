@@ -237,8 +237,9 @@ void Game::swapCreature(int creatureIndex)
 // Post: change player creature ot creatureIndex
 void Game::changeCreature(bool isHuman, int creatureIndex)
 {
-    player[currentPlayerIndex].swapCreature(creatureIndex);
-    cout << "[Turn " << turn << "] " << "Go! " << player[static_cast<int>(isHuman)].getCurrentCreature().getName() << "!" << endl;
+    int index = isHuman ? humanIndex : computerIndex;
+    player[index].swapCreature(creatureIndex);
+    cout << "[Turn " << turn << "] " << "Go! " << player[index].getCurrentCreature().getName() << "!" << endl;
 }
 
 
