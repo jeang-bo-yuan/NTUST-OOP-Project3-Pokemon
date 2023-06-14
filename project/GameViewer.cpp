@@ -2,6 +2,7 @@
 #include "GameViewer.h"
 #include <QTimer>
 #include <QEventLoop>
+#include "EffectManager.h"
 
 // definition of static member
 QSoundEffect GameViewer::damageSound;
@@ -34,6 +35,7 @@ void GameViewer::setData(Player *player)
 void GameViewer::setCondition(Player *player)
 {
    // todo
+   condition->setText(QString::fromStdString(EffectManager::getEffectStr(&player->getCurrentCreature())));
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -66,12 +68,12 @@ GameViewer::GameViewer(QWidget *parent)
         hpBar = new QProgressBar;
         hpBar->setFormat("%v/%m");
 
-        condition = new QHBoxLayout;
+        condition = new QLabel;
 
         QVBoxLayout* layout = new QVBoxLayout(w);
         QHBoxLayout* hL = new QHBoxLayout();
         hL->addWidget(name);
-        hL->addLayout(condition);
+        hL->addWidget(condition);
         layout->addLayout(hL);
         layout->addWidget(hpBar);
 

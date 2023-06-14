@@ -321,6 +321,10 @@ void GameMainWindow::nextRound()
 {
     qDebug() << "(Hp) Player: " << player->getCurrentCreature().getHp() << "Computer: " << computer->getCurrentCreature().getHp();
 
+    gameManager.nextRound();
+    ui->playerView->updateHp(player);
+    ui->computerView->updateHp(computer);
+
     // 玩家掛了
     if (player->getCurrentCreature().getHp() <= 0) {
         if (player->isAlive()) {
@@ -356,7 +360,6 @@ void GameMainWindow::nextRound()
     }
 
     ui->optionGroup->show();
-    gameManager.nextRound();
 }
 
 void GameMainWindow::backToMain()
