@@ -45,14 +45,11 @@ const Object& Player::getObject(int index) const
 
 Object& Player::getObject(const string& str)
 {
-    if (str == "Potion")
-        return objects[0];
-    else if (str == "SuperPotion")
-        return objects[1];
-    else if (str == "HyperPotion")
-        return objects[2];
-    else
-        return objects[3];
+	for (int i = 0; i < objects.size(); i++) {
+		if (objects[i].getName() == str) {
+			return objects[i];
+		}
+	}
 }
 
 Object &Player::getObject(int index)
