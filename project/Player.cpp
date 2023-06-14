@@ -60,9 +60,29 @@ Object &Player::getObject(int index)
     return objects[index];
 }
 
-void Player::swapCreature(int index)
+const int Player::getCurrentCreatureIndex() const
 {
+	return currentCreatureIndex;
+}
+
+const int Player::getSkillIndex(const string& str) const
+{
+	for (int i = 0; i < creatures[currentCreatureIndex].getSkillSize(); i++) {
+		if (creatures[currentCreatureIndex].getSkillName(i) == str) {
+			return i;
+		}
+	}
+
+	return -1; // not find
+}
+
+bool Player::swapCreature(int index)
+{
+	if (index >= creatures.size()) {
+		return false;
+	}
 	currentCreatureIndex = index;
+	return true;
 }
 
 void Player::addCreature(Creature creature)
@@ -101,6 +121,8 @@ void Player::setCreatureIsHuman(const bool isHuman)
 		creatures[i].isHuman = isHuman;
 	}
 }
+
+
 
 int Player::findCreatureIndex(const string& creatureName) const
 {

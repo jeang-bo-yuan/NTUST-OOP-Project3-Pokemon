@@ -22,7 +22,9 @@ public:
 	const Object& getObject(int index) const;
 	Object& getObject(const string& str);
     Object &getObject(int index);
-	void swapCreature(int index);
+	const int getCurrentCreatureIndex() const;
+	const int getSkillIndex(const string& str) const;
+	bool swapCreature(int index);
 	void addCreature(Creature creature);
 	void addObject(Object object);
 

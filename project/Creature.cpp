@@ -58,10 +58,9 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 {
 	if (this->paralyzed) {
 		cout << "[Turn " << turn << "] ";
-		if (!this->isHuman) {
-			cout << "The opposing ";
-		}
-		cout << name << " is paralyzed! It can't move!" << endl;
+		cout << getPrintName() << " is paralyzed! " << endl;
+		cout << "[Turn " << turn << "] ";
+		cout << "It can't move!" << endl;
 		return;
 	}
 	Skill& nowSkill = skills[index];
@@ -83,10 +82,6 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 	}
 	cout << name << " used " << nowSkill.name << "!" << endl;
 
-	// 技能有特殊效果
-	if (nowSkill.effect != EFFECT_NAME::NONE) {
-		EffectManager::addEffect(nowSkill.effect, &target, turn, humanAttack);
-	}
 
 	string typeName;
 	nowSkill.PP--;
@@ -101,6 +96,9 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 		def = target.spDef;
 	}
 	else if (nowSkill.skillType == STATUS) {
+		if (nowSkill.effect != EFFECT_NAME::NONE) {
+			EffectManager::addEffect(nowSkill.effect, &target, turn, humanAttack);
+		}
 		return;
 	}
 	else {
@@ -137,6 +135,11 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 		cout << "[Turn " << turn << "] " << "It's a critical hit!" << endl;
 	}
 
+	// 技能有特殊效果
+	if (nowSkill.effect != EFFECT_NAME::NONE) {
+		EffectManager::addEffect(nowSkill.effect, &target, turn, humanAttack);
+	}
+
 	damage = int((double(2) * level + double(10)) / double(250) * nowSkill.power * atk / def + double(2)) * double(1) * stabDamange * typeDamange;
 
 	target.beRealDamange(damage);
@@ -145,13 +148,24 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack)
 void Creature::useSkill(string skillName, Creature& target, int turn, bool humanAttack)
 {
 	int index = 0;
+
     for (const auto& i : skills) {
 		if (i.name == skillName) {
 			break;
 		}
 		index++;
 	}
-	useSkill(index, target, turn, humanAttack);
+
+	if (index == skills.size()) {
+		cout << "技能名稱錯誤: " << skillName << endl;
+		for (int i = 0; i < target.getSkillSize(); i++) {
+			cout << target.skills[i].name << endl;
+		}
+		return;
+	}
+	else {
+		useSkill(index, target, turn, humanAttack);
+	}
 }
 
 bool Creature::isSameType(TYPE type)
@@ -276,6 +290,16 @@ int Creature::getSpDef() const
 	return spDef;
 }
 
+bool Creature::isParalyzed() const
+{
+	return paralyzed;
+}
+
+bool Creature::isFaint() const
+{
+	return isFainting;
+}
+
 double Creature::getDodgeRate() const
 {
 	return dodgeRate;
@@ -294,6 +318,10 @@ string Creature::getSkillName(int index) const
 
 Skill Creature::getSkill(int index) const
 {
+	if (index >= skills.size() && index < 0) {
+		cout << "技能索引錯誤: " << index << endl;
+		return Skill();
+	}
 	return skills[index];
 }
 
@@ -330,4 +358,9 @@ void Creature::decreaseSpeed()
 void Creature::setParalyzed(bool can)
 {
 	paralyzed = can;
+}
+
+void Creature::setFaint(bool can)
+{
+	isFainting = can;
 }

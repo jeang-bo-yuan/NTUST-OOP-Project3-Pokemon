@@ -40,6 +40,7 @@ private:
     double dodgeRate = 0.3;
 
     bool paralyzed;
+    bool isFainting;
 public:
     bool isHuman;
 
@@ -65,6 +66,7 @@ public:
 
     void decreaseSpeed();
     void setParalyzed(bool can);
+    void setFaint(bool can);
 
     // Accessor
     const string getPrintName() const;
@@ -75,6 +77,8 @@ public:
     int getDef() const;
     int getSpAtk() const;
     int getSpDef() const;
+    bool isParalyzed() const;
+    bool isFaint() const;
     double getDodgeRate();
     double getDodgeRate() const;
     int getSkillSize() const;

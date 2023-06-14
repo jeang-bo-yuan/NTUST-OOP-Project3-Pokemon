@@ -25,8 +25,6 @@ private:
 
 private:
     void newGame();
-    void useSkill(int skillIndex, class Creature& goal); // 怪物使用技能
-    void useSkill(const string& skillName, class Creature& goal); // 怪物使用技能
 public:
     Game();
 
@@ -37,9 +35,11 @@ public:
     void setTesting(bool test) { isTesting = test; } // 設定測試模式
     std::string useObject(Object* object, class Creature* goal); // 使用物品
     void swapCreature(int creatureIndex); // 怪物交換
-    void changeCreature(bool isHuman, int creatureIndex);
+    bool changeCreature(bool isHuman, int creatureIndex);
     void humanAttack(int index); // 玩家攻擊 index代表技能位置
     void computerAttack(int index); // 電腦攻擊 index代表技能位置
+    bool isFainted(int playerIndex); // 判斷是否陣亡
+    bool winOrLose(int playerIndex); // 判斷勝負
 
     void printStatus();
     void printCheck();
