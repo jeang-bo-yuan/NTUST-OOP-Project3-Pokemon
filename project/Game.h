@@ -39,7 +39,7 @@ public:
     void humanAttack(int index); // 玩家攻擊 index代表技能位置
     void computerAttack(int index); // 電腦攻擊 index代表技能位置
     bool isFainted(int playerIndex); // 判斷是否陣亡
-    bool winOrLose(int playerIndex); // 判斷勝負
+    bool winOrLose(); // 判斷勝負
 
     void printStatus();
     void printCheck();

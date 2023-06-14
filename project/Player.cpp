@@ -38,6 +38,11 @@ Creature& Player::getCreature(const string name)
 
 }
 
+const int Player::getCreatureSize() const
+{
+	return creatures.size();
+}
+
 const Object& Player::getObject(int index) const
 {
     return objects[index];

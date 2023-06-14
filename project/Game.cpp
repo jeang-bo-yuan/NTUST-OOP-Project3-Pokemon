@@ -44,7 +44,7 @@ int Game::loadFromFile(const string& filename)
     string command;
 
 #ifdef TEST
-    ifstream file("D:/GitHub/Pokemon/project/test case/case2.txt");
+    ifstream file("D:/GitHub/Pokemon/project/test case/case.txt");
 #else
     ifstream file(filename);
 #endif
@@ -117,12 +117,16 @@ int Game::loadFromFile(const string& filename)
         }
 
     END:
-
         for (int i = 0; i < 2; i++) {
             if (isFainted(i)) {
                 changeCreature(i, player[i].getCurrentCreatureIndex() + 1);
             }
         }
+
+        if (winOrLose()) {
+            return 1;
+        }
+
 
         for (int i = 0; i < 2; i++) {
             if (!isFainted(i)) {
@@ -131,25 +135,15 @@ int Game::loadFromFile(const string& filename)
         }
 
         for (int i = 0; i < 2; i++) {
-            isFainted(i);
+            if (isFainted(i)) {
+                changeCreature(i, player[i].getCurrentCreatureIndex() + 1);
+            }
         }
 
-        for (int index = 0; index <= 1; ++index)
-            if (player[index].getCurrentCreature().getHp() <= 0) {
-                // 全掛了
-                if (!player[index].isAlive()) {
-                    cout << "You " << (index == humanIndex ? "lose" : "win") << endl;
-                    return 1;
-                }
 
-                for (int i = 0; i < player[index].creaturesSize(); ++i) {
-                    if (&player[index].getCreature(i) == &player[index].getCurrentCreature()) {
-                        player[index].swapCreature(i + 1);
-                        std::cout << "[" << turn << "]" << (index == computerIndex ? "computer" : "human") << " swap fainted pokemon to " << player[index].getCurrentCreature().getName() << endl;
-                        break;
-                    }
-                }
-            }
+        if (winOrLose()) {
+            return 1;
+        }
 
         qDebug() << turn << player[humanIndex].getCurrentCreature().getName().c_str() << player[computerIndex].getCurrentCreature().getName().c_str();
 
@@ -235,14 +229,16 @@ void Game::swapCreature(int creatureIndex)
 // Post: change player creature ot creatureIndex
 bool Game::changeCreature(bool isComputer, int creatureIndex)
 {
-
-    if (player[static_cast<int>(isComputer)].swapCreature(creatureIndex)) {
-        cout << "[Turn " << turn << "] " << "Go! " << player[static_cast<int>(isComputer)].getCurrentCreature().getName() << "!" << endl;
+    if (isComputer) {
+        player[1].swapCreature(creatureIndex);
         return true;
     }
     else {
-        return false;
-    }
+        if (!player[0].swapCreature(creatureIndex)) return false;
+        cout << "[Turn " << turn << "] " << "Go! " << player[0].getCurrentCreature().getName() << "!" << endl;
+        return true;
+	}
+  
 
 
 }
@@ -267,14 +263,43 @@ void Game::computerAttack(int index)
 
 bool Game::isFainted(int playerIndex)
 {
-    auto creature = player[playerIndex].getCurrentCreature();
-    if (!creature.isFaint() == false && creature.getHp() == 0) {
-        cout << "[Turn " << turn << "] " << creature.getName() << " fainted!" << endl;
+    auto &creature = player[playerIndex].getCurrentCreature();
+
+    if (!creature.isFaint() && creature.getHp() == 0) {
+        cout << "[Turn " << turn << "] " << creature.getPrintName() << " fainted!" << endl;
         creature.setFaint(true);
         return true;
     }
-    else if (creature.isFaint()) {
+    else if (creature.isFaint() && creature.getHp() == 0) {
         return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool Game::winOrLose()
+{
+
+    for (int i = 0; i < 2; i++) {
+        bool isWindOrLose = true;
+        for (int j = 0; j < player[i].getCreatureSize(); j++) {
+            if (!player[i].getCreature(j).isFaint()) {
+				isWindOrLose = false;
+				break;
+			}
+        }
+
+        if (isWindOrLose) {
+            if (i == 0) {
+                cout << "[Turn " << turn << "] " << "You lose" << endl;
+				return true;
+            }
+            else {
+				cout << "[Turn " << turn << "] " << "You win" << endl;
+            }
+            return true;
+        }
     }
     return false;
 }
