@@ -177,16 +177,19 @@ void Game::newGame()
 
 }
 
-std::string Game::nextRound()
+void Game::nextRound()
 {
     log.clear();
 
+    // B&P
     EffectManager::useEffect(&player[humanIndex].getCurrentCreature(), turn);
     EffectManager::useEffect(&player[computerIndex].getCurrentCreature(), turn);
 
-    ++turn;
+    // check death
+    auto &playerCreature = player[humanIndex].getCurrentCreature();
+    auto &enemyCreature = player[computerIndex].getCurrentCreature();
 
-    return std::string();
+    ++turn;
 }
 
 void Game::setTesting()
@@ -221,14 +224,21 @@ void Game::useSkill(const string& skillName, Creature& goal)
     stringstream result;
 }
 
+// Intent: 交換寶可夢(活to活)，只有玩家會交換
+// Post: change player creature ot creatureIndex
 void Game::swapCreature(int creatureIndex)
 {
-    currentPlayerIndex = humanIndex;
-    cout << "[Turn " << turn << "] " << player[currentPlayerIndex].getCurrentCreature().getName() << ", switch out!" << endl;
+    cout << "[Turn " << turn << "] " << player[humanIndex].getCurrentCreature().getName() << ", switch out!" << endl;
     cout << "[Turn " << turn << "] " << "Come back!" << endl;
-    player[currentPlayerIndex].swapCreature(creatureIndex);
-    cout << "[Turn " << turn << "] " << "Go! " << player[currentPlayerIndex].getCurrentCreature().getName() << "!" << endl;
+    changeCreature(true, creatureIndex);
+}
 
+// Intent: 交換寶可夢
+// Post: change player creature ot creatureIndex
+void Game::changeCreature(bool isHuman, int creatureIndex)
+{
+    player[currentPlayerIndex].swapCreature(creatureIndex);
+    cout << "[Turn " << turn << "] " << "Go! " << player[static_cast<int>(isHuman)].getCurrentCreature().getName() << "!" << endl;
 }
 
 
@@ -291,15 +301,6 @@ void Game::printCheck()
     cout << endl;
 }
 
-void Game::swapTurn()
-{
-    if (currentPlayerIndex) {
-        currentPlayerIndex = 0;
-    }
-    else {
-        currentPlayerIndex = 1;
-    }
-}
 
 Player* Game::getCurrentPlayer()
 {

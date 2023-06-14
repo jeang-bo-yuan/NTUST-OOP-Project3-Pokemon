@@ -234,6 +234,16 @@ Creature& Creature::operator=(const Creature& creature)
 	return *this;
 }
 
+const string Creature::getPrintName() const
+{
+	if (isHuman) {
+		return name;
+	}
+	else {
+		return "The opposing " + name;
+	}
+}
+
 int Creature::getHp() const
 {
 	return hp;
