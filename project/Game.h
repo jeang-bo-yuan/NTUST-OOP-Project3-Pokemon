@@ -33,6 +33,7 @@ public:
     void loadFromFile(const string& filename);
 
     void setTesting();
+    void setTesting(bool test) { isTesting = test; }
 
     std::string useObject(Object* object, class Creature* goal);
 

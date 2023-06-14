@@ -110,6 +110,7 @@ int GameMainWindow::choosePokemon(bool allowNull) {
 
 void GameMainWindow::startGame() {
     ui->logWindow->clear();
+    gameManager.setTesting(ui->testingModeCheckBox->isChecked());
 
     if (!ui->checkBoxCmdFile->isChecked()) {
         bgm.setPosition(0);
