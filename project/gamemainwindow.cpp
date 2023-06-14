@@ -110,9 +110,9 @@ int GameMainWindow::choosePokemon(bool allowNull) {
 
 void GameMainWindow::startGame() {
     ui->logWindow->clear();
-    gameManager.setTesting(ui->testingModeCheckBox->isChecked());
 
     if (!ui->checkBoxCmdFile->isChecked()) {
+        gameManager.setTesting(ui->testingModeCheckBox->isChecked());
         std::string pokemonLib = ui->filePokemon->getFile().toStdString();
         std::string moveLib = ui->fileMove->getFile().toStdString();
         std::string gameData = ui->fileGame->getFile().toStdString();
@@ -123,6 +123,7 @@ void GameMainWindow::startGame() {
         gameManager.loadGame(pokemonLib, moveLib, gameData);
     }
     else {
+        gameManager.setTesting(false);
         std::string cmdFile = ui->fileCmdFile->getFile().toStdString();
 
         std::cout << "載入command file... " << cmdFile << std::endl;
