@@ -4,7 +4,10 @@
 #include <fstream>
 #include <QDebug>
 
+// Debug版才定義TEST
+#ifndef NDEBUG
 #define TEST
+#endif
 
 using namespace std;
 

@@ -1,0 +1,30 @@
+Venusaur
+2 Grass Poison
+187 147 148 167 167 145
+Charizard
+2 Fire Flying
+185 149 143 177 150 167
+Blastoise
+1 Water
+186 148 167 150 172 143
+Butterfree
+2 Bug Flying
+167 106 112 145 145 134
+Beedrill
+2 Bug Poison
+172 145 101 106 145 139
+Pikachu
+1 Electric
+142 117 90 112 101 156
+Sandslash
+1 Ground
+182 167 178 106 117 128
+Wigglytuff
+2 Normal Fairy
+247 134 106 139 112 106
+Primeape
+1 Fighting
+172 172 123 123 134 161
+Magikarp
+1 Water
+127 68 117 73 79 145
