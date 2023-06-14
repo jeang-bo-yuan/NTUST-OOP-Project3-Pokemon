@@ -27,7 +27,9 @@ public:
     int getIndex() const { return index; }
 
 public slots:
-    // 更新顯示的Hp
+    // Intend: 更新顯示的Hp
+    // Pre: none
+    // Post: 改pokemonHp的text
     void updateHp();
 
 signals:
@@ -48,6 +50,7 @@ protected:
     // Intend: 點擊事件
     // Pre: 點擊
     // Post: if hp > 0, emit pokemonSelected with `this` as parameter
+    //       右鍵點擊，顯示pokemon資訊
     void mousePressEvent(QMouseEvent*) override;
 };
 
@@ -68,10 +71,15 @@ public:
     // Post: 在scroll area 內建立按鈕
     void init(Player* player);
 
+    // Intend: 改變是否顯示返回鍵
+    // Pre: none
+    // Post: allowNull為true顯示；否則隱藏
     void setAllowNull(bool allowNull) { buttonBack->setVisible(allowNull); }
 
 public slots:
-    // 效果等同按下"back"
+    // Intend: 效果等同按下"back"
+    // Pre: none
+    // Post: emit pokemonSelected(nullptr)
     void reject() { emit pokemonSelected(nullptr); }
 
 signals:

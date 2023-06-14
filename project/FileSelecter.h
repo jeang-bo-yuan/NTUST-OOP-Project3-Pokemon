@@ -24,13 +24,19 @@ class FileSelecter : public QWidget
 public:
     explicit FileSelecter(QWidget *parent = nullptr);
 
-    // 取得檔名
+    // Intend: 取得檔名
+    // Pre: none
+    // Post: 回傳檔名
     QString getFile() const;
 
 public slots:
-    // 設置顯示的檔名
+    // Intend: 設置顯示的檔名
+    // Pre: none
+    // Post: 顯示的檔名相對於工作目錄
     void setFile(const QString& file);
-    // 觸發按鈕
+    // Intend: 觸發按鈕
+    // Pre: none
+    // Post: 顯示dialog
     void exec();
 
 signals:
