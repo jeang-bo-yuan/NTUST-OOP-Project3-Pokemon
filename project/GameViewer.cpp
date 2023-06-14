@@ -145,6 +145,24 @@ void GameViewer::updateHp(Player *player)
 
 void GameViewer::switchPokemon(Player *player)
 {
+    // 讓圖片漸漸縮小的動畫
+    QEventLoop loop;
+    QTimer timer;
+    connect(&timer, &QTimer::timeout, &loop, [&, this]() {
+        static int count = 30;
+        QPixmap p = pokemonImg->pixmap(Qt::ReturnByValue);
+        pokemonImg->setPixmap(p.scaled(p.size() / 2));
+        pokemonImg->repaint();
+        if (count--) {
+            loop.exit();
+            timer.stop();
+        }
+    });
+    timer.start(10);
+    loop.exec();
+    // 清空圖片
+    pokemonImg->setPixmap(QPixmap());
+    waitFor(100);
     setData(player);
 }
 
