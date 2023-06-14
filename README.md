@@ -16,6 +16,9 @@
 - Victory or defeat					   5%
 - GUI							15%
 - Audio							  5%
+- Accuracy 				  		  5%
+- Critical hit 				  		  5%
+
 
 # 設定
 
@@ -24,7 +27,7 @@
 1. 一般模式
     > 當`Use Command File`未被勾選時為一般模式。你可以選擇pokemonLib、moveLib、gameData、testing mode。
     > 
-    > testing mode開啟時，paralyzed必定使之無法攻擊，~~Accuracy必為100%，暴擊率為0~~
+    > testing mode開啟時，paralyzed必定使之無法攻擊，Accuracy必為100%，暴擊率為0。
 
 2. Command File模式
     > 當`Use Command File`被勾選時為Command File模式，你可以選擇要執行的command file
