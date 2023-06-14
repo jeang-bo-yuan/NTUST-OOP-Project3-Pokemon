@@ -10,8 +10,6 @@ QSoundEffect GameViewer::healSound;
 
 void GameViewer::setData(Player *player)
 {
-    setCondition(player);
-
     // image
     {
         QPixmap img (QString(":/media/Pokemon/") + player->getCurrentCreature().getName().c_str());
@@ -25,6 +23,8 @@ void GameViewer::setData(Player *player)
         hpBar->setValue(player->getCurrentCreature().getHp());
     }
 
+    setCondition(player);
+
     for (int i = 0; i < player->creaturesSize(); ++i) {
         if (player->getCreature(i).getHp() == 0) {
             pokeBallBox->itemAt(i)->widget()->setDisabled(true);
@@ -34,8 +34,18 @@ void GameViewer::setData(Player *player)
 
 void GameViewer::setCondition(Player *player)
 {
-   // todo
-   condition->setText(QString::fromStdString(EffectManager::getEffectStr(&player->getCurrentCreature())));
+    // todo
+    QString cond = QString::fromStdString(EffectManager::getEffectStr(&player->getCurrentCreature()));
+    // 有新的condition
+    if (cond != condition->text()) {
+        condition->setText(cond);
+
+        condition->show();
+        waitFor(100);
+        condition->hide();
+        waitFor(100);
+        condition->show();
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////
@@ -160,9 +170,12 @@ void GameViewer::switchPokemon(Player *player)
     });
     timer.start(10);
     loop.exec();
+
     // 清空圖片
     pokemonImg->setPixmap(QPixmap());
     waitFor(100);
+
+    condition->setText(QString());
     setData(player);
 }
 
