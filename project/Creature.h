@@ -67,6 +67,7 @@ public:
     void setParalyzed(bool can);
 
     // Accessor
+    const string getPrintName() const;
     int getHp() const;
     int getMaxHp() const;
     int getSpeed() const;
