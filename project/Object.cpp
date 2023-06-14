@@ -39,7 +39,7 @@ string Object::effectToCreature(Creature* goal)
 
 	goal->heal(finalHealVolume);
 
-	result<<goal->getName()<<" is healed by "<<finalHealVolume<<" points.\n";
+    //result<<goal->getName()<<" is healed by "<<finalHealVolume<<" points.\n";
 
 	return result.str();
 }
