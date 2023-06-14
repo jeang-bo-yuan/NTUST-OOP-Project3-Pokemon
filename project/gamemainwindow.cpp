@@ -331,37 +331,28 @@ void GameMainWindow::nextRound()
     ui->playerView->updateHp(player);
     ui->computerView->updateHp(computer);
 
+    if (gameManager.winOrLose()) {
+        backToMain();
+        return;
+    }
+
     // 玩家掛了
     if (player->getCurrentCreature().getHp() <= 0) {
-        if (player->isAlive()) {
-            int pokemonIndex = choosePokemon();
-            gameManager.changeCreature(false, pokemonIndex);
-            ui->playerView->switchPokemon(player);
-            ui->subSkillSelecter->init(&player->getCurrentCreature());
-        }
-        else {
-            std::cout << "You Lose" << std::endl;
-            backToMain();
-            return;
-        }
+        int pokemonIndex = choosePokemon();
+        gameManager.changeCreature(false, pokemonIndex);
+        ui->playerView->switchPokemon(player);
+        ui->subSkillSelecter->init(&player->getCurrentCreature());
     }
 
     // 電腦掛了
     if (computer->getCurrentCreature().getHp() <= 0) {
-        if (computer->isAlive()) {
-            // 找到current creature的id，接著switch到i + 1
-            for (int i = 0; i < computer->creaturesSize(); ++i) {
-                if (&computer->getCreature(i) == &computer->getCurrentCreature()) {
-                    gameManager.changeCreature(true, i + 1);
-                    ui->computerView->switchPokemon(computer);
-                    break;
-                }
+        // 找到current creature的id，接著switch到i + 1
+        for (int i = 0; i < computer->creaturesSize(); ++i) {
+            if (&computer->getCreature(i) == &computer->getCurrentCreature()) {
+                gameManager.changeCreature(true, i + 1);
+                ui->computerView->switchPokemon(computer);
+                break;
             }
-        }
-        else {
-            std::cout << "You Win" << std::endl;
-            backToMain();
-            return;
         }
     }
 

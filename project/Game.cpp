@@ -4,7 +4,7 @@
 #include <fstream>
 #include <QDebug>
 
-#define TEST
+//#define TEST
 
 using namespace std;
 
@@ -189,12 +189,17 @@ void Game::nextRound()
     log.clear();
 
     // B&P
-    EffectManager::useEffect(&player[humanIndex].getCurrentCreature(), turn);
-    EffectManager::useEffect(&player[computerIndex].getCurrentCreature(), turn);
+    if (!isFainted(humanIndex))
+        EffectManager::useEffect(&player[humanIndex].getCurrentCreature(), turn);
+
+    if (!isFainted(computerIndex))
+        EffectManager::useEffect(&player[computerIndex].getCurrentCreature(), turn);
 
     // check death
-    auto &playerCreature = player[humanIndex].getCurrentCreature();
-    auto &enemyCreature = player[computerIndex].getCurrentCreature();
+//    auto &playerCreature = player[humanIndex].getCurrentCreature();
+//    auto &enemyCreature = player[computerIndex].getCurrentCreature();
+    isFainted(computerIndex);
+    isFainted(humanIndex);
 
     ++turn;
 }
