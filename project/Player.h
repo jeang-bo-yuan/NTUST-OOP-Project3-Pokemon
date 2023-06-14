@@ -19,6 +19,7 @@ public:
 	const Creature& getCreature(int index) const;
 	Creature& getCreature(int index);
 	Creature& getCreature(const string name);
+	const int getCreatureSize() const;
 	const Object& getObject(int index) const;
 	Object& getObject(const string& str);
     Object &getObject(int index);

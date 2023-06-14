@@ -34,6 +34,7 @@ Creature::Creature()
 {
 	paralyzed = false;
 	isHuman = true;
+	isFainting = false;
 }
 
 
@@ -50,6 +51,8 @@ Creature::Creature(const Creature& creature)
 	this->types = creature.types;
 	this->skills = creature.skills;
 	this->paralyzed = creature.paralyzed;
+	this->isHuman = creature.isHuman;
+	this->isFainting = creature.isFainting;
 }
 
 
@@ -245,6 +248,7 @@ Creature& Creature::operator=(const Creature& creature)
 	dodgeRate = creature.dodgeRate;
 	skills = creature.skills;
 	paralyzed = creature.paralyzed;
+	isFainting = creature.isFainting;
 	return *this;
 }
 
@@ -254,7 +258,7 @@ const string Creature::getPrintName() const
 		return name;
 	}
 	else {
-		return "The opposing " + name;
+		return string("The opposing ") + name;
 	}
 }
 
