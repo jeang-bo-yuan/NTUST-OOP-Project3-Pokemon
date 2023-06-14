@@ -56,6 +56,11 @@ public slots:
     // Post: call setData
     void switchPokemon(Player* player);
 
+    // Intend: 使用技能的動畫
+    // Pre: skillName為技能名稱
+    // Post: 若skillName有動畫，則執行
+    void useSkillAnimation(const std::string& skillName);
+
 signals:
 
 };

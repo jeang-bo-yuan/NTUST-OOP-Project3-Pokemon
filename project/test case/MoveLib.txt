@@ -19,3 +19,4 @@ BugBite Bug Physical 60 100 20
 BugBuzz Bug Special 90 100 10
 CloseCombat Fighting Physical 120 100 5
 Struggle Normal Physical 50 100 1000
+Splash Normal Status 0 100 40

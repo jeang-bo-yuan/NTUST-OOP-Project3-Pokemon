@@ -50,5 +50,8 @@
         <file>media/bag/HyperPotion.png</file>
         <file>media/bag/MaxPotion.png</file>
         <file>media/bag/SuperPotion.png</file>
+        <file>media/Pokemon-pix/Magikarp.png</file>
+        <file>media/Pokemon/Magikarp.png</file>
+        <file>media/music/splash.wav</file>
     </qresource>
 </RCC>

@@ -25,3 +25,6 @@ Wigglytuff
 Primeape
 1 Fighting
 172 172 123 123 134 161
+Magikarp
+1 Water
+127 68 117 73 79 145

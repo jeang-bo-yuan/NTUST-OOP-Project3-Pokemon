@@ -237,9 +237,7 @@ void GameMainWindow::itemSelected(ItemButton* button)
 
         waitFor(500);
         // 對手攻擊
-        gameManager.computerAttack(rand() % computer->getCurrentCreature().getSkillSize());
-        // 更新玩家血量
-        ui->playerView->updateHp(player);
+        ComputerAttack();
 
         nextRound();
     }
@@ -258,9 +256,7 @@ void GameMainWindow::skillSelected(SkillButton *button)
     do {
         if (playerSpeed >= computerSpeed) {
             // 玩家攻擊
-            gameManager.humanAttack(button->getIndex());
-            // 更新對手血量
-            ui->computerView->updateHp(computer);
+            PlayerAttack(button->getIndex());
 
             // 對手掛了，不能攻擊
             if (computer->getCurrentCreature().getHp() <= 0)
@@ -268,15 +264,11 @@ void GameMainWindow::skillSelected(SkillButton *button)
 
             waitFor(500);
             // 對手攻擊
-            gameManager.computerAttack(rand() % computer->getCurrentCreature().getSkillSize());
-            // 更新玩家血量
-            ui->playerView->updateHp(player);
+            ComputerAttack();
         }
         else {
             // 電腦攻擊
-            gameManager.computerAttack(rand() % computer->getCurrentCreature().getSkillSize());
-            // 更新玩家血量
-            ui->playerView->updateHp(player);
+            ComputerAttack();
 
             // 玩家掛了
             if (player->getCurrentCreature().getHp() <= 0)
@@ -284,9 +276,7 @@ void GameMainWindow::skillSelected(SkillButton *button)
 
             waitFor(500);
             // 玩家攻擊
-            gameManager.humanAttack(button->getIndex());
-            // 更新對手血量
-            ui->computerView->updateHp(computer);
+            PlayerAttack(button->getIndex());
         }
     } while(0);
 
@@ -310,12 +300,29 @@ void GameMainWindow::pokemonSelected(PokemonButton *button)
 
         waitFor(500);
         // 電腦攻擊
-        gameManager.computerAttack(rand() % computer->getCurrentCreature().getSkillSize());
-        // 更新玩家血量
-        ui->playerView->updateHp(player);
+        ComputerAttack();
 
         nextRound();
     }
+}
+
+void GameMainWindow::PlayerAttack(int skillIndex)
+{
+    // 玩家攻擊
+    gameManager.humanAttack(skillIndex);
+    ui->playerView->useSkillAnimation(player->getCurrentCreature().getSkillName(skillIndex));
+    // 更新對手血量
+    ui->computerView->updateHp(computer);
+}
+
+void GameMainWindow::ComputerAttack()
+{
+    // 電腦攻擊
+    int idx = rand() % computer->getCurrentCreature().getSkillSize();
+    gameManager.computerAttack(idx);
+    ui->computerView->useSkillAnimation(computer->getCurrentCreature().getSkillName(idx));
+    // 更新玩家血量
+    ui->playerView->updateHp(player);
 }
 
 

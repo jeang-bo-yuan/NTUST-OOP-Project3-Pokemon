@@ -95,6 +95,15 @@ private slots:
     // Post: 所有行動結束後呼叫nextRound
     void pokemonSelected(PokemonButton* button);
 
+    // Intend: 讓玩家攻擊
+    // Pre: skillIndex為使用的技能的index
+    // Post: 使用技能->放動畫->更新對手hp
+    void PlayerAttack(int skillIndex);
+    // Intend: 讓電腦攻擊
+    // Pre: 技能是隨機的
+    // Post: 使用技能->放動畫->更新玩家hp
+    void ComputerAttack();
+
     // Intend: 遊戲進入下一回合，包含判斷遊戲是否結束
     // Pre: 玩家選好要幹嘛 + 電腦行動完
     // Post: 進入 B&P 接著檢查遊戲是否結束 並將fainted的寶可夢換下場

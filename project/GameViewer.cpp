@@ -166,3 +166,21 @@ void GameViewer::switchPokemon(Player *player)
     setData(player);
 }
 
+void GameViewer::useSkillAnimation(const string &skillName)
+{
+    if (skillName == "Splash") {
+        QSoundEffect sound;
+        sound.setSource(QUrl("qrc:/media/music/splash.wav"));
+        QRect old = pokemonImg->geometry();
+        QRect jump(old.x(), old.y() + 20, old.width(), old.height());
+
+        for (int time = 2; time --; ) {
+            sound.play();
+            pokemonImg->setGeometry(jump);
+            waitFor(100);
+            pokemonImg->setGeometry(old);
+            waitFor(100);
+        }
+    }
+}
+
