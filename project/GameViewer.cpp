@@ -134,7 +134,7 @@ void GameViewer::updateHp(Player *player)
     // 晃動
     QRect old = pokemonImg->geometry();
     pokemonImg->setGeometry(old.x() + 10, old.y(), pokemonImg->width(), pokemonImg->height());
-    pokemonImg->repaint();
+    waitFor(50);
 
     // 以動畫顯示hp變化
     QEventLoop loop;
