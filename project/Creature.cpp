@@ -87,7 +87,7 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack,
 	cout << name << " used " << nowSkill.name << "!" << endl;
 
 
-	string typeName;
+//	string typeName;
 	nowSkill.PP--;
 
     if(!isTesting)
@@ -98,7 +98,7 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack,
 
         if(r>nowSkill.accuracy)
         {
-            cout<< "[Turn " << turn << "] "<<target.getName()<<" avoided the attack!\n";
+            cout<< "[Turn " << turn << "] "<<target.getName()<<" avoided the attack!" << endl;
             return;
         }
     }
@@ -139,13 +139,13 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack,
 
 	if (typeDamange >= 2) {
 		cout << "[Turn " <<  turn << "] " << "It's super effective!" << endl;
-	}
+    }
+    else if (typeDamange == 0) {
+        cout << "[Turn " << turn << "] " << "It doesn't affect..." << endl;
+    }
 	else if (typeDamange <= 0.5) {
-		cout << "[Turn " << turn << "] " << "It's not very effective..." << endl;
-	}
-	else if (typeDamange == 0) {
-		cout << "[Turn " << turn << "] " << "It doesn't affect..." << endl;
-	}
+        cout << "[Turn " << turn << "] " << "It's not very effective..." << endl;
+    }
 
     if (!isTesting) { // if cit
         int r = rand()%100;
@@ -163,7 +163,7 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack,
 	}
 
     damage = int((double(2) * level + double(10)) / double(250) * nowSkill.power * atk / def + double(2)) * criticalDamage * stabDamange * typeDamange;
-
+    cout << "Damage: " << damage << endl;
 	target.beRealDamange(damage);
 }
 
