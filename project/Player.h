@@ -5,17 +5,49 @@
 
 class Player
 {
-	
+private:
+	std::vector<Object> objects;
+	std::vector<Creature> creatures;
+	int currentCreatureIndex;
 public:
 	Player();
 	
-    std::vector<Object*> objects;
+	void loadFromFile(istream& in);
 
-    std::vector<Creature*> creatures;
+	const Creature& getCurrentCreature() const;
+	Creature& getCurrentCreature();
+	const Creature& getCreature(int index) const;
+	Creature& getCreature(int index);
+	Creature& getCreature(const string name);
+	const int getCreatureSize() const;
+	const Object& getObject(int index) const;
+	Object& getObject(const string& str);
+    Object &getObject(int index);
+	const int getCurrentCreatureIndex() const;
+	const int getSkillIndex(const string& str) const;
+	bool swapCreature(int index);
+	void addCreature(Creature creature);
+	void addObject(Object object);
 
-    Creature* currentCreature;
+	void useObject(const string& creatureName, const string& objectName);
+	void swapCreature(const string& creatureName, int turn);
+	void setCreatureIsHuman(const bool isHuman);
+
+
+	int findCreatureIndex(const string& creatureName) const;
+
+	int objectsSize() const;
+	int creaturesSize() const;
+
+    // Intend: 判斷玩家能否繼續戰鬥
+    // Pre: none
+    // Post: true -> 若玩家任何一隻pokemon血量>0;
+    //       false -> 全部pokemon血量==0
+    bool isAlive() const;
 
 	void reset();
+
+	friend istream& operator>>(istream& is, Player& player);
 
 };
 

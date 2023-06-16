@@ -7,20 +7,22 @@
 #include <QPainter>
 #include <QResizeEvent>
 #include <QScrollBar>
+#include <QWhatsThis>
 
 // ItemButton 的實作
 
 // ctor
-ItemButton::ItemButton(Object* object, int index, QWidget* parent)
+ItemButton::ItemButton(const Object& object, int index, QWidget* parent)
     : QFrame(parent)
-    , index(index), count(object->getUsageCount()), itemCount(new QLabel(QString::number(count)))
+    , index(index), count(object.getUsageCount())
+    , itemCount(new QLabel(count >= 0 ? QString::number(count) : QString(u8"∞")))
 {
     QHBoxLayout* hLayout = new QHBoxLayout(this);
-    QLabel* itemName = new QLabel(object->getName().c_str());
+    QLabel* itemName = new QLabel(object.getName().c_str());
     itemName->setMinimumWidth(100);
     itemName->setAlignment(Qt::AlignCenter);
     QLabel* img = new QLabel;
-    img->setPixmap(QPixmap(QString(":/media/bag/") + object->getName().c_str()));
+    img->setPixmap(QPixmap(QString(":/media/bag/") + object.getName().c_str()));
 
     hLayout->addWidget(img);
     hLayout->addWidget(itemName);
@@ -29,20 +31,29 @@ ItemButton::ItemButton(Object* object, int index, QWidget* parent)
     hLayout->setSpacing(10);
 
     this->setMinimumHeight(70);
-    this->setDisabled(count <= 0);
+    this->setDisabled(count == 0);
+    this->setWhatsThis(QString::fromStdString(object.getObjectDescription()));
 }
 
 void ItemButton::useOne() {
-    --count;
-    itemCount->setText(QString::number(count));
-    this->setDisabled(count <= 0);
+    if (count > 0) {
+        --count;
+        itemCount->setText(QString::number(count));
+        this->setDisabled(count == 0);
+    }
+    else if (count < 0) {
+        itemCount->setText(u8"∞");
+    }
 }
 
 // deal with mouse clicked
 void ItemButton::mousePressEvent(QMouseEvent * e)
 {
-    if (e->button() == Qt::LeftButton && count > 0) {
+    if (e->button() == Qt::LeftButton && count != 0) {
         emit itemSelected(this);
+    }
+    else if (e->button() == Qt::RightButton) {
+        QWhatsThis::showText(e->globalPos(), this->whatsThis(), this);
     }
 }
 
@@ -71,8 +82,8 @@ void BagSelecter::init(const Player *player)
     }
 
     // add ItemButton
-    for (int i = 0; i < player->objects.size(); ++i) {
-        ItemButton* button = new ItemButton(player->objects[i], i);
+    for (int i = 0; i < player->objectsSize(); ++i) {
+        ItemButton* button = new ItemButton(player->getObject(i), i);
 
         bagSlots->addWidget(button, i / 3, i % 3);
         connect(button, &ItemButton::itemSelected, this, &BagSelecter::itemSelected);

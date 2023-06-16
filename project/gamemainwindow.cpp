@@ -12,6 +12,8 @@
 #include <QImage>
 #include <QPalette>
 #include <QEventLoop>
+#include <QDebug>
+#include <QMediaPlaylist>
 
 #define SUBSTACK_LOG 0
 #define SUBSTACK_BATTLE 1
@@ -23,6 +25,13 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     , ui(new Ui::GameMainWindow), backgroundImg(":/media/background.png")
 {
     ui->setupUi(this);
+
+    // bgm
+    QMediaPlaylist* list = new QMediaPlaylist;
+    list->setPlaybackMode(QMediaPlaylist::Loop);
+    list->addMedia(QUrl("qrc:/media/music/bgm.mp3"));
+    bgm.setPlaylist(list);
+    bgm.setVolume(40);
 
     // IO重導向
     std::cout.rdbuf(new LogWindow::LogStringBuf(ui->logWindow));
@@ -58,7 +67,6 @@ GameMainWindow::GameMainWindow(QWidget *parent)
     connect(ui->buttonBag, &QPushButton::clicked, this, &GameMainWindow::selectBag);
     connect(ui->subBagSelecter, &BagSelecter::itemSelected, this, &GameMainWindow::itemSelected);
     connect(ui->subSkillSelecter, &SkillSelecter::skillSelected, this, &GameMainWindow::skillSelected);
-    std::cerr << "Warning: Connection between Game and GameViewer isn't established\n";
 }
 
 GameMainWindow::~GameMainWindow()
@@ -104,6 +112,7 @@ void GameMainWindow::startGame() {
     ui->logWindow->clear();
 
     if (!ui->checkBoxCmdFile->isChecked()) {
+        gameManager.setTesting(ui->testingModeCheckBox->isChecked());
         std::string pokemonLib = ui->filePokemon->getFile().toStdString();
         std::string moveLib = ui->fileMove->getFile().toStdString();
         std::string gameData = ui->fileGame->getFile().toStdString();
@@ -111,28 +120,34 @@ void GameMainWindow::startGame() {
         std::cout << "載入寶可夢... " << pokemonLib << std::endl;
         std::cout << "載入招式... " << moveLib << std::endl;
         std::cout << "載入玩家... " << gameData << std::endl;
-
         gameManager.loadGame(pokemonLib, moveLib, gameData);
     }
     else {
-        std::cout << "載入command file... " << qPrintable(ui->fileCmdFile->getFile()) << std::endl;
-        std::cerr << "Loading command file isn't implemented yet\n";
-        return;
+        gameManager.setTesting(false);
+        std::string cmdFile = ui->fileCmdFile->getFile().toStdString();
+
+        std::cout << "載入command file... " << cmdFile << std::endl;
+        int status = gameManager.loadFromFile(cmdFile);
+        if (status == 1)
+            return;
     }
+
+    bgm.setPosition(0);
+    bgm.play();
+
+    // initialize selecters
+    player = gameManager.getCurrentPlayer();
+    computer = gameManager.getNotCurrentPlayer();
+    ui->subBagSelecter->init(player);
+    ui->subPokemonSelecter->init(player);
+    ui->subSkillSelecter->init(&player->getCurrentCreature());
+    ui->playerView->init(player);
+    ui->computerView->init(computer);
 
     // 切換stack
     ui->mainStack->setCurrentIndex(1);
     selectLogWindow();
     ui->optionGroup->show();
-
-    // initialize selecters
-    player = gameManager.currentPlayer;
-    computer = gameManager.opponentPlayer;
-    ui->subBagSelecter->init(player);
-    ui->subPokemonSelecter->init(player);
-    ui->subSkillSelecter->init(player->currentCreature);
-    ui->playerView->init(player);
-    ui->computerView->init(computer);
 }
 
 // 按下optionGroup中的按鈕的slot... ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -141,9 +156,7 @@ void GameMainWindow::runAway() {
     std::cout << "玩家逃跑了" << std::endl;
 
     // 切換stack
-    ui->mainStack->setCurrentIndex(0);
-    selectLogWindow();
-    ui->optionGroup->hide();
+    backToMain();
 }
 
 void GameMainWindow::selectBattle() {
@@ -211,19 +224,62 @@ void GameMainWindow::itemSelected(ItemButton* button)
     int pokemonIndex = choosePokemon(true);
 
     if (pokemonIndex != -1) {
-        std::cout << "Player use " << button->getIndex() << " on " << pokemonIndex << std::endl;
-        std::cerr << "Warning: using item isn't implemented in game manager yet!\n";
-        button->useOne();
+        ui->optionGroup->hide();
         selectLogWindow();
+        qDebug() << "use object" << button->getIndex() << "on" << pokemonIndex;
+
+        // use object
+        std::cout << gameManager.useObject(&player->getObject(button->getIndex())
+                                         , &player->getCreature(pokemonIndex));
+        std::cout.flush();
+        ui->playerView->updateHp(player);
+
+        waitFor(500);
+        // 對手攻擊
+        ComputerAttack();
+
+        nextRound();
     }
 }
 
 void GameMainWindow::skillSelected(SkillButton *button)
 {
-    std::cout << "use skill " << button->getIndex() << std::endl;
-    std::cerr << "Warning: using skill isn't implemented in game manager yet!\n";
-
     selectLogWindow();
+    ui->optionGroup->hide();
+
+    int playerSpeed = player->getCurrentCreature().getSpeed();
+    int computerSpeed = computer->getCurrentCreature().getSpeed();
+    qDebug() << "(Speed) Player: " << playerSpeed << "Computer: " << computerSpeed;
+
+    // 為了流程控制，塞了一個沒用的迴圈
+    do {
+        if (playerSpeed >= computerSpeed) {
+            // 玩家攻擊
+            PlayerAttack(button->getIndex());
+
+            // 對手掛了，不能攻擊
+            if (computer->getCurrentCreature().getHp() <= 0)
+                break;
+
+            waitFor(500);
+            // 對手攻擊
+            ComputerAttack();
+        }
+        else {
+            // 電腦攻擊
+            ComputerAttack();
+
+            // 玩家掛了
+            if (player->getCurrentCreature().getHp() <= 0)
+                break;
+
+            waitFor(500);
+            // 玩家攻擊
+            PlayerAttack(button->getIndex());
+        }
+    } while(0);
+
+    nextRound();
 }
 
 void GameMainWindow::pokemonSelected(PokemonButton *button)
@@ -232,10 +288,90 @@ void GameMainWindow::pokemonSelected(PokemonButton *button)
     disconnect(ui->subPokemonSelecter, &PokemonSelecter::pokemonSelected, this, &GameMainWindow::pokemonSelected);
 
     if (button != nullptr) {
-        std::cout << button->getIndex() << " selected" << std::endl;
-        std::cerr << "Warning: switching pokemon is implemented yet!\n";
+        int idx = button->getIndex();
+        ui->optionGroup->hide();
         selectLogWindow();
+
+        // 切換pokemon
+        gameManager.swapCreature(idx);
+        ui->playerView->switchPokemon(player);
+        ui->subSkillSelecter->init(&player->getCurrentCreature());
+
+        waitFor(500);
+        // 電腦攻擊
+        ComputerAttack();
+
+        nextRound();
     }
+}
+
+void GameMainWindow::PlayerAttack(int skillIndex)
+{
+    // 玩家攻擊
+    gameManager.humanAttack(skillIndex);
+    ui->playerView->useSkillAnimation(player->getCurrentCreature().getSkillName(skillIndex));
+    // 更新對手血量
+    ui->computerView->updateHp(computer);
+}
+
+void GameMainWindow::ComputerAttack()
+{
+    // 電腦攻擊
+    int idx = rand() % computer->getCurrentCreature().getSkillSize();
+    gameManager.computerAttack(idx);
+    ui->computerView->useSkillAnimation(computer->getCurrentCreature().getSkillName(idx));
+    // 更新玩家血量
+    ui->playerView->updateHp(player);
+}
+
+
+
+/////////////////////////////////////////////////////////////////
+
+void GameMainWindow::nextRound()
+{
+    qDebug() << "(Hp) Player: " << player->getCurrentCreature().getHp() << "Computer: " << computer->getCurrentCreature().getHp();
+
+    gameManager.nextRound_BandP();
+    waitFor(500);
+    ui->playerView->updateHp(player);
+    ui->computerView->updateHp(computer);
+
+    if (gameManager.winOrLose()) {
+        backToMain();
+        return;
+    }
+
+    // 玩家掛了
+    if (player->getCurrentCreature().getHp() <= 0) {
+        int pokemonIndex = choosePokemon();
+        gameManager.changeCreature(false, pokemonIndex);
+        ui->playerView->switchPokemon(player);
+        ui->subSkillSelecter->init(&player->getCurrentCreature());
+    }
+
+    // 電腦掛了
+    if (computer->getCurrentCreature().getHp() <= 0) {
+        // 找到current creature的id，接著switch到i + 1
+        for (int i = 0; i < computer->creaturesSize(); ++i) {
+            if (&computer->getCreature(i) == &computer->getCurrentCreature()) {
+                gameManager.changeCreature(true, i + 1);
+                ui->computerView->switchPokemon(computer);
+                break;
+            }
+        }
+    }
+
+    ui->optionGroup->show();
+    gameManager.nextTurn();
+}
+
+void GameMainWindow::backToMain()
+{
+    bgm.stop();
+    ui->mainStack->setCurrentIndex(0);
+    selectLogWindow();
+    ui->optionGroup->hide();
 }
 
 

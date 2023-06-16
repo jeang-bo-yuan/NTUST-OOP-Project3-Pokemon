@@ -16,6 +16,7 @@ public:
 	void setName(std::string name);
 
 	std::string getName()const;
+	const std::string getPrintName() const;
 
 	void setUsageCount(int usageCount);
 

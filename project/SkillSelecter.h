@@ -19,9 +19,10 @@ class SkillButton : public QFrame {
     int index;
     int pp;
     QLabel* skillPP;
+    const Skill& skill;
 
 public:
-    SkillButton(const skill& theSkill, int index, QWidget* parent = nullptr);
+    SkillButton(const Skill& theSkill, int index, QWidget* parent = nullptr);
 
     int getIndex() const { return index; }
 
@@ -29,12 +30,16 @@ signals:
     void skillSelected(SkillButton* button);
 
 protected:
+    // Intend: 顯示邊框
+    // Pre: none
+    // Post: 鼠標進入->顯示，鼠標移出->隱藏
     void enterEvent(QEvent*) override { setFrameStyle(QFrame::Panel); }
     void leaveEvent(QEvent*) override { setFrameStyle(QFrame::NoFrame); }
 
     // Intend: mouse click
     // Pre: click left mouse && pp > 0
     // Post: emit skillSelected(this) and update pp information
+    //       右鍵點擊：顯示技能資訊
     void mousePressEvent(QMouseEvent*) override;
 };
 

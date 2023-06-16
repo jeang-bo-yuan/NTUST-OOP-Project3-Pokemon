@@ -1,0 +1,20 @@
+6
+Pikachu 2
+Thunderbolt BoltStrike
+Wigglytuff 1
+Struggle
+Sandslash 2
+MudShot Earthquake
+Primeape 2
+CloseCombat Struggle
+Beedrill 3
+PoisonPowder BugBite BugBuzz
+Butterfree 2
+BugBite BugBuzz
+3
+Beedrill 3
+PoisonPowder BugBite BugBuzz
+Charizard 4
+DragonClaw Flamethrower DragonBreath AirSlash
+Venusaur 4
+PoisonPowder VineWhip SeedBomb SolarBeam

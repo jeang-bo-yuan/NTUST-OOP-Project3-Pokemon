@@ -19,19 +19,22 @@ class ItemButton : public QFrame {
     Q_OBJECT
 
     int index;
-    int count;
+    int count; //!< count < 0 -> infinite
     QLabel* itemCount;
 
 public:
-    ItemButton(Object* object, int index, QWidget* parent = nullptr);
+    ItemButton(const Object& object, int index, QWidget* parent = nullptr);
 
+    // Intend: 使用一個道具
+    // Pre: none
+    // Post: 道具量減一
     void useOne();
 
     int getIndex() const { return index; }
 
 protected:
     // Intend: 被點擊時，看道具可不可以選，若可以則emit signal
-    // Pre: count > 0 才可選
+    // Pre: count != 0 才可選
     // Post: 選擇成功，--count
     void mousePressEvent(QMouseEvent*) override;
 

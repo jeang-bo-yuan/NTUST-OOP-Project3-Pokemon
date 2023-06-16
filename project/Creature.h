@@ -1,13 +1,34 @@
+/*****************************************************************//**
+ * File: Creature.h
+ * Author: TENG-FENG YOU (vic.feng1234@gmail.com)
+ * Create Date: 2023-06-12
+ * Editor: TENG-FENG YOU (vic.feng1234@gmail.com)
+ * Update Date: 2023-06-12
+ * Description: the 寶可夢
+ *********************************************************************/
 #pragma once
 
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Skill.h"
+#include "Common.h"
+#include "SkillLibary.h"
+
+
+using namespace std;
+
+double getTypeRate(TYPE attack, TYPE defend);
+
+
 
 class Creature
 {
-    std::string name;
+private:
+    string name;
+
+    vector<TYPE> types;
+    vector<Skill>skills;
+
     int hp;
     int maxHp;
     int atk;
@@ -15,27 +36,55 @@ class Creature
     int spAtk;
     int spDef;
     int speed;
-    int level;
+    const int level = 50;
     double dodgeRate = 0.3;
+
+    bool paralyzed;
+    bool isFainting;
 public:
+    bool isHuman;
+
+public:
+    friend class CreatureLibray;
     Creature();
-    void getSkill(Skill source);
-    int getHp();
-    int getMaxHp();
-    int getSpeed();
-    int getAtk();
-    int getDef();
-    int getSpAtk();
-    int getSpDef();
-    double getDodgeRate();
-    std::string getName();
+
+    Creature(const Creature & creature);
+
+    void useSkill(int index, Creature& target, int turn, bool humanAttack,bool isTesting);
+    void useSkill(string skillName, Creature& target, int turn, bool humanAttack, bool isTesting);
+
+    void beRealDamange(int value);
+
+    const std::string& getName() const;
+
+    bool isSameType(TYPE type);
+
+    friend istream& operator>>(istream& is, Creature& creature);
+
+    Creature& operator=(const Creature& creature);
     void heal(int volume);
 
-    friend std::istream& operator>>(std::istream& input,Creature& goal);
+    void decreaseSpeed();
+    void setParalyzed(bool can);
+    void setFaint(bool can);
 
-public:
-    std::vector<std::string> types;
-    std::vector<Skill>skills;
-    std::vector<std::string> conditions;
+    // Accessor
+    const string getPrintName() const;
+    int getHp() const;
+    int getMaxHp() const;
+    int getSpeed() const;
+    int getAtk() const;
+    int getDef() const;
+    int getSpAtk() const;
+    int getSpDef() const;
+    bool isParalyzed() const;
+    bool isFaint() const;
+    double getDodgeRate();
+    double getDodgeRate() const;
+    int getSkillSize() const;
+    string getSkillName(int index) const;
+    Skill getSkill(int index) const;
+    int getTypeSize() const;
+    const string getTypeName(int index) const;
+    void addSkill(Skill skill);
 };
-

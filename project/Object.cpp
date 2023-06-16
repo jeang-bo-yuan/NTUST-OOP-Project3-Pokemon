@@ -39,7 +39,7 @@ string Object::effectToCreature(Creature* goal)
 
 	goal->heal(finalHealVolume);
 
-	result<<goal->getName()<<" is healed by "<<finalHealVolume<<" points.\n";
+    //result<<goal->getName()<<" is healed by "<<finalHealVolume<<" points.\n";
 
 	return result.str();
 }
@@ -52,6 +52,22 @@ void Object::setName(std::string name)
 std::string Object::getName() const
 {
 	return name;
+}
+
+const std::string Object::getPrintName() const
+{
+	if (name == "Potion") {
+		return "Potion";
+	}
+	else if (name == "SuperPotion") {
+		return "Super Potion";
+	}
+	else if (name == "HyperPotion") {
+		return "Hyper Potion";
+	}
+	else if (name == "MaxPotion") {
+		return "Max Potion";
+	}
 }
 
 void Object::setUsageCount(int usageCount)
