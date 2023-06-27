@@ -30,8 +30,8 @@ public:
 
     void nextRound_BandP(); // 下一回合 + 進入B&P階段 for GUI
     void nextTurn() { ++turn; }  // 將turn加一
-    void loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath); // 加載遊戲資料
-    int loadFromFile(const string& filename); // 從檔案載入遊戲資料 return 1 代表遊戲結束/ return 0 代表繼續
+    void loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath); // 加載遊戲資料，檔案開啟失敗時throw 1
+    int loadFromFile(const string& filename); // 從檔案載入遊戲資料 return 1 代表遊戲結束/ return 0 代表繼續，檔案開啟失敗時throw 1
     void setTesting(); // 設定測試模式
     void setTesting(bool test) { isTesting = test; } // 設定測試模式
     std::string useObject(Object* object, class Creature* goal); // 使用物品
@@ -54,7 +54,7 @@ public:
     Player* getNotCurrentPlayer();
 
 
-public:
-    std::vector<Skill> moveLib;
-    std::vector<Creature> pokemonLib;
+//public:
+//    std::vector<Skill> moveLib;
+//    std::vector<Creature> pokemonLib;
 };

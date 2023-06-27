@@ -120,16 +120,29 @@ void GameMainWindow::startGame() {
         std::cout << "載入寶可夢... " << pokemonLib << std::endl;
         std::cout << "載入招式... " << moveLib << std::endl;
         std::cout << "載入玩家... " << gameData << std::endl;
-        gameManager.loadGame(pokemonLib, moveLib, gameData);
+
+        try {
+            gameManager.loadGame(pokemonLib, moveLib, gameData);
+        }
+        catch (int) {
+            std::cerr << "Game Loading failed\n";
+            return;
+        }
     }
     else {
         gameManager.setTesting(false);
         std::string cmdFile = ui->fileCmdFile->getFile().toStdString();
 
         std::cout << "載入command file... " << cmdFile << std::endl;
-        int status = gameManager.loadFromFile(cmdFile);
-        if (status == 1)
+        try {
+            int status = gameManager.loadFromFile(cmdFile);
+            if (status == 1)
+                return;
+        }
+        catch (int) {
+            std::cerr << "Game Loading failed\n";
             return;
+        }
     }
 
     bgm.setPosition(0);

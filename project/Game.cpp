@@ -4,11 +4,6 @@
 #include <fstream>
 #include <QDebug>
 
-// Debug版才定義TEST
-#ifndef NDEBUG
-#define TEST
-#endif
-
 using namespace std;
 
 
@@ -22,19 +17,21 @@ Game::Game()
 void Game::loadGame(std::string pokemonLibPath,std::string moveLibPath,std::string gameDataPath)
 {
     newGame();
-#ifdef TEST
-    ifstream gameData("D:/GitHub/Pokemon/project/test case/GameData.txt");
-    skillLib.loadFromFile("D:/GitHub/Pokemon/project/test case/MoveLib.txt");
-    creatureLib.loadFromFile("D:/GitHub/Pokemon/project/test case/PokemonLib.txt");
-#else
-     skillLib.loadFromFile(moveLibPath);
-     creatureLib.loadFromFile(pokemonLibPath);
-     ifstream gameData(gameDataPath);
-#endif
 
+    try {
+        skillLib.loadFromFile(moveLibPath);
+        creatureLib.loadFromFile(pokemonLibPath);
+    }
+    catch (int num) {
+        throw num;
+    }
 
+    ifstream gameData(gameDataPath);
+    if (!gameData.is_open()) {
+        cerr << "Cannot open Game Data: " << gameDataPath << endl;
+        throw 1;
+    }
     
-
     gameData >> player[0] >> player[1];
 
     player[0].setCreatureIsHuman(true);
@@ -46,14 +43,19 @@ int Game::loadFromFile(const string& filename)
     string pokemonLibPath, moveLibPath, gameDataPath;
     string command;
 
-#ifdef TEST
-    ifstream file("D:/GitHub/Pokemon/project/test case/case.txt");
-#else
     ifstream file(filename);
-#endif
+    if (!file.is_open()) {
+        std::cerr << "Cannot open command file: " << filename << std::endl;
+        throw 1;
+    }
     file >> pokemonLibPath >> moveLibPath >> gameDataPath;
 
-    loadGame(pokemonLibPath, moveLibPath, gameDataPath);
+    try {
+        loadGame(pokemonLibPath, moveLibPath, gameDataPath);
+    }
+    catch (int num) {
+        throw num;
+    }
 
     while (file >> command) {
         if (command == "Test") {
@@ -163,8 +165,8 @@ void Game::newGame()
     player[0] = Player();
     player[1] = Player();
     currentPlayerIndex = 0;
-    pokemonLib.clear();
-    moveLib.clear();
+//    pokemonLib.clear();
+//    moveLib.clear();
     turn = 1;
     log.clear();
     EffectManager::reset();

@@ -11,8 +11,8 @@ void SkillLibray::loadFromFile(const string& fileName)
 	ifstream fin(fileName);
 	if (!fin)
 	{
-		cout << "Can't open file: " << fileName << endl;
-		return;
+        cerr << "Can't open file: " << fileName << endl;
+        throw 1;
 	}
 	string name;
 	TYPE type;

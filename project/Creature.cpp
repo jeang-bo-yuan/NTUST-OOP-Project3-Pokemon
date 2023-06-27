@@ -163,7 +163,6 @@ void Creature::useSkill(int index, Creature& target, int turn, bool humanAttack,
 	}
 
     damage = int((double(2) * level + double(10)) / double(250) * nowSkill.power * atk / def + double(2)) * criticalDamage * stabDamange * typeDamange;
-    cout << "Damage: " << damage << endl;
 	target.beRealDamange(damage);
 }
 

@@ -11,8 +11,8 @@ void CreatureLibray::loadFromFile(const std::string& fileName)
 
     if (!in)
     {
-        cout << "Can't open file: " << fileName << endl;
-        return;
+        cerr << "Can't open file: " << fileName << endl;
+        throw 1;
     }
 
     while (in >> name) {
